@@ -23,8 +23,7 @@ public class SentenceReader : MonoBehaviour
         for (int i = 0; i < csvData.Count; i++) // csvDataリストの条件を満たす値の数（全て）
         {
             // データの表示
-            if (csvData[i][0] != null) Debug.Log("日本語：" + csvData[i][0] + ", English：" + csvData[i][1]);
-            else Debug.Log("nullです");
+            Debug.Log("日本語：" + csvData[i][0] + ", English：" + csvData[i][1]);
         }
     }
 
