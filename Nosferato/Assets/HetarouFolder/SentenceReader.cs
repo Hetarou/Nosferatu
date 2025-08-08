@@ -9,10 +9,24 @@ public class SentenceReader : MonoBehaviour
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
+    public TMP_Text messageText;            // 文章のText
+    public TMP_Text nameText;               //名前のText
+    public string messages;               　// 表示したい文章リスト
+    public float charDelay = 0.05f;         // 文字送りの速さ
+
+    public int messageIndex;
+
+    int horizontalCounter = 0;
+
+    string threadNumber;
+    string nowThreadNumber;
+
+    private bool isTyping = false;
+
     void Start()
     {
-        csvFile = Resources.Load("Sample") as TextAsset; // ResourcesにあるCSVファイルを格納
-        StringReader reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
+        csvFile = Resources.Load("Sample") as TextAsset;        // ResourcesにあるCSVファイルを格納
+        StringReader reader = new StringReader(csvFile.text);   // TextAssetをStringReaderに変換
 
         while (reader.Peek() != -1)
         {
@@ -20,16 +34,42 @@ public class SentenceReader : MonoBehaviour
             csvData.Add(line.Split(',')); // csvDataリストに追加する
         }
 
-        for (int i = 0; i < csvData.Count; i++) // csvDataリストの条件を満たす値の数（全て）
-        {
-            // データの表示
-            if (csvData[i][0].Length != 0) Debug.Log(csvData[i][0] +  csvData[i][1] + csvData[i][2]);
-            else Debug.Log("nullです");
-        }
+        StartCoroutine(TypeMessage(csvData[0][1]));
+        messages = csvData[0][1];
+        threadNumber = csvData[0][0];
+        nowThreadNumber = threadNumber;
     }
 
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            horizontalCounter++;
+            threadNumber = csvData[horizontalCounter][0];
+
+            if(threadNumber != nowThreadNumber)
+            {
+                messages = "";
+                nowThreadNumber = threadNumber;
+            }
+
+            StartCoroutine(TypeMessage(csvData[horizontalCounter][1]));
+            messages = messages + "\n" + csvData[horizontalCounter][1];
+
+        }
+    }
+
+    IEnumerator TypeMessage(string message)
+    {
+        isTyping = true;
+        messageText.text = messages + "\n";
+
+        foreach (char c in message)
+        {
+            messageText.text += c;
+            yield return new WaitForSeconds(charDelay);
+        }
+
+        isTyping = false;
     }
 }
