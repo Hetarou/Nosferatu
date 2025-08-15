@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ScenarioScene
+  IsCommand: 0
 --- !u!114 &502731518
 MonoBehaviour:
   m_ObjectHideFlags: 0
