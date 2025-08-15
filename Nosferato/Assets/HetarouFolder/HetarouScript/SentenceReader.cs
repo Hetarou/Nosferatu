@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
-public class SentenceReader : MonoBehaviour
+public class SentenceReader : MonoBehaviour//このスクリプトがすることはテキスト表示
 {
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
@@ -44,6 +44,7 @@ public class SentenceReader : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.C))
         {
+            //ここからReadScenetence()
             horizontalCounter++;
             threadNumber = csvData[horizontalCounter][0];
 
@@ -55,7 +56,7 @@ public class SentenceReader : MonoBehaviour
 
             StartCoroutine(TypeMessage(csvData[horizontalCounter][1]));
             messages = messages + "\n" + csvData[horizontalCounter][1];
-
+            //ここまでReadScenetence()
         }
     }
 
@@ -71,5 +72,27 @@ public class SentenceReader : MonoBehaviour
         }
 
         isTyping = false;
+    }
+    void SaveOrUpdatePublicStaticStatus()//この塊を呼び出す。//void ○○のところは、この塊が何をするかを名付ける    //PublicStaticStatusを更新してって欲しい。
+    {
+        Debug.Log("save");
+        PublicStaticStatus.ReferencedRowToSave = 10;
+    }
+
+    public void ReadSentence()
+    {
+        //ここからReadScenetence()
+        horizontalCounter++;
+        threadNumber = csvData[horizontalCounter][0];
+
+        if (threadNumber != nowThreadNumber)
+        {
+            messages = "";
+            nowThreadNumber = threadNumber;
+        }
+
+        StartCoroutine(TypeMessage(csvData[horizontalCounter][1]));
+        messages = messages + "\n" + csvData[horizontalCounter][1];
+        //ここまでReadScenetence()
     }
 }
