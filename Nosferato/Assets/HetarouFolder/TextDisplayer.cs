@@ -45,14 +45,7 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         if (Input.GetKeyDown(KeyCode.C))
         {
             RowNumber++;
-            threadNumber = csvData[RowNumber][0];
-
-            if (threadNumber != LastThreadNumber)
-            {
-                messageText.text = "";
-                LastThreadNumber = threadNumber;
-            }
-            StartCoroutine(DisplayChar(csvData[RowNumber][1]));
+            DisplayText();
         }
     }
 
@@ -69,5 +62,18 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         PublicStaticStatus.ReferencedRowToSave = RowNumber;
         PublicStaticStatus.DisplayedText= messageText.text;
         isTyping = false;
+    }
+
+    public void DisplayText()
+    {
+        Debug.Log("afdasfd");
+        threadNumber = csvData[RowNumber][0];
+
+        if (threadNumber != LastThreadNumber)
+        {
+            messageText.text = "";
+            LastThreadNumber = threadNumber;
+        }
+        StartCoroutine(DisplayChar(csvData[RowNumber][1]));
     }
 }
