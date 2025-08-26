@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ChoiceController_SaveScene : MonoBehaviour
-{
+{/*
     [SerializeField]
     List<GameObject> ChoiceObject = new List<GameObject>();
     [SerializeField]
@@ -100,45 +100,6 @@ public class ChoiceController_SaveScene : MonoBehaviour
                 ChoosingLoadBox(a, b);
             }
         }
-        /*
-        //カーソルコントローラー
-        if((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && a == 0)
-        {
-            EndBox();
-            a = 1;
-            ChoosingLoadBox(a, b);
-        }
-
-        else if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
-        {
-            EndBox();
-            if(a == 1)
-            {
-                a = 0;
-                ChoosingLoadBox(a, b);
-            }
-
-            else if(a == 0)
-            {
-                ChoosingChoiceObject = BackButton;
-                White();
-            }
-        }
-
-        else if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && b == 0)
-        {
-            EndBox();
-            b = 1;
-            ChoosingLoadBox(a, b);
-        }
-
-        else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && b == 1)
-        {
-            EndBox();
-            b = 0;
-            ChoosingLoadBox(a, b);
-        }
-        */
         //マウス操作からカーソル操作に切り替える
         if (Cursor.visible == true && Input.anyKeyDown && !Input.GetMouseButtonDown(0))
         {
@@ -228,5 +189,5 @@ public class ChoiceController_SaveScene : MonoBehaviour
     {
         ChoosingChoiceObject.GetComponent<Image>().color = new Color32(255, 255, 255, 125);//仮//元の色に戻すという意味の処理
         //白を重ね掛けできるようにしたい。//MaskかShaderを使いそう
-    }
+    }*/
 }
