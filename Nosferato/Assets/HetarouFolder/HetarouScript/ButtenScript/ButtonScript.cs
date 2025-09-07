@@ -2,37 +2,25 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EXITButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    Animator menuAnim;
     [SerializeField]
     string thisFunction;
 
-    [SerializeField]
-    GameObject Menu;
-
     private bool isMouseOver = false;
-   
-    //public GameObject exacutedObject;
 
-    void Start()
-    {
-        menuAnim = Menu.GetComponent<Animator>();
-        
-    }
+    public GameObject exacutedObject;
+
+    
+
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0) && isMouseOver == true)
         {
             Debug.Log(thisFunction);
-            menuAnim.SetBool("isMenuAnim", true);
-            
-            //Invoke("isMenu", 0.6f);
+            exacutedObject.SetActive(true);
         }
     }
-
-    //マウスカーソルとオブジェクトが重なっているかを調べる
     public void OnPointerEnter(PointerEventData eventData)
     {
         isMouseOver = true;
@@ -44,15 +32,4 @@ public class EXITButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
         isMouseOver = false;
         Debug.Log(thisFunction + "からマウスが離れた！");
     }
-
-    /*void isMenu()
-    {
-        if (Menu != null)
-        {
-            Menu.SetActive(false);
-        }
-    }*/
 }
-
-
-

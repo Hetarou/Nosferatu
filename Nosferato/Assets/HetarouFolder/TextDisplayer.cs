@@ -9,8 +9,10 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
-    public TMP_Text messageText;            // 文章のText
+    public TMP_Text messageText;            //文章のText
     public TMP_Text nameText;               //名前のText
+    [SerializeField]
+    public TMP_Text backLogText;                //バックログ用のText
     public float charDelay = 0.05f;         // 文字送りの速さ
 
     public int messageIndex;
@@ -53,6 +55,8 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
     {
         isTyping = true;
 
+        backLogText.text += message + "\n";
+
         foreach (char c in message)
         {
             messageText.text += c;
@@ -61,6 +65,7 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         messageText.text += "\n";
         PublicStaticStatus.ReferencedRowToSave = RowNumber;
         PublicStaticStatus.DisplayedText= messageText.text;
+
         isTyping = false;
     }
 

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: af2482065abfc4c4b8050ab3872766b8
+guid: d2388c7145df27640a864b761d87fba9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1276992996747056129
-    second: "\u80CC\u666F (1)_0"
+      213: 2636871639762765732
+    second: UI_BlackBoard_0
+  - first:
+      213: -1902822631545982854
+    second: UI_BlackBoard_1
+  - first:
+      213: -8708282293039596239
+    second: UI_BlackBoard_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u80CC\u666F (1)_0"
+      name: UI_BlackBoard_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        y: 38
+        width: 1088
+        height: 410
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ffbea30a2a5374ee0800000000000000
-      internalID: -1276992996747056129
+      spriteID: 4a78c5e19cc089420800000000000000
+      internalID: 2636871639762765732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_BlackBoard_1
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 0
+        width: 103
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a70b020f5e0d795e0800000000000000
+      internalID: -1902822631545982854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_BlackBoard_2
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 0
+        width: 104
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13dfc879467f52780800000000000000
+      internalID: -8708282293039596239
       vertices: []
       indices: 
       edges: []
@@ -160,8 +210,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "\u80CC\u666F (1)_0": -1276992996747056129
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

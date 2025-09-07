@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: af2482065abfc4c4b8050ab3872766b8
+guid: fcd20e662bbc95146b3b3b0d5b45bf55
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1276992996747056129
-    second: "\u80CC\u666F (1)_0"
+      213: -2169945299240446706
+    second: UI_BL_Line_HETA_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -42,7 +42,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u80CC\u666F (1)_0"
+      name: UI_BL_Line_HETA_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 1504
+        height: 2
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ffbea30a2a5374ee0800000000000000
-      internalID: -1276992996747056129
+      spriteID: e059eb84f3ec2e1e0800000000000000
+      internalID: -2169945299240446706
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u80CC\u666F (1)_0": -1276992996747056129
+      UI_BL_Line_HETA_0: -2169945299240446706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

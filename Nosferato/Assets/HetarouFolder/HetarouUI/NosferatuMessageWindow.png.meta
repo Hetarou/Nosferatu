@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: af2482065abfc4c4b8050ab3872766b8
+guid: 78b4b526338a28f428e6b5bf6beb27b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1276992996747056129
-    second: "\u80CC\u666F (1)_0"
+      213: -2799004510062188280
+    second: NosferatuMessageWindow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u80CC\u666F (1)_0"
+      name: NosferatuMessageWindow_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1920
-        height: 1080
+        height: 344
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ffbea30a2a5374ee0800000000000000
-      internalID: -1276992996747056129
+      spriteID: 809e6055a30f729d0800000000000000
+      internalID: -2799004510062188280
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "\u80CC\u666F (1)_0": -1276992996747056129
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
