@@ -9,8 +9,10 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
-    public TMP_Text messageText;            // 文章のText
+    public TMP_Text messageText;            //文章のText
     public TMP_Text nameText;               //名前のText
+    [SerializeField]
+    public TMP_Text backLogText;                //バックログ用のText
     public float charDelay = 0.05f;         // 文字送りの速さ
 
     public int messageIndex;
@@ -24,7 +26,7 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
 
     void Start()
     {
-        csvFile = Resources.Load("Sample") as TextAsset;        // ResourcesにあるCSVファイルを格納
+        csvFile = Resources.Load("MainScenario") as TextAsset;        // ResourcesにあるCSVファイルを格納
         StringReader reader = new StringReader(csvFile.text);   // TextAssetをStringReaderに変換
 
         while (reader.Peek() != -1)
@@ -37,28 +39,21 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         LastThreadNumber = threadNumber;
 
 
-        StartCoroutine(DisplayChar(csvData[0][1]));
+        StartCoroutine(DisplayChar(csvData[0][2]));
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && isTyping == true)
         {
             RowNumber++;
-            threadNumber = csvData[RowNumber][0];
-
-            if (threadNumber != LastThreadNumber)
-            {
-                messageText.text = "";
-                LastThreadNumber = threadNumber;
-            }
-            StartCoroutine(DisplayChar(csvData[RowNumber][1]));
+            DisplayText();
         }
     }
 
     IEnumerator DisplayChar(string message)
     {
-        isTyping = true;
+        backLogText.text += message + "\n";
 
         foreach (char c in message)
         {
@@ -68,6 +63,29 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         messageText.text += "\n";
         PublicStaticStatus.ReferencedRowToSave = RowNumber;
         PublicStaticStatus.DisplayedText= messageText.text;
+
+        isTyping = true;
+    }
+
+    public void DisplayText()
+    {
         isTyping = false;
+
+        Debug.Log("afdasfd");
+        threadNumber = csvData[RowNumber][0];
+
+        if (threadNumber != LastThreadNumber)
+        {
+            messageText.text = "";
+            nameText.text = "";
+            LastThreadNumber = threadNumber;
+        }
+
+        if (csvData[RowNumber][1] != null)
+        {
+            nameText.text = csvData[RowNumber][1];
+        }
+
+        StartCoroutine(DisplayChar(csvData[RowNumber][2]));
     }
 }

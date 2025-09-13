@@ -3,6 +3,7 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ExcelReader : MonoBehaviour//このスクリプトのすることは「テキスト表示してね」とか「画像差し替えてね」とか、命令するスクリプト
 {
@@ -21,10 +22,16 @@ public class ExcelReader : MonoBehaviour//このスクリプトのすることは「テキスト表
     string threadNumber;
     string nowThreadNumber;
 
+    [SerializeField]
+    Image Image;
 
+    [SerializeField]
+    TextDisplayer textDisplayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        var texture = Resources.Load<Sprite>("Background/背景８");
+        Image.sprite= texture;
         /*
         csvFile = Resources.Load("Sample") as TextAsset;        // ResourcesにあるCSVファイルを格納
         StringReader reader = new StringReader(csvFile.text);   // TextAssetをStringReaderに変換
@@ -48,9 +55,10 @@ public class ExcelReader : MonoBehaviour//このスクリプトのすることは「テキスト表
         {
             /*
             //何番目に画像名があったら、背景を差し替える
-            myHaikeiReader.ReadHaikei();//またはChangeBackgroud();
+            textDisplayer.DisplayText();
+            ChangeBackgroud();//またはChangeBackgroud();
             ChangeTathie();
-            mySentenceReader.ReadSentence();*/
+            ;*/
         }
     }
 

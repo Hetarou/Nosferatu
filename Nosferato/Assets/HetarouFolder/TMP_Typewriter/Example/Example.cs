@@ -18,7 +18,7 @@ namespace KoganeUnityLib.Example
 					speed       : m_speed,
 					onComplete  : () => Debug.Log( "完了" ),
 					// ルビがある行とない行で高さが変動しないようにするにはtrue
-					fixedLineHeight: false,
+					fixedLineHeight: true,
 					// 1行目にルビがある時、TextMeshProのMargin機能を使って位置調整
 					autoMarginTop: true
 				);
