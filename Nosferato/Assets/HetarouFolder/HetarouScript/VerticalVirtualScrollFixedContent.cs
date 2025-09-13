@@ -1,93 +1,37 @@
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
-public class VerticalVirtualScrollFixedContent : MonoBehaviour
+public class ATMPLineDrawer : MonoBehaviour
 {
-    [Header("ScrollView設定")]
-    public ScrollRect scrollRect;
-    public RectTransform content;
-    public GameObject itemPrefab;
+    public TextMeshProUGUI tmp;         // 対象のTextMeshPro
+    public RectTransform linePrefab;    // 罫線用のPrefab（横線Image）
+    public RectTransform parent;        // 配置先（通常はtmpの親）
 
-    [Header("データ設定")]
-    public int totalItemCount = 200;   // 総データ数
-    public float itemHeight = 100f;    // アイテム高さ
-    public float spacing = 5f;         // アイテム間隔
-
-    private List<GameObject> pool = new List<GameObject>();
-    private int visibleCount;
-    private int topIndex = 0;
-
-    public float contentHeigt;
-
-    bool isAjust;
-
-    void OnEnable()
+    void Start()
     {
-        isAjust = false;
-        // 表示に必要なアイテム数を計算
-        float viewportHeight = scrollRect.viewport.rect.height;
-        visibleCount = Mathf.CeilToInt(viewportHeight / (itemHeight + spacing)) + 2;
-
-        
-        Debug.Log(contentHeigt);
-        // プール生成（表示中の分だけ）
-        for (int i = 0; i < visibleCount; i++)
-        {
-            GameObject obj = Instantiate(itemPrefab, content);
-            pool.Add(obj);
-        }
-
-        // スクロールイベント登録
-        scrollRect.onValueChanged.AddListener(OnScroll);
-
-        // 初期表示
-        UpdateItems();
+        GenerateLines();
     }
 
-    private void LateUpdate()
+    void GenerateLines()
     {
-        if (!isAjust)
+        // TMPの行情報を更新
+        tmp.ForceMeshUpdate();
+        var textInfo = tmp.textInfo;
+
+        int lineCount = textInfo.lineCount;
+
+        for (int i = 0; i < lineCount; i++)
         {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
-            contentHeigt = content.rect.height / 2;
-            UpdateItems();
-            isAjust = true;
-        }
-    }
-    void OnScroll(Vector2 scrollPos)
-    {
-        UpdateItems();
-    }
+            var lineInfo = textInfo.lineInfo[i];
 
-    void UpdateItems()
-    {
-        // Content上端からの位置に応じて先頭アイテムを決定
-        //contentHeigt = content.rect.height / 2;
-        float contentTopY = content.anchoredPosition.y;
-        topIndex = Mathf.FloorToInt(contentTopY / (itemHeight + spacing));
+            // 行の下端のY座標（ローカル座標）
+            float yPos = lineInfo.lineExtents.min.y;
 
-        for (int i = 0; i < pool.Count; i++)
-        {
-            int dataIndex = topIndex + i;
-
-            if (dataIndex >= totalItemCount || dataIndex < 0)
-            {
-                pool[i].SetActive(false);
-            }
-            else
-            {
-                pool[i].SetActive(true);
-
-                // Raycast制御（必要に応じて）
-                Image img = pool[i].GetComponent<Image>();
-                img.raycastTarget = true;
-
-                // 等間隔で縦位置設定
-                float yPos = -dataIndex * (itemHeight + spacing) + contentHeigt;
-                
-                pool[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, yPos);
-            }
+            // 罫線を生成
+            RectTransform line = Instantiate(linePrefab, parent);
+            line.anchoredPosition = new Vector2(0, yPos);
+            line.sizeDelta = new Vector2(parent.rect.width, 2); // 横幅いっぱい、太さ2px
         }
     }
 }
