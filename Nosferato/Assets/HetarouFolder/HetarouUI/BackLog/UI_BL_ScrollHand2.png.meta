@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_BL_ScrollHand2_0: -1993499880539146779
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
