@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_BL_DownButton4_0: 4009250068853676868
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
