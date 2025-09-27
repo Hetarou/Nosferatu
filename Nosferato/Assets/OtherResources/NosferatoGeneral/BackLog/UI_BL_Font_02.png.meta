@@ -310,7 +310,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_BL_Font_02_0: -6662573202669356017
+      UI_BL_Font_02_1: -4868276695903685570
+      UI_BL_Font_02_2: -6544848912515534406
+      UI_BL_Font_02_3: -993720381763699831
+      UI_BL_Font_02_4: -7668773479145034101
+      UI_BL_Font_02_5: 1824103223641474073
+      UI_BL_Font_02_6: -7813106940309905991
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

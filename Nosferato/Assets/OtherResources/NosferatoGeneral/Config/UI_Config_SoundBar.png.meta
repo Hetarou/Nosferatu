@@ -410,7 +410,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_Config_SoundBar_0: -3693663742805069628
+      UI_Config_SoundBar_1: -5651578460459136410
+      UI_Config_SoundBar_10: -501602128245762761
+      UI_Config_SoundBar_2: 4518265472431417217
+      UI_Config_SoundBar_3: 6888343360108722335
+      UI_Config_SoundBar_4: -32397571062661545
+      UI_Config_SoundBar_5: -5875211586062033257
+      UI_Config_SoundBar_6: -8362285350949179830
+      UI_Config_SoundBar_7: -3194084043187542114
+      UI_Config_SoundBar_8: -2755501077396327099
+      UI_Config_SoundBar_9: -3378135925223779757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
