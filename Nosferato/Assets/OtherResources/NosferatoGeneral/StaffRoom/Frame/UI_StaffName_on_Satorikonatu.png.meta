@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_StaffName_on_Satorikonatu_0: -7922287281904173967
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

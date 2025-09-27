@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
 
 public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもする //SaveSceneはPublicStaticStatusを参照してセーブする
 {
@@ -14,6 +15,12 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
     [SerializeField]
     public TMP_Text backLogText;                //バックログ用のText
     public float charDelay = 0.05f;         // 文字送りの速さ
+
+    public Image backgroudImage;
+
+    public Image characterImage;
+    public GameObject characterSprite;
+    bool isCharacterSprite = false;
 
     public int messageIndex;
 
@@ -40,6 +47,7 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
 
 
         StartCoroutine(DisplayChar(csvData[0][2]));
+        
     }
 
     void Update()
@@ -48,6 +56,14 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         {
             RowNumber++;
             DisplayText();
+            if (csvData[RowNumber][4] != null)
+            {
+                DisplayBackgroud();
+            }
+            if (csvData[RowNumber][3] != null)
+            {
+                DisplayCharacter();
+            }
         }
     }
 
@@ -87,5 +103,40 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
         }
 
         StartCoroutine(DisplayChar(csvData[RowNumber][2]));
+        messageText.SetTextAndExpandRuby("<r=もじ>文字</r>", fixedLineHeight: false, autoMarginTop: true);
     }
+    public void DisplayCharacter()
+    {
+        Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[RowNumber][3]);
+        
+        if (sprite != null)
+        {
+            if(isCharacterSprite == false)
+            {
+                isCharacterSprite = true;
+                characterSprite.SetActive(isCharacterSprite);
+            }
+            characterImage.sprite = sprite;
+        }
+        else if(csvData[RowNumber][3] == "なし")
+        {
+            isCharacterSprite = false;
+            characterSprite.SetActive(false);
+        }
+    }
+    public void DisplayBackgroud()
+    {
+        Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[RowNumber][4]);
+
+        if (sprite != null)
+        {
+            backgroudImage.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("指定した名前のスプライトが見つかりません");
+        }
+    }
+
+    
 }

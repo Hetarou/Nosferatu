@@ -635,7 +635,27 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI_Config_GraphicBar_0: -5119664680506686089
+      UI_Config_GraphicBar_1: 3111405001925813510
+      UI_Config_GraphicBar_10: -3639834769312844189
+      UI_Config_GraphicBar_11: 4701273347190076797
+      UI_Config_GraphicBar_12: 5336700793562198526
+      UI_Config_GraphicBar_13: -1647065167700379471
+      UI_Config_GraphicBar_14: 5080727299780606321
+      UI_Config_GraphicBar_15: 8425996049849721333
+      UI_Config_GraphicBar_16: 8667082381245355695
+      UI_Config_GraphicBar_17: 3568210760924836326
+      UI_Config_GraphicBar_18: 3948805998001010653
+      UI_Config_GraphicBar_19: 4559087371109657265
+      UI_Config_GraphicBar_2: 1496149688547169070
+      UI_Config_GraphicBar_3: -4916532422852917564
+      UI_Config_GraphicBar_4: 2505270604879445869
+      UI_Config_GraphicBar_5: 6484958189483964820
+      UI_Config_GraphicBar_6: 5153467545125004853
+      UI_Config_GraphicBar_7: 2103740452692798383
+      UI_Config_GraphicBar_8: -1968227695120796529
+      UI_Config_GraphicBar_9: -4253741023378926943
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

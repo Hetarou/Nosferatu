@@ -1,28 +1,30 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace KoganeUnityLib.Example
 {
 	public class Example : MonoBehaviour
 	{
 		public TMP_Typewriter   m_typewriter    ;
+		public TMP_Text m_text;
 		public float            m_speed         ;
 
 		private void Update()
 		{
 			if ( Input.GetKeyDown( KeyCode.Z ) )
 			{
-				// 1 文字ずつ表示する演出を再生（ルビ対応）
-				m_typewriter.Play
-				(
-					text        : "このテキストは\n<r=かんじ>漢字</r>テキストに\nルビが<r=ふ>振</r>られます\naaaaaaaaaa",
-					speed       : m_speed,
-					onComplete  : () => Debug.Log( "完了" ),
-					// ルビがある行とない行で高さが変動しないようにするにはtrue
-					fixedLineHeight: true,
-					// 1行目にルビがある時、TextMeshProのMargin機能を使って位置調整
-					autoMarginTop: true
-				);
-			}
+                m_typewriter.Play
+            (
+                text: "このテキストは\n<r=かんじ>漢字</r>テキストに\nルビが<r=ふ>振</r>られます\naaaaaaaaaa",
+                speed: m_speed,
+                onComplete: () => Debug.Log("完了"),
+                // ルビがある行とない行で高さが変動しないようにするにはtrue
+                fixedLineHeight: true,
+                // 1行目にルビがある時、TextMeshProのMargin機能を使って位置調整
+                autoMarginTop: true
+            );
+            }
 			if ( Input.GetKeyDown( KeyCode.X ) )
 			{
 				// 1 文字ずつ表示する演出を再生（リッチテキスト対応）
@@ -36,13 +38,16 @@ namespace KoganeUnityLib.Example
 			if ( Input.GetKeyDown( KeyCode.C ) )
 			{
 				// 1 文字ずつ表示する演出を再生（スプライト対応）
-				m_typewriter.Play
+				/*m_typewriter.Play
 				(
 					text        : @"<sprite=0><sprite=0><sprite=1><sprite=2><sprite=3><sprite=4><sprite=5><sprite=6><sprite=7><sprite=8><sprite=9><sprite=10>",
 					speed       : m_speed,
 					onComplete  : () => Debug.Log( "完了" )
-				);
-			}
+				);*/
+
+				m_text.text += "bbbbbb";
+
+            }
 			if ( Input.GetKeyDown( KeyCode.V ) )
 			{
 				// 演出をスキップ（onComplete は呼び出される）
@@ -64,5 +69,19 @@ namespace KoganeUnityLib.Example
 				m_typewriter.Resume();
 			}
 		}
+
+		private void TypeAnimation()
+		{
+            m_typewriter.Play
+            (
+                text: "このテキストは\n<r=かんじ>漢字</r>テキストに\nルビが<r=ふ>振</r>られます\naaaaaaaaaa",
+                speed: m_speed,
+                onComplete: () => Debug.Log("完了"),
+                // ルビがある行とない行で高さが変動しないようにするにはtrue
+                fixedLineHeight: true,
+                // 1行目にルビがある時、TextMeshProのMargin機能を使って位置調整
+                autoMarginTop: true
+			);
+        }
 	}
 }

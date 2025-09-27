@@ -56,6 +56,7 @@ public class NoButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Debug.Log(thisFunction + "とマウスが重なった！");
     }
 
+
     public void OnPointerExit(PointerEventData eventData)
     {
         isMouseOver = false;

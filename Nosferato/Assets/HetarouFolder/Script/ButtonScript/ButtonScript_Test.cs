@@ -22,7 +22,6 @@ public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, I
         {
             Debug.Log(thisFunction);
             ExcuteButton();
-            isMouseOver = false;
         }
     }
 
@@ -32,6 +31,7 @@ public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, I
         isMouseOver = true;
         Debug.Log(thisFunction + "とマウスが重なった！");
     }
+
 
     public void OnPointerExit(PointerEventData eventData)
     {
