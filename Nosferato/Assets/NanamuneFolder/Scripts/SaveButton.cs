@@ -1,26 +1,66 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SaveButton : MonoBehaviour
-{/*
+{
     [SerializeField]
     private int slotNum;
-    void OnClick()
+    
+    private void Update()
+    {
+        
+        /*if (Input.GetKeyDown(KeyCode.K))
+        {
+            ExcuteSave(1);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            OnLoad(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ExcuteSave(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            OnLoad(2);
+        }*/
+    }
+    public void OnClick()
     {
         //SceneManager.LoadScene("SenarioScene");
         Debug.Log("SaveButton Clicked");
-        ExcuteLoad(slotNum);
+        ExcuteSave(slotNum);
     }
-    public void ExcuteLoad(int num)
+    public void ExcuteSave(int slot)
     {
-        Debug.Log(num);
-        //ここでロードする
-        string key = $"PlayerUserData{num}";
+        string st = Random.Range(1, 100) + "stage";
+        Debug.Log(st);
+        UserDataToSave data = new UserDataToSave()
+        {
+            savedStageName = st//StageName
+        };
+
+
+        string json = JsonUtility.ToJson(data, true);
+        string key = $"PlayerUserData{slot}";
+        Debug.Log(json);// jsonデータにできたかどうか確認
+        Debug.Log("セーブ" + slot + "にセーブしました");
+
+        //jsonデータにしたやつらをここに格納
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
+    }
+
+    public void OnLoad(int slot)
+    {
+        string key = $"PlayerUserData{slot}";
         if (PlayerPrefs.HasKey(key))
         {
             //jsonデータにしたやつをここで元に戻す
             string json = PlayerPrefs.GetString(key);
-            UserData data = JsonUtility.FromJson<UserData>(json);
+            UserDataToSave data = JsonUtility.FromJson<UserDataToSave>(json);
 
             //ここでロード
             //Chikyu.transform.position = data.savedPosition;
@@ -29,13 +69,12 @@ public class SaveButton : MonoBehaviour
             //SceneManager.LoadScene(data.savedStageName);
             Debug.Log(data.savedStageName);
             //Debug.Log(data.savedStageName);
-            Debug.Log("セーブ" + num + "をロードしました");
+            Debug.Log("セーブ" + slot + "をロードしました");
             Debug.Log("場所は" + data.savedStageName);
         }
         else
         {
             Debug.Log("PlayerUserDataが存在しません");
         }
-        SceneManager.LoadScene("ActionScene06");
-    }*/
+    }
 }
