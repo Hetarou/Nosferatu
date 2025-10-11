@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
+//もう使ってない
 public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもする //SaveSceneはPublicStaticStatusを参照してセーブする
 {
     private TextAsset csvFile; // CSVファイル
@@ -77,8 +78,8 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatusを更新することもす
             yield return new WaitForSeconds(charDelay);
         }
         messageText.text += "\n";
-        PublicStaticStatus.ReferencedRowToSave = RowNumber;
-        PublicStaticStatus.DisplayedText= messageText.text;
+        PublicStaticStatus.RowToSave = RowNumber;
+        //PublicStaticStatus.DisplayedText= messageText.text;
 
         isTyping = true;
     }
