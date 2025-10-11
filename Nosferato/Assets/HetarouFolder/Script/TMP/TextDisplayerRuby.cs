@@ -6,6 +6,8 @@ using TMPro;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml;
+using UnityEngine.Audio;
+using Unity.VisualScripting;
 
 public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新することもする //SaveSceneはPublicStaticStatusを参照してセーブする
 {
@@ -15,7 +17,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     private TMP_Text messageText;            //文章のText
     public TMP_Text nameText;               //名前のText
 
-    private string lastMassageText;
+    private string lastMessageText;
 
     [SerializeField]
     private TMP_Text backLogText;            //バックログ用のText
@@ -30,14 +32,17 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
     public int messageIndex;
 
-    public int RowNumber = 0;
+    public int rowNumber = 0;
 
     string threadNumber;
-    string LastThreadNumber;
+    string lastThreadNumber;
 
-    private bool isTyping = false;
+    public bool isTyping = false;
     private bool isAddWord = true;
     private bool isWaitRuby = false;
+
+    public AudioSource audioSourceBGM;
+    public AudioSource audioSourceSE;
 
     void Start()
     {
@@ -52,15 +57,15 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
             csvData.Add(line.Split(',')); // csvDataリストに追加する
         }
 
-        threadNumber = csvData[RowNumber][0];
-        LastThreadNumber = threadNumber;
+        threadNumber = csvData[rowNumber][0];
+        lastThreadNumber = threadNumber;
 
-        StartCoroutine(DisplayChar(csvData[RowNumber][2]));
+        StartCoroutine(DisplayChar(csvData[rowNumber][2]));
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && isTyping == true)
+        if (Input.GetKeyDown(KeyCode.C) && isTyping == false )
         {
             AnyDisplay();
         }
@@ -68,42 +73,57 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
     public void AnyDisplay()
     {
-        RowNumber++;
+        rowNumber++;
 
-        isTyping = false;
+        isTyping = true;
 
         Debug.Log("afdasfd");
-        threadNumber = csvData[RowNumber][0];
+        threadNumber = csvData[rowNumber][0];
 
-        if (threadNumber != LastThreadNumber)
+        if (threadNumber != lastThreadNumber)
         {
             messageText.text = "";
             nameText.text = "";
-            LastThreadNumber = threadNumber;
+            lastThreadNumber = threadNumber;
         }
 
-        if (csvData[RowNumber][1] != null)
+        if (csvData[rowNumber][1] != null)
         {
-            nameText.text = csvData[RowNumber][1];
+            nameText.text = csvData[rowNumber][1];
         }
 
-        StartCoroutine(DisplayChar(csvData[RowNumber][2]));
+        StartCoroutine(DisplayChar(csvData[rowNumber][2]));
 
-        if (csvData[RowNumber][4] != null)
+        if (csvData[rowNumber][3].Length != 0)
+        {
+            DisplayCharacter();
+        }
+
+        if (csvData[rowNumber][4].Length != 0)
         {
             DisplayBackgroud();
         }
 
-        if (csvData[RowNumber][3] != null)
+        if (csvData[rowNumber][5].Length != 0)
         {
-            DisplayCharacter();
+            AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
+            PlaySE(clipSE);
+        }
+
+        if (csvData[rowNumber][6].Length != 0)
+        {
+            AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
+            PlayBGM(clipBGM);
+        }
+        else if (csvData[rowNumber][6] == "stop")
+        {
+            StopBGM();
         }
     }
 
-    IEnumerator DisplayChar(string message)
+    public IEnumerator DisplayChar(string message)
     {
-
-        
+        isTyping = true; // ← 先頭で true にする
 
         backLogText.text += message + "\n";
 
@@ -111,48 +131,40 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         {
             isAddWord = true;
 
-            if (csvData[RowNumber][7].Length != 0)
+            if (csvData[rowNumber][7].Length != 0)
             {
                 if (c == '_')
-                {   
-                    if(!isWaitRuby)
+                {
+                    if (!isWaitRuby)
                     {
-                        isAddWord=false;
-                        lastMassageText = messageText.text;
+                        isAddWord = false;
+                        lastMessageText = messageText.text;
                     }
                     else
                     {
-                        TmpRuby(csvData[RowNumber][7]);
+                        TmpRuby(csvData[rowNumber][7]);
                     }
                     isWaitRuby = !isWaitRuby;
                 }
                 else if (c == '|') TmpIcon();
             }
 
-            if(isAddWord) messageText.text += c;  
+            if (isAddWord) messageText.text += c;
 
             yield return new WaitForSeconds(charDelay);
         }
 
-        /*if (csvData[RowNumber][7].Length != 0)
-        {
-            Debug.Log("呼ばれた");
-            TmpRuby(csvData[RowNumber][7]);
-        }*/
         Debug.Log(messageText.text);
         messageText.text += "\n";
 
-        PublicStaticStatus.ReferencedRowToSave = RowNumber;
+        PublicStaticStatus.ReferencedRowToSave = rowNumber;
         PublicStaticStatus.DisplayedText = messageText.text;
 
-        isTyping = true;
-        
-        if(ExacuteAuto.isAuto)
-        {
-            yield return new WaitForSeconds(autoDelay);
-            AnyDisplay();
-        }
+        // 文字送り終了時
+        isTyping = false;
+        Debug.Log("TypingFinished");
     }
+
 
     public void TmpIcon()
     {
@@ -163,12 +175,12 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     public void TmpRuby(string addRubyText)
     {
         isAddWord = false;
-        messageText.SetTextAndExpandRuby(lastMassageText + addRubyText, fixedLineHeight: true, autoMarginTop: false);
+        messageText.SetTextAndExpandRuby(lastMessageText + addRubyText, fixedLineHeight: true, autoMarginTop: false);
     }
 
     public void DisplayCharacter()
     {
-        Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[RowNumber][3]);
+        Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[rowNumber][3]);
 
         if (sprite != null)
         {
@@ -179,7 +191,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
             }
             characterImage.sprite = sprite;
         }
-        else if (csvData[RowNumber][3] == "なし")
+        else if (csvData[rowNumber][3] == "なし")
         {
             isCharacterSprite = false;
             characterSprite.SetActive(false);
@@ -188,7 +200,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
     public void DisplayBackgroud()
     {
-        Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[RowNumber][4]);
+        Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[rowNumber][4]);
 
         if (sprite != null)
         {
@@ -198,5 +210,22 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         {
             Debug.LogError("指定した名前のスプライトが見つかりません");
         }
+    }
+
+    public void PlaySE(AudioClip SE)
+    {
+        audioSourceSE.clip = SE;
+        audioSourceSE.Play();
+    }
+    
+    public void PlayBGM(AudioClip BGM, bool loop = true)
+    {
+        audioSourceBGM.clip = BGM;
+        audioSourceBGM.loop = loop;
+        audioSourceBGM.Play();
+    }
+    public void StopBGM()
+    {
+        audioSourceBGM.Stop();
     }
 }
