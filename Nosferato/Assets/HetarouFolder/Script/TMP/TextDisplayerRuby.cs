@@ -63,6 +63,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
         threadNumber = csvData[rowNumber][0];
         lastThreadNumber = threadNumber;
+        Debug.Log(threadNumber + "だよ");
 
         //StartCoroutine(DisplayChar(csvData[rowNumber][2]));
         AnyDisplay_Start();
@@ -154,13 +155,14 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         //名前
         if (csvData[rowNumber][1] != null)
         {
-            Debug.Log("起動した01");
+            Debug.Log("起動NameIf");
             nameText.text = csvData[rowNumber][1];
         }
         else
         {
+            Debug.Log("起動NameElse");
             //さかのぼって取得
-            for( int i=rowNumber; i<0; i--)
+            for ( int i=rowNumber; i>0; i--)
             {
                 if (csvData[i][1].Length != 0)
                 {
@@ -179,10 +181,8 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         }
         else
         {
-            Debug.Log("起動した02");
-
             //さかのぼって取得
-            for (int i = rowNumber; i < 0; i--)
+            for (int i = rowNumber; i > 0; i--)
             {
                 if (csvData[i][3].Length != 0)
                 {
@@ -196,16 +196,18 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         //背景
         if (csvData[rowNumber][4].Length != 0)
         {
+            Debug.Log("起動bIf");
             DisplayBackgroud(rowNumber);
         }
         else
         {
+            Debug.Log("起動bElse");
             //さかのぼって取得
-            for (int i = rowNumber; i < 0; i--)
+            for (int i = rowNumber; i > 0; i--)
             {
                 if (csvData[i][4].Length != 0)
                 {
-                    Debug.Log("起動した03");
+                    Debug.Log("aha");
                     DisplayBackgroud(i);
                     break;
                 }
@@ -223,25 +225,25 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         //BGM
         if (csvData[rowNumber][6].Length != 0)
         {
-            Debug.Log("起動した01");
+            Debug.Log("起動bgmif");
             AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
             PlayBGM(clipBGM);
         }
         else if (csvData[rowNumber][6] == "stop")
         {
+            Debug.Log("起動bgmstop");
             StopBGM(); 
-            Debug.Log("起動した02");
 
         }
         else
         {
+            Debug.Log("起動bgmelse");
             //さかのぼって取得
-            for (int i = rowNumber; i < 0; i--)
+            for (int i = rowNumber; i > 0; i--)
             {
+                Debug.Log("a");
                 if (csvData[i][6].Length != 0)
                 {
-                    Debug.Log("起動した03");
-                    
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
                     PlayBGM(clipBGM);
                     break;
@@ -333,6 +335,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
     public void DisplayBackgroud(int myRowNumber)
     {
+        Debug.Log("Background/" + csvData[myRowNumber][4]+"aha");
         Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[myRowNumber][4]);
 
         if (sprite != null)
