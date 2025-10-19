@@ -29,7 +29,6 @@ public class SaveButton : MonoBehaviour
     }
     public void OnClick()
     {
-        //SceneManager.LoadScene("SenarioScene");
         Debug.Log("SaveButton Clicked");
         ExcuteSave(slotNum);
     }
