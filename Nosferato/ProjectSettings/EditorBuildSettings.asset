@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StaffScene.unity
     guid: 98ca175ea2a668040ae850b24ba10458
+  - enabled: 1
+    path: Assets/Scenes/CGScene.unity
+    guid: 9ff96baa72907ec489394adc4f58e468
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
