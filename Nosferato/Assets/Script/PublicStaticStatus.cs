@@ -6,7 +6,7 @@ public class PublicStaticStatus : MonoBehaviour
     public static string DisplayedText;//Ç¢ÇÁÇ»ÇØÇÍÇŒégÇÌÇ»Ç¢ÇØÇ«Ç«Ç§ÅH
 
     public static string ScreenMode;
-    public static string Font;
+    public static string Font;//"RanovePop","KakuGothic","Minchoutai"
     public static float ReadingSpeed;
     public static int Volume;
     public static int BGMVolume;
