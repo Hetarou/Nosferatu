@@ -47,5 +47,16 @@ public class Button_Config : MonoBehaviour, IPointerClickHandler//Script‚ÅSelect
 
     private void ExcuteSave()
     {
+        UserDataToSave myUserDataToSave = new UserDataToSave()
+        {
+            Volume = 2
+        };
+
+
+        string json = JsonUtility.ToJson(myUserDataToSave, true);
+        Debug.Log("Master" + myUserDataToSave.Volume);
+        Debug.Log(json);
+        PlayerPrefs.SetString("Default",json);
+        PlayerPrefs.Save();
     }
 }

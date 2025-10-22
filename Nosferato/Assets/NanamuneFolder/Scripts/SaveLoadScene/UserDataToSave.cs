@@ -1,7 +1,10 @@
 using UnityEngine;
 
 [System.Serializable]
+
 public class UserDataToSave
 {
-    public string savedStageName;
+    public int Volume;
+    public int BGMVolume;
+    public int SEVolume;
 }
