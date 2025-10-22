@@ -56,7 +56,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        rowNumber = PublicStaticStatus.ReferencedRowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -101,7 +101,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             lastThreadNumber = threadNumber;
             
             //ƒZ[ƒu‚·‚é
-            PublicStaticStatus.RowToSave = rowNumber;
+            PublicStaticStatus.ReferencedRowToSave = rowNumber;
         }
 
         //–¼‘O
@@ -158,7 +158,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             lastThreadNumber = threadNumber;
 
             //ƒZ[ƒu‚·‚é
-            PublicStaticStatus.RowToSave = rowNumber;
+            PublicStaticStatus.ReferencedRowToSave = rowNumber;
         }
 
         //–¼‘O
