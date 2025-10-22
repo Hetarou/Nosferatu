@@ -11,7 +11,7 @@ public class BackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public GameObject exacutedObject;
 
-
+    [SerializeField] private GameMode gameMode;
 
     void Update()
     {
@@ -20,6 +20,7 @@ public class BackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
             Debug.Log(thisFunction);
             exacutedObject.SetActive(false);
             isMouseOver = false;
+            gameMode.ModeManager(gameMode.lastModeName);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)

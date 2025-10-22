@@ -53,7 +53,7 @@ public class TMPLinkHandler : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             TMP_LinkInfo linkInfo = tmpText.textInfo.linkInfo[linkIndex];
             Debug.Log("マウスオーバー中のリンク: " + linkInfo.GetLinkText());//Debug.Log("クリックされたリンク: " + linkInfo.GetLinkID());
-            tmpText.color = Color.red; // とりあえず全体を赤に
+            //tmpText.color = Color.red; // とりあえず全体を赤に
         }
     }
 

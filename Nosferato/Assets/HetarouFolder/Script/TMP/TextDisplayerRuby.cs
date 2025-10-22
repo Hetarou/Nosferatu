@@ -9,19 +9,20 @@ using System.Xml;
 using UnityEngine.Audio;
 using Unity.VisualScripting;
 
-public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新することもする //SaveSceneはPublicStaticStatusを参照してセーブする
+public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatusを更新することもする //SaveSceneはPublicStaticStatusを参照してセーブする
 {
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
-    private TMP_Text messageText;            //文章のText
-    public TMP_Text nameText;               //名前のText
+    private TMP_Text messageText;            // 文章のText
+    [SerializeField]
+    private TMP_Text nameText;               // 名前のText
 
     private string lastMessageText;
 
     [SerializeField]
-    private TMP_Text backLogText;            //バックログ用のText
-    public float charDelay = 0.05f;         // 文字送りの速さ
+    private TMP_Text backLogText;            // バックログ用のText
+    public float charDelay = 0.05f;          // 文字送りの速さ
     public float autoDelay = 2f;
 
     public UnityEngine.UI.Image backgroudImage;
@@ -32,7 +33,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
     public int messageIndex;
 
-    public int rowNumber = 0;
+    public int rowNumber;
 
     string threadNumber;
     string lastThreadNumber;
@@ -44,9 +45,15 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     public AudioSource audioSourceBGM;
     public AudioSource audioSourceSE;
 
+    [SerializeField] private Animator waitAnim;
+    [SerializeField] private GameObject waitObj;
+
+    private bool isHidingRequested = false;
     void Start()
     {
+        //それぞれの必要なComponentを取得
         messageText = GetComponent<TMPro.TMP_Text>();
+        waitAnim = waitObj.GetComponent<Animator>();
 
         //データをロードする
         rowNumber = PublicStaticStatus.RowToSave;
@@ -65,7 +72,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         lastThreadNumber = threadNumber;
         Debug.Log(threadNumber + "だよ");
 
-        //StartCoroutine(DisplayChar(csvData[rowNumber][2]));
+        //StartCoroutine(DisplayChar(csvData[rowNumber][2]));　//文章自体のデバックが終わるまでコメントアウトしておきます
         AnyDisplay_Start();
     }
 
@@ -73,6 +80,8 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     {
         if (Input.GetKeyDown(KeyCode.C) && isTyping == false )
         {
+            waitObj.SetActive(false);
+            waitAnim.SetBool("isWaitAnim", false);
             rowNumber++;
             AnyDisplay();
         }
@@ -96,9 +105,9 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         }
 
         //名前
-        if (csvData[rowNumber][1] != null)
+        if (csvData[rowNumber][1] != null && csvData[rowNumber][1] != csvData[rowNumber - 1][1])
         {
-            nameText.text = csvData[rowNumber][1];
+            nameText.text += csvData[rowNumber][1] + "\n";
         }
 
         StartCoroutine(DisplayChar(csvData[rowNumber][2]));
@@ -153,10 +162,10 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         }
 
         //名前
-        if (csvData[rowNumber][1] != null)
+        if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
         {
             Debug.Log("起動NameIf");
-            nameText.text = csvData[rowNumber][1];
+            nameText.text = csvData[rowNumber][1] + "\n";
         }
         else
         {
@@ -186,7 +195,6 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
             {
                 if (csvData[i][3].Length != 0)
                 {
-                    
                     DisplayCharacter(i);
                     break;
                 }
@@ -258,7 +266,20 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     {
         isTyping = true; // ← 先頭で true にする
 
-        backLogText.text += message + "\n";
+        foreach (char c in message)
+        {
+            isAddWord = true;
+
+            if (csvData[rowNumber][7].Length != 0)
+            {
+                if (c == '_') WaitTmpRuby();
+                else if (c == '|') TmpIcon();
+            }
+
+            if (isAddWord) backLogText.text += c;
+        }
+
+        backLogText.text += "\n";
 
         foreach (char c in message)
         {
@@ -266,19 +287,7 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
 
             if (csvData[rowNumber][7].Length != 0)
             {
-                if (c == '_')
-                {
-                    if (!isWaitRuby)
-                    {
-                        isAddWord = false;
-                        lastMessageText = messageText.text;
-                    }
-                    else
-                    {
-                        TmpRuby(csvData[rowNumber][7]);
-                    }
-                    isWaitRuby = !isWaitRuby;
-                }
+                if (c == '_') WaitTmpRuby();
                 else if (c == '|') TmpIcon();
             }
 
@@ -293,17 +302,54 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
         //PublicStaticStatus.ReferencedRowToSave = rowNumber;
         //PublicStaticStatus.DisplayedText = messageText.text;
 
+        if (isHidingRequested)
+        {
+            Debug.Log("HideAfterTyping");
+            isTyping = false;
+            //skipRequested = false;
+            gameObject.SetActive(false); // ★ここで非表示実行
+            isHidingRequested = false;
+            yield break; // ★コルーチンを完全に終了
+        }
+
         // 文字送り終了時
+        waitObj.SetActive(true);
+        waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
         Debug.Log("TypingFinished");
     }
 
+    public void RequestHide()
+    {
+        isHidingRequested = true;
 
+        // もしタイプライター中でなければ、すぐに非表示にする
+        if (!isTyping)
+        {
+            Debug.Log("ImmediateHide");
+            isHidingRequested = false;
+            gameObject.SetActive(false);
+        }
+        // (タイプライター中の場合は、DisplayChar の終了処理に任せる)
+    }
+
+    public void WaitTmpRuby()
+    {
+        if (!isWaitRuby)
+        {
+            isAddWord = false;
+            lastMessageText = messageText.text;
+        }
+        else
+        {
+            TmpRuby(csvData[rowNumber][7]);
+        }
+    }
     //辞書
     public void TmpIcon()
     {
         isAddWord = false;
-        messageText.text += "<sprite name=\"dictionary Y_0\">";
+        messageText.text += "<sprite name=\"MagnifyingGlass_0\">";
     }
 
     //るび
@@ -311,23 +357,30 @@ public class TextDisplayerRuby : MonoBehaviour//PublicStaticStatusを更新すること
     {
         isAddWord = false;
         messageText.SetTextAndExpandRuby(lastMessageText + addRubyText, fixedLineHeight: true, autoMarginTop: false);
+        isWaitRuby = !isWaitRuby;
     }
 
     public void DisplayCharacter(int myRowNumber)
     {
         Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[myRowNumber][3]);
 
+        Debug.Log(myRowNumber);
+
         if (sprite != null)
         {
+
+            Debug.Log("nullじゃない");
             if (isCharacterSprite == false)
             {
+                Debug.Log("falseじゃない");
                 isCharacterSprite = true;
                 characterSprite.SetActive(isCharacterSprite);
             }
             characterImage.sprite = sprite;
         }
-        else if (csvData[rowNumber][3] == "なし")
+        else if (csvData[myRowNumber][3] == "なし")
         {
+            Debug.Log("なし");
             isCharacterSprite = false;
             characterSprite.SetActive(false);
         }
