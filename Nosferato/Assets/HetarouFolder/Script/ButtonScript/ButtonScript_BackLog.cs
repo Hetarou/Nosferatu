@@ -2,25 +2,24 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BackButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonScript_BackLog : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
-    private string thisFunction;
+    string thisFunction;
 
     private bool isMouseOver = false;
 
     public GameObject exacutedObject;
 
-    [SerializeField] private GameMode gameMode;
+
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && isMouseOver == true)
         {
             Debug.Log(thisFunction);
-            exacutedObject.SetActive(false);
-            isMouseOver = false;
-            gameMode.ModeManager(gameMode.lastModeName);
+            //BackLogをさかのぼって取得//スキップが止まる場所を区切りと呼ぶなら、前々回の区切りまで（区切り直後でも、一区切り分表示）
+            exacutedObject.SetActive(true);
         }
     }
     public void OnPointerEnter(PointerEventData eventData)
