@@ -21,7 +21,7 @@ public class SaveButton : MonoBehaviour
     {
         ScenarioDataToSave myScenarioDataToSave = new ScenarioDataToSave()
         {
-            ReferencedRow = PublicStaticStatus.ReferencedRowToSave
+            ReferencedRow = PublicStaticStatus.RowToSave
         };
 
 

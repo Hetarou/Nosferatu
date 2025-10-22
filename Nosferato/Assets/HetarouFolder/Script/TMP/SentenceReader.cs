@@ -77,7 +77,7 @@ public class SentenceReader : MonoBehaviour//‚±‚ÌƒXƒNƒŠƒvƒg‚ª‚·‚é‚±‚Æ‚ÍƒeƒLƒXƒg•
     void SaveOrUpdatePublicStaticStatus()//‚±‚Ì‰ò‚ğŒÄ‚Ño‚·B//void ››‚Ì‚Æ‚±‚ë‚ÍA‚±‚Ì‰ò‚ª‰½‚ğ‚·‚é‚©‚ğ–¼•t‚¯‚é    //PublicStaticStatus‚ğXV‚µ‚Ä‚Á‚Ä—~‚µ‚¢B
     {
         Debug.Log("save");
-        PublicStaticStatus.ReferencedRowToSave = 10;
+        PublicStaticStatus.RowToSave = 10;
     }
 
     public void ReadSentence()

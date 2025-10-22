@@ -78,7 +78,7 @@ public class TextDisplayer : MonoBehaviour//PublicStaticStatus‚ğXV‚·‚é‚±‚Æ‚à‚·
             yield return new WaitForSeconds(charDelay);
         }
         messageText.text += "\n";
-        PublicStaticStatus.ReferencedRowToSave = RowNumber;
+        PublicStaticStatus.RowToSave = RowNumber;
         //PublicStaticStatus.DisplayedText= messageText.text;
 
         isTyping = true;
