@@ -2761,6 +2761,7 @@ GameObject:
   - component: {fileID: 376498625}
   - component: {fileID: 376498624}
   - component: {fileID: 376498626}
+  - component: {fileID: 376498627}
   m_Layer: 5
   m_Name: SAVEIcon
   m_TagString: Untagged
@@ -2834,13 +2835,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376498622}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a80236f14d4e34097dffe8cdf742c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: SAVE
   exacutedObject: {fileID: 0}
+--- !u!114 &376498627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376498622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97efeeeb477fd834cab149292b9bd6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisFunction: 
 --- !u!1 &421929284
 GameObject:
   m_ObjectHideFlags: 0
@@ -8037,6 +8051,7 @@ GameObject:
   - component: {fileID: 1224440498}
   - component: {fileID: 1224440497}
   - component: {fileID: 1224440499}
+  - component: {fileID: 1224440500}
   m_Layer: 5
   m_Name: CONFIGIcon
   m_TagString: Untagged
@@ -8110,13 +8125,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224440495}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a80236f14d4e34097dffe8cdf742c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: CONFIG
   exacutedObject: {fileID: 0}
+--- !u!114 &1224440500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224440495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9778c981b2e771c4ea1f8fc71108a08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisFunction: 
 --- !u!1 &1226749960
 GameObject:
   m_ObjectHideFlags: 0
@@ -9667,6 +9695,7 @@ GameObject:
   - component: {fileID: 1472665829}
   - component: {fileID: 1472665828}
   - component: {fileID: 1472665830}
+  - component: {fileID: 1472665831}
   m_Layer: 5
   m_Name: LOADIcon
   m_TagString: Untagged
@@ -9740,13 +9769,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472665826}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a80236f14d4e34097dffe8cdf742c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: LOAD
   exacutedObject: {fileID: 0}
+--- !u!114 &1472665831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472665826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3cc8610542841418f65660b7777e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisFunction: 
 --- !u!1 &1520981600
 GameObject:
   m_ObjectHideFlags: 0
@@ -10337,6 +10379,7 @@ GameObject:
   - component: {fileID: 1580211178}
   - component: {fileID: 1580211177}
   - component: {fileID: 1580211179}
+  - component: {fileID: 1580211180}
   m_Layer: 5
   m_Name: Q-SAVEIcon
   m_TagString: Untagged
@@ -10410,13 +10453,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580211175}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a80236f14d4e34097dffe8cdf742c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: Q-SAVE
   exacutedObject: {fileID: 0}
+--- !u!114 &1580211180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580211175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245caef4475b1d74bb9f32442c925c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisFunction: 
 --- !u!1 &1627196856
 GameObject:
   m_ObjectHideFlags: 0
@@ -12609,6 +12665,7 @@ GameObject:
   - component: {fileID: 2004257065}
   - component: {fileID: 2004257064}
   - component: {fileID: 2004257066}
+  - component: {fileID: 2004257067}
   m_Layer: 5
   m_Name: Q-LOADIcon
   m_TagString: Untagged
@@ -12682,13 +12739,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004257062}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a80236f14d4e34097dffe8cdf742c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: Q-LOAD
   exacutedObject: {fileID: 0}
+--- !u!114 &2004257067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004257062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27c2916ea50a7245acb23136a8e4bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisFunction: 
 --- !u!1 &2010032105
 GameObject:
   m_ObjectHideFlags: 0
