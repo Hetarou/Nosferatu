@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 using System.Xml;
 using UnityEngine.Audio;
 using Unity.VisualScripting;
@@ -25,9 +24,10 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     public float charDelay = 0.05f;          // •¶š‘—‚è‚Ì‘¬‚³
     public float autoDelay = 2f;
 
-    public UnityEngine.UI.Image backgroudImage;
-
-    public UnityEngine.UI.Image characterImage;
+    [SerializeField]
+    private Image backgroudImage;
+    [SerializeField]
+    private Image characterImage;
     public GameObject characterSprite;
     bool isCharacterSprite = false;
 
@@ -52,11 +52,11 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     void Start()
     {
         //‚»‚ê‚¼‚ê‚Ì•K—v‚ÈComponent‚ğæ“¾
-        messageText = GetComponent<TMPro.TMP_Text>();
+        messageText = GetComponent<TMP_Text>();
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        //rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -71,6 +71,8 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         threadNumber = csvData[rowNumber][0];
         lastThreadNumber = threadNumber;
         Debug.Log(threadNumber + "‚¾‚æ");
+
+        //backgroudImage = GetComponent<Image>();
 
         //StartCoroutine(DisplayChar(csvData[rowNumber][2]));@//•¶Í©‘Ì‚ÌƒfƒoƒbƒN‚ªI‚í‚é‚Ü‚ÅƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚¨‚«‚Ü‚·
         AnyDisplay_Start();
@@ -388,17 +390,42 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void DisplayBackgroud(int myRowNumber)
     {
-        Debug.Log("Background/" + csvData[myRowNumber][4]+"aha");
-        Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[myRowNumber][4]);
-
-        if (sprite != null)
+        Debug.Log("Background/" + csvData[myRowNumber][4] + "aha");
+        if (csvData[myRowNumber][4] == "ƒJƒbƒg")
         {
-            backgroudImage.sprite = sprite;
+            ChangeBlack();
         }
         else
         {
-            Debug.LogError("w’è‚µ‚½–¼‘O‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+            if(IsBlack())
+            {
+                ChangeWhite();
+            }
+            Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[myRowNumber][4]);
+            if (sprite != null)
+            {
+                backgroudImage.sprite = sprite;
+            }
+            else
+            {
+                Debug.LogError("w’è‚µ‚½–¼‘O‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+            }
         }
+    }
+
+    private void ChangeBlack()
+    {
+        backgroudImage.color = Color.black;
+    }
+
+    private void ChangeWhite()
+    {
+        backgroudImage.color = Color.white;
+    }
+
+    private bool IsBlack()
+    {
+        return backgroudImage.color == Color.black;
     }
 
     public void PlaySE(AudioClip SE)
