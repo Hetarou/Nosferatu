@@ -4,20 +4,16 @@ using UnityEngine.UI;
 public class VolumeButtons_Config : MonoBehaviour
 {
     [SerializeField]
-    string ClassOfVolume;
+    private string KindOfVolume;
     [SerializeField]
-    SaveLoadSystem_Config mySaveLoadSystem_Config;
-    public void ChangeVolume_fromButton(int num)
+    private SaveLoadSystem_Config mySaveLoadSystem_Config;
+    public void GetClick(int num)
     {
-        mySaveLoadSystem_Config.SaveStatus(ClassOfVolume,num);
-        ChangeVolume(num);
+        UpdateValue(num);
+        mySaveLoadSystem_Config.SaveStatus(KindOfVolume,num);
+        UpdateView(num);
     }
-
-    public void ChangeVolume_fromInitializer(int num)
-    {
-        ChangeVolume(num);
-    }
-    private void ChangeVolume(int num)
+    public void UpdateView(int num)
     {
         foreach (Transform t in transform)
         {
@@ -27,5 +23,11 @@ public class VolumeButtons_Config : MonoBehaviour
         {
             transform.GetChild(i).gameObject.GetComponent<Image>().color = Color.white;
         }
+    }
+    private void UpdateValue(int num)
+    {
+        if (KindOfVolume == "Volume") { PublicStaticStatus.Volume = num; }
+        if (KindOfVolume == "BGMVolume") { PublicStaticStatus.BGMVolume = num; }
+        if (KindOfVolume == "SEVolume") { PublicStaticStatus.SEVolume = num; }
     }
 }

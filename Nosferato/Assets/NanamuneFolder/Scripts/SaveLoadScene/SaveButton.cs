@@ -5,48 +5,63 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SaveButton : MonoBehaviour
+public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
 {
     [SerializeField]
     private int slotNum;
-
-    private int rowNumber;
-    private TextAsset csvFile; // CSVファイル
+    private TextAsset csvFile;
     private List<string[]> csvData = new List<string[]>();
     [SerializeField]
-    private TMP_Text nameText;//名前
+    GameObject thumbnailObj;
     [SerializeField]
-    private TMP_Text scenarioText;//シナリオ
+    private TMP_Text nameText;
     [SerializeField]
-    private Image backgroudImage;//
-    bool isCharacterSprite = false;
-    //[SerializeField]
-    //private Image characterImage;
-    public GameObject characterSprite;//
+    private TMP_Text scenarioText;
+    [SerializeField]
+    private Image backgroudImage;
+    [SerializeField]
+    GameObject characterSprite;
 
     private void Start()
     {
-        //ここデバッグ
-        PublicStaticStatus.RowToSave = 100;
-        
-        csvFile = Resources.Load("MainScenario") as TextAsset;        // ResourcesにあるCSVファイルを格納
-        StringReader reader = new StringReader(csvFile.text);         // TextAssetをStringReaderに変換
-
+        //MainScenario格納
+        csvFile = Resources.Load("MainScenario") as TextAsset;
+        StringReader reader = new StringReader(csvFile.text);
         while (reader.Peek() != -1)
         {
-            string line = reader.ReadLine(); // 1行ずつ読み込む
-            csvData.Add(line.Split(',')); // csvDataリストに追加する
+            string line = reader.ReadLine();
+            csvData.Add(line.Split(','));
         }
         Debug.Log(csvData.Count);
 
-        UpdateSaveImage(); 
+        if (ExcuteLoad(slotNum) != null)
+        {
+            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow);
+        }
+        else
+        {
+            thumbnailObj.SetActive(false);
+        }
     }
     public void OnClick()
     {
         Debug.Log("SaveButton Clicked");
+        thumbnailObj.SetActive(true);
         ExcuteSave(slotNum);
+        ChangeThumbnail(PublicStaticStatus.RowToSave);
     }
-    public void ExcuteSave(int slot)
+
+
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.K)){ExcuteSave(1);}
+        //if (Input.GetKeyDown(KeyCode.L)){OnLoad(1);}
+        //if (Input.GetKeyDown(KeyCode.M)){ExcuteSave(2);}
+        //if (Input.GetKeyDown(KeyCode.N)){OnLoad(2);}
+        if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
+        if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
+    }
+    private void ExcuteSave(int slot)
     {
         ScenarioDataToSave myScenarioDataToSave = new ScenarioDataToSave()
         {
@@ -57,38 +72,41 @@ public class SaveButton : MonoBehaviour
         PlayerPrefs.SetString(key, json);
         PlayerPrefs.Save();
 
-        Debug.Log("key:" + $"ScenarioData{slot}" + "\n" + "Ref:" + myScenarioDataToSave.ReferencedRow + "\n" + "JSON:" + json);
-
-        UpdateSaveImage();
+        Debug.Log("SaveExcuted.Key:" + $"ScenarioData{slot}" + "\n" + "Ref:" + myScenarioDataToSave.ReferencedRow + "\n" + "JSON:" + json);
     }
-    private void Update()
+    private ScenarioDataToSave ExcuteLoad(int slot)
     {
-        //if (Input.GetKeyDown(KeyCode.K)){ExcuteSave(1);}
-        //if (Input.GetKeyDown(KeyCode.L)){OnLoad(1);}
-        //if (Input.GetKeyDown(KeyCode.M)){ExcuteSave(2);}
-        //if (Input.GetKeyDown(KeyCode.N)){OnLoad(2);}
-        if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
-        if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
-    }
-
-    private void UpdateSaveImage()
-    {
-        rowNumber=PublicStaticStatus.RowToSave;
-        ChangeThumbnail();
-    }
-
-    private void ChangeThumbnail()//新しいスレッドのときと、スレッドの続きを読むときで分ける
-    {
-        scenarioText.text = csvData[rowNumber][2];
-        //名前
-        if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
+        string key = $"ScenarioData{slot}";
+        if (PlayerPrefs.HasKey(key))
         {
-            nameText.text = csvData[rowNumber][1] + "\n";
+            //jsonデータにしたやつをここで元に戻す
+            string json = PlayerPrefs.GetString(key);//Slot番号からJSON持ってくる
+            ScenarioDataToSave myScenarioDataToSave = JsonUtility.FromJson<ScenarioDataToSave>(json);//クラスをUserDataToSaveに戻す
+            Debug.Log("セーブ" + slot + "をロードしました。" + "Ref" + myScenarioDataToSave.ReferencedRow);
+            Debug.Log("LoadExcuted.Key:" + $"ScenarioData{slot}" + "\n" + "Ref:" + myScenarioDataToSave.ReferencedRow + "\n" + "JSON:" + json);
+            return (myScenarioDataToSave);
+        }
+        else
+        {
+            Debug.Log("PlayerUserDataが存在しません");
+            return null;
+        }
+    }
+
+
+    private void ChangeThumbnail(int myRowNumber)
+    {
+        //テキスト
+        scenarioText.text = csvData[myRowNumber][2];
+        //名前
+        if (csvData[myRowNumber][1] != null && nameText.text != nameText.text + "\n")
+        {
+            nameText.text = csvData[myRowNumber][1] + "\n";
         }
         else
         {
             //さかのぼって取得
-            for (int i = rowNumber; i > 0; i--)
+            for (int i = myRowNumber; i > 0; i--)
             {
                 if (csvData[i][1].Length != 0)
                 {
@@ -97,18 +115,15 @@ public class SaveButton : MonoBehaviour
                 }
             }
         }
-
-
-
         //立ち絵
-        if (csvData[rowNumber][3].Length != 0)
+        if (csvData[myRowNumber][3].Length != 0)
         {
-            DisplayCharacter(rowNumber);
+            DisplayCharacter(myRowNumber);
         }
         else
         {
             //さかのぼって取得
-            for (int i = rowNumber; i > 0; i--)
+            for (int i = myRowNumber; i > 0; i--)
             {
                 if (csvData[i][3].Length != 0)
                 {
@@ -117,18 +132,15 @@ public class SaveButton : MonoBehaviour
                 }
             }
         }
-
-        
-
         //背景
-        if (csvData[rowNumber][4].Length != 0)
+        if (csvData[myRowNumber][4].Length != 0)
         {
-            DisplayBackgroud(rowNumber);
+            DisplayBackgroud(myRowNumber);
         }
         else
         {
             //さかのぼって取得
-            for (int i = rowNumber; i > 0; i--)
+            for (int i = myRowNumber; i > 0; i--)
             {
                 if (csvData[i][4].Length != 0)
                 {
@@ -139,7 +151,7 @@ public class SaveButton : MonoBehaviour
         }
 
     }
-    public void DisplayCharacter(int myRowNumber)
+    private void DisplayCharacter(int myRowNumber)
     {
         Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[myRowNumber][3]);
         if (sprite != null)
@@ -151,10 +163,11 @@ public class SaveButton : MonoBehaviour
         {
             characterSprite.SetActive(false);
         }
-        else { Debug.LogError("それでええんか"); }
+        else { Debug.LogError("キャラ参照なし"); }
+
     }
 
-    public void DisplayBackgroud(int myRowNumber)
+    private void DisplayBackgroud(int myRowNumber)
     {
         if (csvData[myRowNumber][4] == "カット")
         {
@@ -177,127 +190,4 @@ public class SaveButton : MonoBehaviour
             }
         }
     }
-
-
-    /*
-public void AnyDisplay_Start()//新しいスレッドのときと、スレッドの続きを読むときで分ける
-{
-    Debug.Log(rowNumber);
-    isTyping = true;
-
-    threadNumber = csvData[rowNumber][0];
-
-    //新しいスレッドならテキスト更新//セーブ
-    if (threadNumber != lastThreadNumber)
-    {
-        messageText.text = "";
-        nameText.text = "";
-        lastThreadNumber = threadNumber;
-
-        //セーブする
-        PublicStaticStatus.RowToSave = rowNumber;
-    }
-
-    //名前
-    if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
-    {
-        Debug.Log("起動NameIf");
-        nameText.text = csvData[rowNumber][1] + "\n";
-    }
-    else
-    {
-        Debug.Log("起動NameElse");
-        //さかのぼって取得
-        for ( int i=rowNumber; i>0; i--)
-        {
-            if (csvData[i][1].Length != 0)
-            {
-                nameText.text = csvData[i][1];
-                break;
-            }
-        }
-    }
-
-
-
-    //立ち絵
-    if (csvData[rowNumber][3].Length != 0)
-    {
-        DisplayCharacter(rowNumber);
-    }
-    else
-    {
-        //さかのぼって取得
-        for (int i = rowNumber; i > 0; i--)
-        {
-            if (csvData[i][3].Length != 0)
-            {
-                DisplayCharacter(i);
-                break;
-            }
-        }
-    }
-
-    //背景
-    if (csvData[rowNumber][4].Length != 0)
-    {
-        Debug.Log("起動bIf");
-        DisplayBackgroud(rowNumber);
-    }
-    else
-    {
-        Debug.Log("起動bElse");
-        //さかのぼって取得
-        for (int i = rowNumber; i > 0; i--)
-        {
-            if (csvData[i][4].Length != 0)
-            {
-                Debug.Log("aha");
-                DisplayBackgroud(i);
-                break;
-            }
-        }
-    }
-
-    //SE
-    if (csvData[rowNumber][5].Length != 0)
-    {
-        AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
-        PlaySE(clipSE);
-    }
-    //elseはいらないか
-
-    //BGM
-    if (csvData[rowNumber][6].Length != 0)
-    {
-        Debug.Log("起動bgmif");
-        AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
-        PlayBGM(clipBGM);
-    }
-    else if (csvData[rowNumber][6] == "stop")
-    {
-        Debug.Log("起動bgmstop");
-        StopBGM(); 
-
-    }
-    else
-    {
-        Debug.Log("起動bgmelse");
-        //さかのぼって取得
-        for (int i = rowNumber; i > 0; i--)
-        {
-            Debug.Log("a");
-            if (csvData[i][6].Length != 0)
-            {
-                AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
-                PlayBGM(clipBGM);
-                break;
-            }
-        }
-    }
-
-    StartCoroutine(DisplayChar(csvData[rowNumber][2]));
-}
-     */
-
 }

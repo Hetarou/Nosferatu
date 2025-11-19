@@ -2,35 +2,49 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class PannelExcuter : MonoBehaviour, IPointerEnterHandler
+public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
+    //NameTextとText
     [SerializeField]
     private string NameToShow;
     [SerializeField]
     private string TextToShow;
     [SerializeField]
     private float charDelay;
-
-    [SerializeField]
-    private PannelExcuterSystem pannelExcuterSystem;
     [SerializeField]
     private TMP_Text NameComponent;
     [SerializeField]
     private TMP_Text TextComponent;
+    [SerializeField]
+    private PannelExcuterSystem pannelExcuterSystem;
+
+    //スクロール
+    [SerializeField]
+    private ScrollRect scrollRect;
+    [SerializeField]
+    private float speed = 0.2f; // スクロール速度
+
+    //重なってる間Image
+    [SerializeField]
+    private Image image;
+    [SerializeField]
+    private Sprite spriteA;
+    [SerializeField]
+    private Sprite spriteB;
 
     private Coroutine coroutine;
-    void Start()
-    {
-
-    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("マウスが入った！");
-        //他のPanelExcuter達のisTypingをfalseにする
-        pannelExcuterSystem.GetOnPointerEnter(this);
-
+        image.sprite= spriteB;
+        pannelExcuterSystem.GetOnPointerEnter(this);//他のPanelExcuter達のisTypingをfalseにする
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        image.sprite = spriteA;
     }
     public void CancelTyping()
     {
@@ -41,6 +55,14 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler
         coroutine = StartCoroutine(DisplayChar(TextToShow));
     }
 
+    void Update()
+    {
+        //画面スクロールする
+        Vector2 pos = scrollRect.normalizedPosition;// 現在の位置を取得
+        pos.y -= speed * Time.deltaTime;// Yを少しずつ減らす（0 = 下端, 1 = 上端）
+        pos.y = Mathf.Clamp01(pos.y);// 範囲を制限
+        scrollRect.normalizedPosition = pos;// 適用
+    }
     private IEnumerator DisplayChar(string message)
     {
         NameComponent.text = NameToShow;

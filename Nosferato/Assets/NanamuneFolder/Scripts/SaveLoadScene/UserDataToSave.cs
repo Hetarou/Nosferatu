@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UserDataToSave
 {
+    public int ScreenMode;
+    public int Font;
+    public int ReadingSpeed;
     public int Volume;
     public int BGMVolume;
     public int SEVolume;
