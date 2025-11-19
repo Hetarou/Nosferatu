@@ -56,7 +56,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        //rowNumber = PublicStaticStatus.RowToSave;
+        rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[

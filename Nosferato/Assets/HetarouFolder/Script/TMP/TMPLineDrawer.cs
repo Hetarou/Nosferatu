@@ -13,12 +13,23 @@ public class TMPLineDrawer : MonoBehaviour
     private List<RectTransform> linePool = new List<RectTransform>();
     private int visibleCount;
     private float lineSpacing;
+    private float lineHeight;
 
     bool isAjust;
-
+    bool a = true;
     void OnEnable()
     {
         isAjust = false;
+
+        float height1 = tmp.GetPreferredValues("A").y;      // 1行の高さ
+        float height2 = tmp.GetPreferredValues("A\nA").y;   // 2行の高さ
+
+        // この差分が、真の「1行分の高さ（行間込み）」です
+        lineHeight = height2 - height1;
+
+        Debug.Log("1行の移動量は: " + lineHeight);
+
+
     }
 
     private void LateUpdate()
@@ -38,10 +49,18 @@ public class TMPLineDrawer : MonoBehaviour
             // 行の高さを計算（1行目の高さを基準にする）
             lineSpacing = textInfo.lineInfo[0].lineHeight;
 
+
+            
+            
+
             // Viewportに必要な本数だけ確保（＋バッファ）
             float viewportHeight = scrollRect.viewport.rect.height;
-            visibleCount = Mathf.CeilToInt(viewportHeight / lineSpacing) + 2;
-
+            visibleCount = Mathf.CeilToInt(viewportHeight / lineSpacing) ;
+            if(a)
+            {
+                Debug.Log(visibleCount);
+                a = !a;
+            }
             for (int i = 0; i < visibleCount; i++)
             {
                 RectTransform line = Instantiate(linePrefab, parent);
@@ -51,6 +70,7 @@ public class TMPLineDrawer : MonoBehaviour
 
             // スクロールイベント登録
             scrollRect.onValueChanged.AddListener(_ => UpdateLines());
+            
             UpdateLines();
 
             isAjust = true;
@@ -78,23 +98,39 @@ public class TMPLineDrawer : MonoBehaviour
 
         // 現在のスクロール位置
         float contentTopY = parent.anchoredPosition.y;
-        int topIndex = Mathf.FloorToInt(contentTopY / lineSpacing);
+        int topIndex = Mathf.FloorToInt(contentTopY / lineHeight);
 
-        for (int i = 0; i < linePool.Count; i++)
+        for (int i = 0; i < visibleCount; i++)
         {
+            RectTransform line = linePool[i];
             int lineIndex = topIndex + i;
+
             if (lineIndex >= totalLineCount || lineIndex < 0)
             {
-                linePool[i].gameObject.SetActive(false);
+                line.gameObject.SetActive(false);
             }
             else
             {
-                linePool[i].gameObject.SetActive(true);
+                line.gameObject.SetActive(true);
 
                 var lineInfo = textInfo.lineInfo[lineIndex];
-                float yPos = lineInfo.lineExtents.min.y + heightAjust;
 
-                linePool[i].anchoredPosition = new Vector2(0, yPos);
+                // 1. TMPローカル空間での「行の下端」の座標を取得
+                // (Xは中心=0としておきます。Yは行の下端)
+                Vector3 localPosInTmp = new Vector3(0, lineInfo.lineExtents.min.y, 0);
+
+                // 2. それを「ワールド座標」に変換
+                // (tmpオブジェクトが画面上のどこにあっても、絶対的な世界の位置に変換されます)
+                Vector3 worldPos = tmp.transform.TransformPoint(localPosInTmp);
+
+                // 3. そのワールド座標を「Content (parent) のローカル座標」に逆変換
+                // (これで line が Content の中のどこに配置されるべきかが正確に出ます)
+                Vector2 localPosInContent = parent.InverseTransformPoint(worldPos);
+
+                // 4. 座標を適用
+                // X座標は 0 (Contentの中央) にするか、元々のズレを維持するか選べますが
+                // とりあえず Y座標 はこれで完璧に合います。
+                line.anchoredPosition = new Vector2(0, localPosInContent.y + heightAjust);
             }
         }
     }
