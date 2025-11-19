@@ -1,25 +1,39 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Buttons_Config : MonoBehaviour
 {
-    public List<Button_Config> components = new List<Button_Config>();
-    private void Awake()
+    [SerializeField]
+    private string KindOfButton;
+    [SerializeField]
+    private SaveLoadSystem_Config mySaveLoadSystem_Config;
+    [SerializeField]
+    private List<Button_Config> components = new List<Button_Config>();
+    public void GetClick(int num)
     {
-        for (int i = 0; i < transform.childCount; i++)
+        UpdateValue(num);
+        mySaveLoadSystem_Config.SaveStatus("KindOfButton", num);
+        UpdateView(num);
+    }
+    public void UpdateView(int num)
+    {
+        for(int i = 0;i < components.Count;i++)
         {
-            components.Add(transform.GetChild(i).GetComponent<Button_Config>());
+            if (i != num)
+            {
+                components[i].Deselect();
+            }
+            else if (i == num)
+            {
+                components[i].Select();
+            }
         }
     }
 
-    private void Start()
+    private void UpdateValue(int num)
     {
-        Load();
-        components[0].Select();
-    }
-
-    private void Load()
-    {
+        if (KindOfButton == "ScreenMode") { PublicStaticStatus.ScreenMode = num; }
+        if (KindOfButton == "Font") { PublicStaticStatus.Font = num; }
+        if (KindOfButton == "ReadingSpeed") { PublicStaticStatus.ReadingSpeed = num; }
     }
 }

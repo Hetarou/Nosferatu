@@ -7,6 +7,6 @@ public class VolumeButton_Config : MonoBehaviour
     public void OnClick()
     {
         //Debug.Log(number);
-        transform.parent.GetComponent<VolumeButtons_Config>().ChangeVolume_fromButton(number);
+        transform.parent.GetComponent<VolumeButtons_Config>().GetClick(number);
     }
 }

@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 2
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &60154514
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aea63601e6681a4ebd257622e84dc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClassOfVolume: BGMVolume
+  KindOfVolume: BGMVolume
   mySaveLoadSystem_Config: {fileID: 1791191847}
 --- !u!114 &209316681
 MonoBehaviour:
@@ -846,6 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 0
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &281106094
@@ -1520,6 +1522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 2
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &438460522
@@ -2365,6 +2368,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mySaveLoadSystem: {fileID: 1791191847}
+  myButtons_Config0: {fileID: 1802497834}
+  myButtons_Config1: {fileID: 1992522062}
+  myButtons_Config2: {fileID: 1577785640}
   myVolumeButtons_Config0: {fileID: 1782520813}
   myVolumeButtons_Config1: {fileID: 209316680}
   myVolumeButtons_Config2: {fileID: 1607687506}
@@ -4885,6 +4891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 1
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &1416021307
@@ -5229,7 +5236,7 @@ GameObject:
   - component: {fileID: 1577785641}
   - component: {fileID: 1577785640}
   m_Layer: 5
-  m_Name: Buttons_Speed
+  m_Name: Buttons_ReadingSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5269,7 +5276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88dd9ce417bc70408cf984989eae343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
+  KindOfButton: ReadingSpeed
+  mySaveLoadSystem_Config: {fileID: 1791191847}
+  components:
+  - {fileID: 281106093}
+  - {fileID: 1821281080}
+  - {fileID: 60154513}
 --- !u!114 &1577785641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5354,7 +5366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aea63601e6681a4ebd257622e84dc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClassOfVolume: SEVolume
+  KindOfVolume: SEVolume
   mySaveLoadSystem_Config: {fileID: 1791191847}
 --- !u!114 &1607687507
 MonoBehaviour:
@@ -6045,7 +6057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aea63601e6681a4ebd257622e84dc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClassOfVolume: Volume
+  KindOfVolume: Volume
   mySaveLoadSystem_Config: {fileID: 1791191847}
 --- !u!1 &1791191845
 GameObject:
@@ -6145,6 +6157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 1
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &1793719230
@@ -6197,7 +6210,7 @@ GameObject:
   - component: {fileID: 1802497833}
   - component: {fileID: 1802497834}
   m_Layer: 5
-  m_Name: Buttons_View
+  m_Name: Buttons_ScreenMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6261,7 +6274,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88dd9ce417bc70408cf984989eae343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
+  KindOfButton: ScreenMode
+  mySaveLoadSystem_Config: {fileID: 1791191847}
+  components:
+  - {fileID: 2146172054}
+  - {fileID: 1416021306}
+  - {fileID: 438460521}
 --- !u!1 &1821281078
 GameObject:
   m_ObjectHideFlags: 0
@@ -6312,6 +6330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 1
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &1821281081
@@ -6402,6 +6421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 0
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &1879546950
@@ -6492,6 +6512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 2
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!114 &1915095541
@@ -6795,7 +6816,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88dd9ce417bc70408cf984989eae343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: []
+  KindOfButton: Font
+  mySaveLoadSystem_Config: {fileID: 1791191847}
+  components:
+  - {fileID: 1879546949}
+  - {fileID: 1793719229}
+  - {fileID: 1915095540}
 --- !u!114 &1992522063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7492,6 +7518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6557f4c6e8553e488151e512298a3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Number: 0
   normalSprite: {fileID: -6232349121270339209, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
   selectedSprite: {fileID: -4587312492346373006, guid: efee097206c64b745827d7c9f883ccd2, type: 3}
 --- !u!1660057539 &9223372036854775807
