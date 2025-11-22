@@ -1,12 +1,13 @@
-using UnityEngine;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
+using System.IO;
 using System.Xml;
-using UnityEngine.Audio;
+using TMPro;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚Æ‚à‚·‚é //SaveScene‚ÍPublicStaticStatus‚ğQÆ‚µ‚ÄƒZ[ƒu‚·‚é
 {
@@ -70,8 +71,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         threadNumber = csvData[rowNumber][0];
         lastThreadNumber = threadNumber;
-        Debug.Log(threadNumber + "‚¾‚æ");
-
+        
         //backgroudImage = GetComponent<Image>();
 
         //StartCoroutine(DisplayChar(csvData[rowNumber][2]));@//•¶Í©‘Ì‚ÌƒfƒoƒbƒN‚ªI‚í‚é‚Ü‚ÅƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚¨‚«‚Ü‚·
@@ -166,12 +166,11 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         //–¼‘O
         if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
         {
-            Debug.Log("‹N“®NameIf");
             nameText.text = csvData[rowNumber][1] + "\n";
         }
         else
         {
-            Debug.Log("‹N“®NameElse");
+           
             //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
             for ( int i=rowNumber; i>0; i--)
             {
@@ -205,19 +204,17 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         //”wŒi
         if (csvData[rowNumber][4].Length != 0)
-        {
-            Debug.Log("‹N“®bIf");
+        {   
             DisplayBackgroud(rowNumber);
         }
         else
         {
-            Debug.Log("‹N“®bElse");
+            ;
             //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
             for (int i = rowNumber; i > 0; i--)
             {
                 if (csvData[i][4].Length != 0)
-                {
-                    Debug.Log("aha");
+                {  
                     DisplayBackgroud(i);
                     break;
                 }
@@ -251,7 +248,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
             for (int i = rowNumber; i > 0; i--)
             {
-                Debug.Log("a");
+                
                 if (csvData[i][6].Length != 0)
                 {
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
@@ -272,10 +269,21 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         {
             isAddWord = true;
 
+            if (message == "OP")
+            {
+                Debug.Log(message);
+                break;
+            }
             if (csvData[rowNumber][7].Length != 0)
             {
-                if (c == '_') WaitTmpRuby();
-                else if (c == '|') TmpIcon();
+                if (c == '_') 
+                { 
+                    WaitTmpRuby(); 
+                }
+                else if (c == '|') 
+                { 
+                    TmpIcon(); 
+                }
             }
 
             if (isAddWord) backLogText.text += c;
@@ -286,11 +294,24 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         foreach (char c in message)
         {
             isAddWord = true;
+            if (message == "OP")
+            {
+                Debug.Log(message);
+                PublicStaticStatus.RowToSave = rowNumber + 1;
+                SceneManager.LoadScene("OPScene");
+                break;
+            }
 
             if (csvData[rowNumber][7].Length != 0)
             {
-                if (c == '_') WaitTmpRuby();
-                else if (c == '|') TmpIcon();
+                if (c == '_')
+                {
+                    WaitTmpRuby();
+                }
+                else if (c == '|')
+                {
+                    TmpIcon();
+                }
             }
 
             if (isAddWord) messageText.text += c;
@@ -298,17 +319,13 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             yield return new WaitForSeconds(charDelay);
         }
 
-        Debug.Log(messageText.text);
+ 
         messageText.text += "\n";
-
-        //PublicStaticStatus.ReferencedRowToSave = rowNumber;
-        //PublicStaticStatus.DisplayedText = messageText.text;
 
         if (isHidingRequested)
         {
-            Debug.Log("HideAfterTyping");
+            
             isTyping = false;
-            //skipRequested = false;
             gameObject.SetActive(false); // š‚±‚±‚Å”ñ•\¦Às
             isHidingRequested = false;
             yield break; // šƒRƒ‹[ƒ`ƒ“‚ğŠ®‘S‚ÉI—¹
@@ -318,7 +335,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitObj.SetActive(true);
         waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
-        Debug.Log("TypingFinished");
+
     }
 
     public void RequestHide()
@@ -366,15 +383,15 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     {
         Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[myRowNumber][3]);
 
-        Debug.Log(myRowNumber);
+       
 
         if (sprite != null)
         {
 
-            Debug.Log("null‚¶‚á‚È‚¢");
+           
             if (isCharacterSprite == false)
             {
-                Debug.Log("false‚¶‚á‚È‚¢");
+                
                 isCharacterSprite = true;
                 characterSprite.SetActive(isCharacterSprite);
             }
@@ -382,7 +399,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
         else if (csvData[myRowNumber][3] == "‚È‚µ")
         {
-            Debug.Log("‚È‚µ");
+
             isCharacterSprite = false;
             characterSprite.SetActive(false);
         }
@@ -390,7 +407,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void DisplayBackgroud(int myRowNumber)
     {
-        Debug.Log("Background/" + csvData[myRowNumber][4] + "aha");
+        
         if (csvData[myRowNumber][4] == "ƒJƒbƒg")
         {
             ChangeBlack();
