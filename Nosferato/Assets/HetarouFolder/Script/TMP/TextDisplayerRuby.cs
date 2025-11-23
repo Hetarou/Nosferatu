@@ -147,7 +147,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void AnyDisplay_Start()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
     {
-        Debug.Log(rowNumber);
         isTyping = true;
 
         threadNumber = csvData[rowNumber][0];
@@ -301,18 +300,25 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 SceneManager.LoadScene("OPScene");
                 break;
             }
-
+            else if (message == "ED")
+            {              
+                Debug.Log(message);
+                PublicStaticStatus.RowToSave = rowNumber + 1;
+                SceneManager.LoadScene("EDScene");
+                break;             
+            }
             if (csvData[rowNumber][7].Length != 0)
             {
                 if (c == '_')
                 {
-                    WaitTmpRuby();
+                   WaitTmpRuby();
                 }
                 else if (c == '|')
                 {
                     TmpIcon();
                 }
             }
+            
 
             if (isAddWord) messageText.text += c;
 
@@ -323,8 +329,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         messageText.text += "\n";
 
         if (isHidingRequested)
-        {
-            
+        {      
             isTyping = false;
             gameObject.SetActive(false); // š‚±‚±‚Å”ñ•\¦Às
             isHidingRequested = false;
@@ -335,7 +340,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitObj.SetActive(true);
         waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
-
     }
 
     public void RequestHide()
