@@ -4785,6 +4785,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783084514}
   m_CullTransparentMesh: 1
+--- !u!1 &786585595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786585597}
+  - component: {fileID: 786585596}
+  m_Layer: 0
+  m_Name: SaveLoadSystem_Config
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &786585596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786585595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53654d5c1599fc4b877f9183e4146e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &786585597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786585595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 847.5454, y: 515.7123, z: -6.3295026}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &799557984
 GameObject:
   m_ObjectHideFlags: 0
@@ -5341,8 +5385,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 08bc01e99bd51e44fb8a571003a27f16, type: 2}
-  m_sharedMaterial: {fileID: 2961818352297180922, guid: 08bc01e99bd51e44fb8a571003a27f16, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 82e1e4ad799e82c4eae9a0764d21aad0, type: 2}
+  m_sharedMaterial: {fileID: 5137995442637671849, guid: 82e1e4ad799e82c4eae9a0764d21aad0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7663,8 +7707,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7bbb9bec88fd882468e9b71a36fc8d39, type: 2}
-  m_sharedMaterial: {fileID: 6256397938526802813, guid: 7bbb9bec88fd882468e9b71a36fc8d39, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9837,7 +9881,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1501113984}
   - component: {fileID: 1501113983}
-  - component: {fileID: 1501113985}
   m_Layer: 0
   m_Name: ConfigRefrecter
   m_TagString: Untagged
@@ -9857,7 +9900,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f872df6da3e35bc43be6acd1a951aba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveLoadSystem_Config: {fileID: 1501113985}
+  saveLoadSystem_Config: {fileID: 786585596}
+  targetTMP_MessageText: {fileID: 898195121}
+  targetTMP_NameText: {fileID: 1205677430}
+  newTMPFontAssets:
+  - {fileID: 11400000, guid: 1413fd7289fb87b47929b2d3cd66a3aa, type: 2}
+  - {fileID: 11400000, guid: 82e1e4ad799e82c4eae9a0764d21aad0, type: 2}
+  - {fileID: 11400000, guid: 08bc01e99bd51e44fb8a571003a27f16, type: 2}
+  textDisplayerRuby: {fileID: 898195126}
+  audioSourceBGM: {fileID: 173648093}
+  audioSourceSE: {fileID: 1649158781}
 --- !u!4 &1501113984
 Transform:
   m_ObjectHideFlags: 0
@@ -9873,18 +9925,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1501113985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501113982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53654d5c1599fc4b877f9183e4146e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1520981600
 GameObject:
   m_ObjectHideFlags: 0
@@ -13491,3 +13531,4 @@ SceneRoots:
   - {fileID: 4512237809947050723}
   - {fileID: 1892221645}
   - {fileID: 1501113984}
+  - {fileID: 786585597}

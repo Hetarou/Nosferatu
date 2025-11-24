@@ -1,93 +1,112 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ConfigRefrecter : MonoBehaviour
 {
     [SerializeField] private SaveLoadSystem_Config saveLoadSystem_Config;
 
+    //SetGameModeで使う変数
+    private FullScreenMode screenMode;
+
+    //SetFontで使う変数
+    [SerializeField] private TextMeshProUGUI targetTMP_MessageText;
+    [SerializeField] private TextMeshProUGUI targetTMP_NameText;
+    [SerializeField] private List<TMP_FontAsset> newTMPFontAssets = new List<TMP_FontAsset>();
+
+    //SetReadingSpeedで使う変数
+    [SerializeField] private TextDisplayerRuby textDisplayerRuby;
+
+    //SetVolumeで使う変数
+    private float mainVolume;
+
+    //SetBGMVolumeで使う変数
+    [SerializeField] private AudioSource audioSourceBGM;
+
+    //SetSEVolumeで使う変数
+    [SerializeField] private AudioSource audioSourceSE;
+
     void Start()
     {
         saveLoadSystem_Config.LoadStatus();
-        GameModeSetter();
-        FontSetter();
-        ReadingSpeedSetter();
-        VolumeSetter();
-        BGMVolumeSetter();
-        SEVolumeSetter();
+        SetGameMode();
+        SetFont();
+        SetReadingSpeed();
+        SetVolume();
+        SetBGMVolume();
+        SetSEVolume();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            GameModeSetter();
-            FontSetter();
-            ReadingSpeedSetter();
-            VolumeSetter();
-            BGMVolumeSetter();
-            SEVolumeSetter();
-        }
-    }
 
-    private void GameModeSetter()
+    private void SetGameMode()
     {
         switch (PublicStaticStatus.ScreenMode)
         {
             case 0:
-                Debug.Log("0:ウィンドウ");
+                screenMode = FullScreenMode.Windowed;
                 break;
             case 1:
-                Debug.Log("1:フルスクリーン");
+                screenMode = FullScreenMode.ExclusiveFullScreen;
                 break;
             case 2:
-                Debug.Log("2:疑似フルスクリーン");
+                screenMode = FullScreenMode.FullScreenWindow;
                 break;
         }
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, screenMode);
+
+        //UnityEditer状態では反映されないのでこのDebug.Logは残しておきます
+        Debug.Log("ディスプレイモードを切り替えました: " + screenMode);
     }
 
-    private void FontSetter()
+    private void SetFont()
     {
         switch (PublicStaticStatus.Font)
         {
             case 0:
-                Debug.Log("0:ラノベポップ");
+                targetTMP_MessageText.font = newTMPFontAssets[0];
+                targetTMP_NameText.font = newTMPFontAssets[0];
                 break;
             case 1:
-                Debug.Log("1:角ゴシック");
+                targetTMP_MessageText.font = newTMPFontAssets[1];
+                targetTMP_NameText.font = newTMPFontAssets[1];
                 break;
             case 2:
-                Debug.Log("2:明朝体");
+                targetTMP_MessageText.font = newTMPFontAssets[2];
+                targetTMP_NameText.font = newTMPFontAssets[2];
                 break;
         }
     }
 
-    private void ReadingSpeedSetter()
+    private void SetReadingSpeed()
     {
         switch (PublicStaticStatus.ReadingSpeed)
         {
             case 0:
-                Debug.Log("0:普通");
+                textDisplayerRuby.charDelay = 0.1f;
                 break;
             case 1:
-                Debug.Log("1:速い");
+                textDisplayerRuby.charDelay = 0.05f;
                 break;
             case 2:
-                Debug.Log("2:瞬時");
+                textDisplayerRuby.charDelay = 0.025f;
                 break;
         }
     }
 
-    private void VolumeSetter()
+    private void SetVolume()
     {
-        Debug.Log($"Volume:{PublicStaticStatus.Volume}");
+        mainVolume = PublicStaticStatus.Volume;
+        mainVolume /= 10;
     }
 
-    private void BGMVolumeSetter()
+    private void SetBGMVolume()
     {
-        Debug.Log($"BGMVolume:{PublicStaticStatus.BGMVolume}");
+        audioSourceBGM.volume = PublicStaticStatus.BGMVolume * mainVolume / 10;
     }
 
-    private void SEVolumeSetter()
+    private void SetSEVolume()
     {
-        Debug.Log($"SEVolume:{PublicStaticStatus.SEVolume}");
+        audioSourceSE.volume = PublicStaticStatus.SEVolume * mainVolume / 10;
     }
 }
