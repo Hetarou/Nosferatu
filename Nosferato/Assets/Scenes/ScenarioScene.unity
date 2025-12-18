@@ -4618,6 +4618,7 @@ MonoBehaviour:
   audioSourceSE: {fileID: 0}
   waitAnim: {fileID: 0}
   waitObj: {fileID: 0}
+  targetKeys: 
 --- !u!114 &747490807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,6 +5489,7 @@ MonoBehaviour:
   audioSourceSE: {fileID: 1649158781}
   waitAnim: {fileID: 0}
   waitObj: {fileID: 1211563370}
+  targetKeys: 20000000430100000d000000
 --- !u!114 &898195127
 MonoBehaviour:
   m_ObjectHideFlags: 0

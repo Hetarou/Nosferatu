@@ -50,6 +50,9 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     [SerializeField] private GameObject waitObj;
 
     private bool isHidingRequested = false;
+
+    [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
+    [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
     void Start()
     {
         //‚»‚ê‚¼‚ê‚Ì•K—v‚ÈComponent‚ğæ“¾
@@ -80,12 +83,16 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C) && isTyping == false )
+        foreach (var key in targetKeys)
         {
-            waitObj.SetActive(false);
-            waitAnim.SetBool("isWaitAnim", false);
-            rowNumber++;
-            AnyDisplay();
+            if (Input.GetKeyDown(key) && !isTyping)
+            {
+                waitObj.SetActive(false);
+                waitAnim.SetBool("isWaitAnim", false);
+                rowNumber++;
+                AnyDisplay();
+                break; // 1‚ÂŒ©‚Â‚©‚ê‚Î\•ª‚È‚Ì‚Åƒ‹[ƒv‚ğ”²‚¯‚é
+            }
         }
     }
 
