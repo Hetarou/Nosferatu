@@ -11,13 +11,11 @@ public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, I
     // マウスカーソルとオブジェクトが重なっているかを調べる
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(thisFunction + "とマウスが重なった！");
         transform.localScale *= scaleRate;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(thisFunction + "からマウスが離れた！");
         transform.localScale = new(1.0f, 1.0f, 1.0f);
     }
 
@@ -28,6 +26,7 @@ public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, I
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log(thisFunction + " がクリックされました！");
+            transform.localScale = new(1.0f, 1.0f, 1.0f);
             ExcuteButton(); // 抽象メソッドを呼ぶ
         }
     }

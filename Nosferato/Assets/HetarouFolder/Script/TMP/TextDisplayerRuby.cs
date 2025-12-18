@@ -57,7 +57,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        //rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -107,9 +107,10 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
 
         //–¼‘O
-        if (csvData[rowNumber][1] != null && csvData[rowNumber][1] != csvData[rowNumber - 1][1])
+        if (csvData[rowNumber][1] != null && (csvData[rowNumber][1] != csvData[rowNumber - 1][1] || csvData[rowNumber][0] != csvData[rowNumber - 1][0]))
         {
             nameText.text += csvData[rowNumber][1] + "\n";
+            Debug.Log(nameText.text);
         }
 
         StartCoroutine(DisplayChar(csvData[rowNumber][2]));
@@ -262,37 +263,49 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public IEnumerator DisplayChar(string message)
     {
-        isTyping = true; // © æ“ª‚Å true ‚É‚·‚é
+        isTyping = true;
+        isHidingRequested = false; // ‰Šú‰»
 
+        // ---------------------------------------------------------
+        // 1. ƒoƒbƒNƒƒOˆ— (Œ³‚ÌƒR[ƒh‚Ì‚Ü‚Ü)
+        // ---------------------------------------------------------
         foreach (char c in message)
         {
             isAddWord = true;
 
-            if (message == "OP")
-            {
-                Debug.Log(message);
-                break;
-            }
+            if (message == "OP") { Debug.Log(message); break; }
+
             if (csvData[rowNumber][7].Length != 0)
             {
-                if (c == '_') 
-                { 
-                    WaitTmpRuby(); 
-                }
-                else if (c == '|') 
-                { 
-                    TmpIcon(); 
-                }
+                if (c == '_') WaitTmpRuby(); // Šù‘¶ƒƒ\ƒbƒh‚ğ—˜—p
+                else if (c == '|') TmpIcon();
             }
 
             if (isAddWord) backLogText.text += c;
         }
-
         backLogText.text += "\n";
 
-        foreach (char c in message)
+        // ƒoƒbƒNƒƒO¶¬‚Å isWaitRuby ƒtƒ‰ƒO‚ª•Ï“®‚µ‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚½‚ßƒŠƒZƒbƒg
+        // (¦WaitTmpRuby‚ªƒNƒ‰ƒX•Ï”‚ÌisWaitRuby‚ğg‚Á‚Ä‚¢‚éê‡‚Ö‚ÌˆÀ‘Sô)
+        isWaitRuby = false;
+
+
+        // ---------------------------------------------------------
+        // 2. •\¦ˆ— (‚±‚±‚ğ‚²—v–]‚ÌƒƒWƒbƒN‚É·‚µ‘Ö‚¦)
+        // ---------------------------------------------------------
+
+        bool isInsideRuby = false;   // ƒ‹ƒr“à‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+        int hiddenCharCount = 0;     // ƒ‹ƒr‚Ì’†‚É‰½•¶š‰B‚ê‚Ä‚¢‚é‚©ƒJƒEƒ“ƒg‚·‚é•Ï”
+
+        char[] chars = message.ToCharArray();
+
+        // •¶š—ñ‚ğˆê•¶š‚¸‚Â‘–¸
+        for (int i = 0; i < chars.Length; i++)
         {
+            char c = chars[i];
             isAddWord = true;
+
+            // --- OP / ED •ªŠò (Œ³‚ÌƒR[ƒh‚©‚çˆÚA) ---
             if (message == "OP")
             {
                 Debug.Log(message);
@@ -301,39 +314,79 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 break;
             }
             else if (message == "ED")
-            {              
+            {
                 Debug.Log(message);
                 PublicStaticStatus.RowToSave = rowNumber + 1;
                 SceneManager.LoadScene("EDScene");
-                break;             
+                break;
             }
+            // ---------------------------------------
+
+            // ƒJƒXƒ^ƒ€ƒ^ƒO”»’è
             if (csvData[rowNumber][7].Length != 0)
             {
                 if (c == '_')
                 {
-                   WaitTmpRuby();
+                    isAddWord = false;
+
+                    if (!isInsideRuby)
+                    {
+                        // ƒ‹ƒrŠJn
+                        isInsideRuby = true;
+                        // TmpRuby‚Åg‚¤‚½‚ß‚ÉŒ»İ‚ÌƒeƒLƒXƒg‚ğ•Û‘¶
+                        lastMessageText = messageText.text;
+                        hiddenCharCount = 0; // ƒJƒEƒ“ƒgƒŠƒZƒbƒg
+                    }
+                    else
+                    {
+                        // ƒ‹ƒrI—¹
+                        isInsideRuby = false;
+
+                        // š‚±‚±‚ÅuŠ¿šv‚ª‰ò‚Åƒhƒ“‚Æo‚é
+                        TmpRuby(csvData[rowNumber][7]);
+
+                        // š‚±‚±‚ªƒŠƒYƒ€’²®
+                        // ‰B‚µ‚Ä‚¢‚½•¶š”•ª‚¾‚¯‘Ò‹@‚·‚é‚±‚Æ‚ÅAƒŠƒYƒ€‚ğ‡‚í‚¹‚é
+                        if (hiddenCharCount > 0)
+                        {
+                            yield return new WaitForSeconds(charDelay * hiddenCharCount);
+                        }
+                    }
+                    continue; // Ÿ‚Ìƒ‹[ƒv‚Ö
                 }
                 else if (c == '|')
                 {
                     TmpIcon();
                 }
             }
-            
 
-            if (isAddWord) messageText.text += c;
+            // ƒ‹ƒr‚Ì’†giŠ¿š‚È‚Çj‚ğ‰B‚·ˆ—
+            if (isInsideRuby)
+            {
+                isAddWord = false;
+                hiddenCharCount++; // ‰B‚µ‚Ä‚¢‚é•¶š”‚ğ”‚¦‚é
+            }
 
-            yield return new WaitForSeconds(charDelay);
+            // ’Êí•¶š‚Ì’Ç‰Á
+            if (isAddWord)
+            {
+                messageText.text += c;
+                yield return new WaitForSeconds(charDelay);
+            }
         }
 
- 
+
+        // ---------------------------------------------------------
+        // 3. I—¹ˆ— (Œ³‚ÌƒR[ƒh‚Ì‚Ü‚Ü)
+        // ---------------------------------------------------------
         messageText.text += "\n";
 
         if (isHidingRequested)
-        {      
+        {
             isTyping = false;
-            gameObject.SetActive(false); // š‚±‚±‚Å”ñ•\¦Às
+            gameObject.SetActive(false); // ”ñ•\¦Às
             isHidingRequested = false;
-            yield break; // šƒRƒ‹[ƒ`ƒ“‚ğŠ®‘S‚ÉI—¹
+            yield break; // ƒRƒ‹[ƒ`ƒ“I—¹
         }
 
         // •¶š‘—‚èI—¹
