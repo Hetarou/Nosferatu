@@ -53,6 +53,10 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
+
+    [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
+    [SerializeField] GameMode gameMode;
+    //[SerializeField] ButtonScript buttonScript;
     void Start()
     {
         //‚»‚ê‚¼‚ê‚Ì•K—v‚ÈComponent‚ğæ“¾
@@ -85,13 +89,17 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     {
         foreach (var key in targetKeys)
         {
-            if (Input.GetKeyDown(key) && !isTyping)
+            if (Input.GetKeyDown(key) && !isTyping && gameMode.modeRead && !PublicStaticStatus.IsEnter)
             {
                 waitObj.SetActive(false);
                 waitAnim.SetBool("isWaitAnim", false);
                 rowNumber++;
                 AnyDisplay();
                 break; // 1‚ÂŒ©‚Â‚©‚ê‚Î\•ª‚È‚Ì‚Åƒ‹[ƒv‚ğ”²‚¯‚é
+            }
+            else
+            {
+                Debug.Log("‚Ü‚¾‚Å‚«‚Ü‚¹‚ñI");
             }
         }
     }
@@ -273,6 +281,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         isTyping = true;
         isHidingRequested = false; // ‰Šú‰»
 
+
         // ---------------------------------------------------------
         // 1. ƒoƒbƒNƒƒOˆ— (Œ³‚ÌƒR[ƒh‚Ì‚Ü‚Ü)
         // ---------------------------------------------------------
@@ -324,6 +333,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             {
                 Debug.Log(message);
                 PublicStaticStatus.RowToSave = rowNumber + 1;
+                PublicStaticStatus.IsCleared = true;
                 SceneManager.LoadScene("EDScene");
                 break;
             }
@@ -511,8 +521,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void PlaySE(AudioClip SE)
     {
-        audioSourceSE.clip = SE;
-        audioSourceSE.Play();
+        audioSourceSE.PlayOneShot(SE);
     }
     
     public void PlayBGM(AudioClip BGM, bool loop = true)

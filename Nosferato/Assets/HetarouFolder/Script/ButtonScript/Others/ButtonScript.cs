@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonScript_ : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     string thisFunction;

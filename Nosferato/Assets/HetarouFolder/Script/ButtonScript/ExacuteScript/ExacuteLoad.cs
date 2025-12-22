@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExacuteLoad : ButtonScript_Test
+public class ExacuteLoad : ButtonScript
 {
     public override void ExcuteButton()
     {

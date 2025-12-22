@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExacuteAuto : ButtonScript_Test
+public class ExacuteAuto : ButtonScript
 {
     public static bool isAuto = false;
 

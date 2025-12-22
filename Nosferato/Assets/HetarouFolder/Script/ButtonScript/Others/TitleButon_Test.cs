@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TitleButtonScript_Test : ButtonScript_Test
+public class TitleButtonScript_Test : ButtonScript
 {
     [SerializeField]
     GameObject backTitle;

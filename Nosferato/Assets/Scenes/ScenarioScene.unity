@@ -704,6 +704,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
   Menu: {fileID: 251739077}
   isMenu: 1
 --- !u!1 &69405609
@@ -2873,6 +2875,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
+--- !u!1 &381819497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381819498}
+  m_Layer: 0
+  m_Name: ButtenScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &381819498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381819497}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 330.36487, y: 651.33276, z: -3.0768178}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421929284
 GameObject:
   m_ObjectHideFlags: 0
@@ -4439,6 +4474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 1649158781}
+  clikSEClip: {fileID: 0}
   Menu: {fileID: 251739077}
   isMenu: 0
 --- !u!1 &737383169
@@ -4619,6 +4656,7 @@ MonoBehaviour:
   waitAnim: {fileID: 0}
   waitObj: {fileID: 0}
   targetKeys: 
+  gameMode: {fileID: 0}
 --- !u!114 &747490807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5092,6 +5130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: BackLog
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
   backLog: {fileID: 1752874395}
   GameMode: {fileID: 1892221644}
 --- !u!1 &839500086
@@ -5483,13 +5523,14 @@ MonoBehaviour:
   characterImage: {fileID: 292385719}
   characterSprite: {fileID: 292385717}
   messageIndex: 0
-  rowNumber: 0
+  rowNumber: 120
   isTyping: 0
   audioSourceBGM: {fileID: 173648093}
   audioSourceSE: {fileID: 1649158781}
   waitAnim: {fileID: 0}
   waitObj: {fileID: 1211563370}
   targetKeys: 20000000430100000d000000
+  gameMode: {fileID: 1892221644}
 --- !u!114 &898195127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8228,6 +8269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
 --- !u!1 &1226749960
 GameObject:
   m_ObjectHideFlags: 0
@@ -9873,6 +9916,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
 --- !u!1 &1501113982
 GameObject:
   m_ObjectHideFlags: 0
@@ -10113,6 +10158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: TITLE
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
   backTitle: {fileID: 544882946}
   objList:
   - {fileID: 251739077}
@@ -10631,6 +10678,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
 --- !u!1 &1627196856
 GameObject:
   m_ObjectHideFlags: 0
@@ -11957,6 +12006,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: AUTO
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
   autoImages:
   - {fileID: 1063049318}
   - {fileID: 1662813463}
@@ -12159,9 +12210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: SKIP
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
   displayer: {fileID: 898195126}
-  targetRows: 340000002e010000af01000001020000
-  acceleration: 7
+  targetRows: 340000002e010000af01000000020000
+  acceleration: 1000
   GameMode: {fileID: 1892221644}
 --- !u!1 &1892221643
 GameObject:
@@ -12933,6 +12986,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisFunction: 
   scaleRate: 1.1
+  clikSESource: {fileID: 0}
+  clikSEClip: {fileID: 0}
 --- !u!1 &2010032105
 GameObject:
   m_ObjectHideFlags: 0
@@ -13534,3 +13589,4 @@ SceneRoots:
   - {fileID: 1892221645}
   - {fileID: 1501113984}
   - {fileID: 786585597}
+  - {fileID: 381819498}
