@@ -32,8 +32,45 @@ public class Buttons_Config : MonoBehaviour
 
     private void UpdateValue(int num)
     {
-        if (KindOfButton == "ScreenMode") { PublicStaticStatus.ScreenMode = num; }
+        if (KindOfButton == "ScreenMode") { PublicStaticStatus.ScreenMode = num; ApplyScreenMode(); }
         if (KindOfButton == "Font") { PublicStaticStatus.Font = num; }
         if (KindOfButton == "ReadingSpeed") { PublicStaticStatus.ReadingSpeed = num; }
+    }
+    private void ApplyScreenMode()
+    {
+        if (PublicStaticStatus.ScreenMode == 0)
+        {
+            SetWindowed();
+        }
+        else if (PublicStaticStatus.ScreenMode == 1)
+        {
+            SetFullscreen();
+        }
+        else if (PublicStaticStatus.ScreenMode == 2)
+        {
+            SetBorderless();
+        }
+    }
+    public void SetWindowed()
+    {
+        Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
+    }
+
+    public void SetFullscreen()
+    {
+        Screen.SetResolution(
+            Screen.currentResolution.width,
+            Screen.currentResolution.height,
+            FullScreenMode.ExclusiveFullScreen
+        );
+    }
+
+    public void SetBorderless()
+    {
+        Screen.SetResolution(
+            Screen.currentResolution.width,
+            Screen.currentResolution.height,
+            FullScreenMode.FullScreenWindow
+        );
     }
 }
