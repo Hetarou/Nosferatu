@@ -14,4 +14,6 @@ public class PublicStaticStatus : MonoBehaviour
     public static int BGMVolume;//0-10
     public static int SEVolume;//0-10
     public static bool IsCleared;
+
+    public static bool IsEnter; //Menuのアイコンと重なっているか
 }

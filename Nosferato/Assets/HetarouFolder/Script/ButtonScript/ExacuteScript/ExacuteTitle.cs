@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExacuteTitle : ButtonScript_Test
+public class ExacuteTitle : ButtonScript
 {
     [SerializeField] GameObject backTitle;   
     [SerializeField] List<GameObject> objList = new List<GameObject>();

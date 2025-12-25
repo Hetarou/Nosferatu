@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class ExacuteExit : ButtonScript_Test
+public class ExacuteExit : ButtonScript
 {
     Animator menuAnim;
     [SerializeField]

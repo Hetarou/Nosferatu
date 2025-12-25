@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExacuteConfig : ButtonScript_Test
+public class ExacuteConfig : ButtonScript
 {
     public override void ExcuteButton()
     {

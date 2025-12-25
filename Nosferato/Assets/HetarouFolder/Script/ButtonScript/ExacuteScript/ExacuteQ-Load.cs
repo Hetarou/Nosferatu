@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExacuteQ_Load : ButtonScript_Test
+public class ExacuteQ_Load : ButtonScript
 {
     public override void ExcuteButton()
     {

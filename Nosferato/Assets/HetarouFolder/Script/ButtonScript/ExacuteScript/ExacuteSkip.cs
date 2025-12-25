@@ -3,7 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class ExacuteSkip : ButtonScript_Test
+public class ExacuteSkip : ButtonScript
 {
     public TextDisplayerRuby displayer;
     public int[] targetRows = new int[] { 52, 302, 431, 513 };
@@ -164,39 +164,30 @@ public class ExacuteSkip : ButtonScript_Test
     /// </summary>
     private IEnumerator SkipLoop(int nextTarget)
     {
+        // スキップ中は「演出」を無効化する設定が displayer にあれば呼ぶ
+        // displayer.SetSkipMode(true); 
+
         while (displayer.rowNumber < nextTarget)
         {
-            yield return new WaitUntil(() => !displayer.isTyping);
-            Debug.Log("SkipLoop interrupted by manual stop.");
-            // [修正のポイント]
-            // isSkipping が false になったか (手動停止) をチェック
-            if (!isSkipping)
-            {
-                // 速度の復元は StopSkip() が担当するので、このコルーチンは
-                // 静かに終了する (yield break) だけで良い。
-                Debug.Log("SkipLoop interrupted by manual stop.");
-                yield break;
-            }
+            if (!isSkipping) yield break;
 
-            yield return new WaitForSeconds(displayer.autoDelay);
-
-            // (WaitForSeconds の後にもう一度チェック)
-            if (!isSkipping)
-            {
-                Debug.Log("SkipLoop interrupted by manual stop.");
-                yield break;
-            }
-
-            yield return new WaitUntil(() => GameMode.modeSkip);
-            // 次の行へ
+            // 次の行へ進める（演出を待たずに内部インデックスだけ進める）
             displayer.rowNumber++;
-            displayer.AnyDisplay();
+
+            // ターゲットに到達するまでは、最小限の更新だけ行う
+            if (displayer.rowNumber >= nextTarget)
+            {
+                displayer.AnyDisplay_Start(); // 最後に到達した行だけしっかり表示
+            }
+            else
+            {
+                // ここで「演出なしの内部更新」メソッドがあればベスト
+                // displayer.UpdateDataOnly(); 
+            }
+
+            // 1フレームに1行だと速すぎる場合は、少しだけ待つ
+            yield return null;
         }
-
-        // --- ループが正常に終了（ターゲットに到達）---
-        Debug.Log("Skip FINISHED -> Reached Row " + nextTarget);
-
-        // [変更点] 停止処理を StopSkip に一任する
         StopSkip();
     }
 }

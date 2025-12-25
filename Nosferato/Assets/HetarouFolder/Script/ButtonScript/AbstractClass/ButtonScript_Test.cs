@@ -3,21 +3,25 @@ using UnityEngine;
 using UnityEngine.EventSystems; // EventSystemsをusing
 
 // IPointerClickHandler を追加
-public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] private string thisFunction;
     [SerializeField] private float scaleRate = 1.1f;
 
+    [Header("SEを流すためのフィールド")]
+    [SerializeField] private AudioSource clikSESource;
+    [SerializeField] private AudioClip clikSEClip;
+
     // マウスカーソルとオブジェクトが重なっているかを調べる
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(thisFunction + "とマウスが重なった！");
+        PublicStaticStatus.IsEnter = true;
         transform.localScale *= scaleRate;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(thisFunction + "からマウスが離れた！");
+        PublicStaticStatus.IsEnter = false;
         transform.localScale = new(1.0f, 1.0f, 1.0f);
     }
 
@@ -28,6 +32,17 @@ public abstract class ButtonScript_Test : MonoBehaviour, IPointerEnterHandler, I
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log(thisFunction + " がクリックされました！");
+            transform.localScale = new(1.0f, 1.0f, 1.0f);
+
+            if (clikSESource == null || clikSEClip == null)
+            {
+                Debug.LogWarning("SEが再生できません！");
+            }
+            else
+            {
+                clikSESource.PlayOneShot(clikSEClip);
+            }
+
             ExcuteButton(); // 抽象メソッドを呼ぶ
         }
     }

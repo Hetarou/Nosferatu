@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class ExacuteBackLog : ButtonScript_Test
+public class ExacuteBackLog : ButtonScript
 {
     [SerializeField] private GameObject backLog;
     [SerializeField] private GameMode GameMode;
