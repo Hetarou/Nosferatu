@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚Æ‚à‚·‚é //SaveScene‚ÍPublicStaticStatus‚ðŽQÆ‚µ‚ÄƒZ[ƒu‚·‚é
 {
@@ -49,6 +51,8 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
     [SerializeField] private Animator waitAnim;
     [SerializeField] private GameObject waitObj;
 
+    [SerializeField] private CanvasGroup canvasGroup;
+
     private bool isHidingRequested = false;
 
     [Header("–{•Ò‚ði‚ß‚é‚½‚ß‚ÌƒL[")]
@@ -56,6 +60,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
 
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽæ“¾")]
     [SerializeField] GameMode gameMode;
+    [SerializeField] FadeManager fadeManager;
     //[SerializeField] ButtonScript buttonScript;
     void Start()
     {
@@ -87,6 +92,12 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F)) // FƒL[‚ð‰Ÿ‚µ‚½‚çƒeƒXƒg
+        {
+            Debug.Log("Test FadeOut");
+            canvasGroup.DOFade(1f, 2.0f);
+        }
+
         foreach (var key in targetKeys)
         {
             if (Input.GetKeyDown(key) && !isTyping && gameMode.modeRead && !PublicStaticStatus.IsEnter)
@@ -96,10 +107,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
                 rowNumber++;
                 AnyDisplay();
                 break; // 1‚ÂŒ©‚Â‚©‚ê‚Î\•ª‚È‚Ì‚Åƒ‹[ƒv‚ð”²‚¯‚é
-            }
-            else
-            {
-                Debug.Log("‚Ü‚¾‚Å‚«‚Ü‚¹‚ñI");
             }
         }
     }
@@ -177,6 +184,23 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
             //ƒZ[ƒu‚·‚é
             PublicStaticStatus.RowToSave = rowNumber;
         }
+
+        //BackLog‚É’¼‹ß20s‚ð•\Ž¦‚³‚¹‚é
+        for (int i = 20; i > 0; i--)
+        {
+            if(rowNumber < i - 1) continue;
+
+            if (csvData[rowNumber - (i - 1)][2] == "OP" || csvData[rowNumber - (i - 1)][2] == "ED" || rowNumber < i-1)
+            {
+                Debug.Log("‚±‚Ì•”•ª‚ÍƒXƒLƒbƒv‚µ‚Ü‚·");
+                continue;
+            }
+
+            backLogText.text += csvData[rowNumber - (i - 1)][2];
+            backLogText.text += "\n";
+        }
+
+
 
         //–¼‘O
         if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
@@ -322,18 +346,25 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
             isAddWord = true;
 
             // --- OP / ED •ªŠò (Œ³‚ÌƒR[ƒh‚©‚çˆÚA) ---
+            // OP•”•ª‚ÌC³—á
             if (message == "OP")
             {
-                Debug.Log(message);
-                PublicStaticStatus.RowToSave = rowNumber + 1;
+                Debug.Log("OPŠJŽnFƒtƒF[ƒhƒAƒEƒg‚µ‚Ü‚·");
+                // blocksRaycasts‚ðtrue‚É‚µ‚ÄAƒtƒF[ƒh’†‚ÌŒëƒNƒŠƒbƒN‚ð–h‚®
+                if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
+
+                // 2•b‚©‚¯‚Ä^‚ÁˆÃ‚É‚µAŠ®—¹‚ð‘Ò‚Á‚Ä‚©‚çƒ[ƒh
+                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+
                 SceneManager.LoadScene("OPScene");
-                break;
+                yield break;
             }
             else if (message == "ED")
             {
                 Debug.Log(message);
                 PublicStaticStatus.RowToSave = rowNumber + 1;
                 PublicStaticStatus.IsCleared = true;
+                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
                 SceneManager.LoadScene("EDScene");
                 break;
             }
@@ -461,8 +492,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
 
         if (sprite != null)
         {
-
-           
             if (isCharacterSprite == false)
             {
                 
@@ -499,7 +528,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ðXV‚·‚é‚±‚
             }
             else
             {
-                Debug.LogError("Žw’è‚µ‚½–¼‘O‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+                Debug.LogError("Žw’è‚µ‚½"+ csvData[myRowNumber][4] + "‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
             }
         }
     }

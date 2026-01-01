@@ -66,7 +66,7 @@ public class ExacuteAuto : ButtonScript
             }
         }
     }
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         isAuto = !isAuto;
 

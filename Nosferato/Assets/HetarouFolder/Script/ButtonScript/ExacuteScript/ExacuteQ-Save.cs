@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ExacuteQ_Save : ButtonScript
 {
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         Debug.Log("Q-Save");
     }

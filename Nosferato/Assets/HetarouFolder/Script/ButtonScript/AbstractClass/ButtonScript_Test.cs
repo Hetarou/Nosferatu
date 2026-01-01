@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems; // EventSystemsをusing
@@ -34,18 +35,28 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
             Debug.Log(thisFunction + " がクリックされました！");
             transform.localScale = new(1.0f, 1.0f, 1.0f);
 
-            if (clikSESource == null || clikSEClip == null)
-            {
-                Debug.LogWarning("SEが再生できません！");
-            }
-            else
-            {
-                clikSESource.PlayOneShot(clikSEClip);
-            }
-
-            ExcuteButton(); // 抽象メソッドを呼ぶ
+            StartCoroutine(PerformPostClickAction()); // 抽象メソッドを呼ぶ
         }
     }
 
-    public abstract void ExcuteButton();
+    public abstract void ExecuteCustomLogic();
+
+    protected virtual IEnumerator PerformPostClickAction()
+    {
+        if (clikSESource != null && clikSEClip != null)
+        {
+            clikSESource.PlayOneShot(clikSEClip);
+
+            // 2. SEが鳴り終わるまで待機
+            // PlayOneShot直後はisPlayingが即座に反映されない場合があるため少し待つか、
+            // クリップの長さを直接待つのが確実です
+            yield return new WaitForSeconds(clikSEClip.length-0.6f);
+
+
+        }
+
+        ExecuteCustomLogic();
+
+        yield return null;
+    }
 }

@@ -64,7 +64,7 @@ public class ExacuteSkip : ButtonScript
     /// <summary>
     /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ìˆ—
     /// </summary>
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         if (GameMode.modeSkip)
         {
