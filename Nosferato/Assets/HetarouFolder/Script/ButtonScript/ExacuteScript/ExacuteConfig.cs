@@ -5,6 +5,7 @@ public class ExacuteConfig : ButtonScript
 {
     public override void ExecuteCustomLogic()
     {
-        SceneManager.LoadScene("Config");
+        PublicStaticStatus.PreviousScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("ConfigScene");
     }
 }

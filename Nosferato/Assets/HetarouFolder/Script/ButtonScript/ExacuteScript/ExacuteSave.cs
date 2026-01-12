@@ -5,7 +5,7 @@ public class ExacuteSave : ButtonScript
 {
     public override void ExecuteCustomLogic()
     {
-        Debug.Log("Save");
+        PublicStaticStatus.PreviousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("SaveScene");
     }
 }

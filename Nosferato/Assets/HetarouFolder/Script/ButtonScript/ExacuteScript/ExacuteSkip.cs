@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using TMPro;
 
 public class ExacuteSkip : ButtonScript
 {
@@ -18,6 +19,8 @@ public class ExacuteSkip : ButtonScript
     private float originalAutoDelay;
 
     [SerializeField] private GameMode GameMode;
+
+    [SerializeField] private TextMeshProUGUI backLogText;
 
 
     // [追加] Awakeで元の速度を保存
@@ -166,6 +169,8 @@ public class ExacuteSkip : ButtonScript
     {
         // スキップ中は「演出」を無効化する設定が displayer にあれば呼ぶ
         // displayer.SetSkipMode(true); 
+
+        backLogText.text = "";
 
         while (displayer.rowNumber < nextTarget)
         {

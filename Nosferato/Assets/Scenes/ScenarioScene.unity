@@ -2883,7 +2883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 1562864595}
-  speed: 5
+  speed: 0.02
 --- !u!1 &450523008
 GameObject:
   m_ObjectHideFlags: 0
@@ -5452,7 +5452,7 @@ MonoBehaviour:
   characterImage: {fileID: 292385719}
   characterSprite: {fileID: 292385717}
   messageIndex: 0
-  rowNumber: 19
+  rowNumber: 71
   isTyping: 0
   audioSourceBGM: {fileID: 173648093}
   audioSourceSE: {fileID: 1649158781}
@@ -12315,9 +12315,10 @@ MonoBehaviour:
   clikSESource: {fileID: 1649158781}
   clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
   displayer: {fileID: 898195126}
-  targetRows: 340000002e010000af01000000020000
+  targetRows: 330000002d010000ae010000ff010000
   acceleration: 1000
   GameMode: {fileID: 1892221644}
+  backLogText: {fileID: 311957138}
 --- !u!1 &1892221643
 GameObject:
   m_ObjectHideFlags: 0

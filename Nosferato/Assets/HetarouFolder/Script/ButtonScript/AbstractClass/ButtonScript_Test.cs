@@ -50,7 +50,7 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
             // 2. SEが鳴り終わるまで待機
             // PlayOneShot直後はisPlayingが即座に反映されない場合があるため少し待つか、
             // クリップの長さを直接待つのが確実です
-            yield return new WaitForSeconds(clikSEClip.length-0.6f);
+            yield return new WaitForSeconds(clikSEClip.length-0.8f);
 
 
         }
