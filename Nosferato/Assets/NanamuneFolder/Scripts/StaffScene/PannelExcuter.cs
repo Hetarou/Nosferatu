@@ -28,30 +28,39 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHan
 
     //重なってる間Image
     [SerializeField]
-    private Image image;
+    private Sprite SNSSprite;
     [SerializeField]
-    private Sprite spriteA;
+    private Sprite SNSTransparent;
     [SerializeField]
-    private Sprite spriteB;
+    private Sprite nameSpriteA;
+    [SerializeField]
+    private Sprite nameSpriteB;
+
+    [SerializeField]
+    private Image NameImage;
+    [SerializeField]
+    private Image SNSImage;
 
     private Coroutine coroutine;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("マウスが入った！");
-        image.sprite= spriteB;
+        NameImage.sprite= nameSpriteB;
         pannelExcuterSystem.GetOnPointerEnter(this);//他のPanelExcuter達のisTypingをfalseにする
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        image.sprite = spriteA;
+        NameImage.sprite = nameSpriteA;
     }
     public void CancelTyping()
     {
+        SNSImage.sprite = SNSTransparent;
         StopCoroutine(coroutine);
     }
     public void StartExcution()
     {
+        SNSImage.sprite = SNSSprite;
         coroutine = StartCoroutine(DisplayChar(TextToShow));
     }
 
