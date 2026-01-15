@@ -61,8 +61,8 @@ public class LoadButton : MonoBehaviour//éQçlTextDisplayerRuby
         //if (Input.GetKeyDown(KeyCode.L)){OnLoad(1);}
         //if (Input.GetKeyDown(KeyCode.M)){ExcuteSave(2);}
         //if (Input.GetKeyDown(KeyCode.N)){OnLoad(2);}
-        if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
-        if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
+        //if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
+        //if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
     }
     private void ExcuteSave(int slot)
     {

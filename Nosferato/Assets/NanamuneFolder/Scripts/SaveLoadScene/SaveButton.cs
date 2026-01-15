@@ -12,7 +12,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     private TextAsset csvFile;
     private List<string[]> csvData = new List<string[]>();
     [SerializeField]
-    GameObject thumbnailObj;
+    private GameObject thumbnailObj;
     [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
@@ -34,6 +34,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         }
         Debug.Log(csvData.Count);
 
+        //サムネの設定
         if (ExcuteLoad(slotNum) != null)
         {
             ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow);
@@ -46,9 +47,16 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     public void OnClick()
     {
         Debug.Log("SaveButton Clicked");
-        thumbnailObj.SetActive(true);
-        ExcuteSave(slotNum);
-        ChangeThumbnail(PublicStaticStatus.RowToSave);
+        if (slotNum != 0)
+        {
+            thumbnailObj.SetActive(true);
+            ExcuteSave(slotNum);
+            ChangeThumbnail(PublicStaticStatus.RowToSave);
+        }
+        else if(slotNum==0)
+        {
+            //SEをならす
+        }
     }
 
 
@@ -58,8 +66,8 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         //if (Input.GetKeyDown(KeyCode.L)){OnLoad(1);}
         //if (Input.GetKeyDown(KeyCode.M)){ExcuteSave(2);}
         //if (Input.GetKeyDown(KeyCode.N)){OnLoad(2);}
-        if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
-        if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
+        //if (Input.GetKeyDown(KeyCode.F)) { PublicStaticStatus.RowToSave = 140; }
+        //if (Input.GetKeyDown(KeyCode.G)) { PublicStaticStatus.RowToSave = 160; }
     }
     private void ExcuteSave(int slot)
     {
@@ -163,7 +171,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         {
             characterSprite.SetActive(false);
         }
-        else { Debug.LogError("キャラ参照なし"); }
+        else { Debug.LogWarning("キャラ参照なし"); }
 
     }
 
@@ -186,7 +194,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
             }
             else
             {
-                Debug.LogError("指定した名前のスプライトが見つかりません");
+                Debug.LogWarning("指定した名前のスプライトが見つかりません");
             }
         }
     }
