@@ -22,10 +22,10 @@ public class ConfigRefrecter : MonoBehaviour
     private float mainVolume;
 
     //SetBGMVolumeÇ≈égÇ§ïœêî
-    [SerializeField] private AudioSource audioSourceBGM;
+    //[SerializeField] private AudioSource audioSourceBGM;
 
     //SetSEVolumeÇ≈égÇ§ïœêî
-    [SerializeField] private AudioSource audioSourceSE;
+    //[SerializeField] private AudioSource audioSourceSE;
 
     void Start()
     {
@@ -102,11 +102,11 @@ public class ConfigRefrecter : MonoBehaviour
 
     private void SetBGMVolume()
     {
-        audioSourceBGM.volume = PublicStaticStatus.BGMVolume * mainVolume / 10;
+        SimpleAudioManager_BGM.instance.SetVolume(PublicStaticStatus.BGMVolume * mainVolume / 10);
     }
 
     private void SetSEVolume()
     {
-        audioSourceSE.volume = PublicStaticStatus.SEVolume * mainVolume / 10;
+        SimpleAudioManager_SE.instance.SetVolume(PublicStaticStatus.SEVolume * mainVolume / 10);
     }
 }

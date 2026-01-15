@@ -57,12 +57,18 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     private bool isSkipRequested = false;
 
+
+    private static bool hasExcuted_BGM = false;
+
+    //[SerializeField] private int skiped
+
     [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
 
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
     [SerializeField] GameMode gameMode;
     [SerializeField] FadeManager fadeManager;
+
     //[SerializeField] ButtonScript buttonScript;
     void Start()
     {
@@ -71,7 +77,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        //rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -92,14 +98,14 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         AnyDisplay_Start();
     }
 
-   
+
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Test FadeOut");
-            canvasGroup.DOFade(1f, 2.0f);
+            Debug.Log($"\ncurrentRowNumber:{PublicStaticStatus.RowToSave}\nCGsCount:{DisplayCGsCalculater.Instance.CalculateCGsToDisplay(PublicStaticStatus.RowToSave)}");
+            //canvasGroup.DOFade(1f, 2.0f);
         }
 
         foreach (var key in targetKeys)
@@ -124,6 +130,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 break;
             }
         }
+
     }
 
     // ƒXƒLƒbƒv—pƒƒ\ƒbƒh
@@ -180,7 +187,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         if (csvData[rowNumber][6].Length != 0)
         {
             AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
-            PlayBGM(clipBGM);
+            SimpleAudioManager_BGM.instance.PlayBGM(clipBGM);
         }
         else if (csvData[rowNumber][6] == "stop")
         {
@@ -205,14 +212,13 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             PublicStaticStatus.RowToSave = rowNumber;
         }
 
-        //BackLog‚É’¼‹ß20s‚ğ•\¦‚³‚¹‚é
-        for (int i = 20; i > 0; i--)
+        //BackLog‚É’¼‹ß50s‚ğ•\¦‚³‚¹‚é
+        for (int i = 50; i > 0; i--)
         {
             int currentIndex = rowNumber - i;
 
             if (currentIndex < 0 || csvData[currentIndex][2] == "OP" || csvData[currentIndex][2] == "ED")
             {
-                Debug.Log("‚±‚Ì•”•ª‚ÍƒXƒLƒbƒv‚µ‚Ü‚·");
                 continue;
             }
 
@@ -305,10 +311,11 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             for (int i = rowNumber; i > 0; i--)
             {
                 
-                if (csvData[i][6].Length != 0)
+                if (csvData[i][6].Length != 0 && !hasExcuted_BGM)
                 {
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
                     PlayBGM(clipBGM);
+                    hasExcuted_BGM = true;
                     break;
                 }
             }
@@ -355,6 +362,13 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
                 SceneManager.LoadScene("EDScene");
                 yield break; // C³: break‚¾‚ÆŒã‚Ìˆ—‚ª‘–‚é‚½‚ßyield break
+            }
+            else if(message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
+            {
+                PublicStaticStatus.IsCleared = true;
+                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+                SceneManager.LoadScene("TitleScene");
+                yield break;
             }
 
             // ƒJƒXƒ^ƒ€ƒ^ƒO”»’è
@@ -533,14 +547,12 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void PlaySE(AudioClip SE)
     {
-        audioSourceSE.PlayOneShot(SE);
+        SimpleAudioManager_SE.instance.PlaySE(SE);
     }
     
     public void PlayBGM(AudioClip BGM, bool loop = true)
     {
-        audioSourceBGM.clip = BGM;
-        audioSourceBGM.loop = loop;
-        audioSourceBGM.Play();
+        SimpleAudioManager_BGM.instance.PlayBGM(BGM);
     }
     public void StopBGM()
     {
