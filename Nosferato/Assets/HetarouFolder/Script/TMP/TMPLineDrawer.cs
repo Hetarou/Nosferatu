@@ -27,8 +27,6 @@ public class TMPLineDrawer : MonoBehaviour
         // この差分が、真の「1行分の高さ（行間込み）」です
         lineHeight = height2 - height1;
 
-        Debug.Log("1行の移動量は: " + lineHeight);
-
 
     }
 
@@ -73,6 +71,8 @@ public class TMPLineDrawer : MonoBehaviour
             
             UpdateLines();
 
+            Canvas.ForceUpdateCanvases(); // 「今すぐ高さを計算し直せ！」という強制命令
+            scrollRect.verticalNormalizedPosition = 0f; // 「よし、その高さの0地点（一番下）へ行け！」
             isAjust = true;
         } 
     }

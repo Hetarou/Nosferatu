@@ -763,6 +763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: ConfigScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &69405612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,6 +1627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: 
   IsCommand: 1
+  IsDelete: 0
 --- !u!114 &252417277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2006,7 +2008,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aab54adfaa4099d43926226f50369b58, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 5017976355365529810, guid: aab54adfaa4099d43926226f50369b58, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3260,6 +3262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: LoadScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &511487882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5218,7 +5221,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 0
   m_Viewport: {fileID: 1426919893}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -6371,6 +6374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: LogScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1032329148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6726,6 +6730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: PreTitleScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1062215910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8316,6 +8321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: PreTitleScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1215283307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8953,6 +8959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: SaveScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1317215933
 MonoBehaviour:
   m_ObjectHideFlags: 0
