@@ -41,10 +41,14 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHan
     [SerializeField]
     private Image SNSImage;
 
+    [SerializeField]
+    AudioClip audioClip0;
+
     private Coroutine coroutine;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        SimpleAudioManager_SE.instance.PlaySE(audioClip0);
         Debug.Log("マウスが入った！");
         NameImage.sprite= nameSpriteB;
         pannelExcuterSystem.GetOnPointerEnter(this);//他のPanelExcuter達のisTypingをfalseにする

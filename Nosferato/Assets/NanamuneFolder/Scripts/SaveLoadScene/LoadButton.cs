@@ -3,10 +3,11 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
+public class LoadButton : MonoBehaviour, IPointerEnterHandler//参考TextDisplayerRuby
 {
     [SerializeField]
     private int slotNum;
@@ -24,6 +25,13 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
     private Image backgroudImage;
     [SerializeField]
     GameObject characterSprite;
+
+    [SerializeField]
+    AudioClip audioClip0;
+    [SerializeField]
+    AudioClip audioClip1;
+    [SerializeField]
+    AudioClip audioClip2;
 
     private void Start()
     {
@@ -51,15 +59,20 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
         Debug.Log("LoadButton Clicked");
         if (ExcuteLoad(slotNum) != null)
         {
+            SimpleAudioManager_SE.instance.PlaySE(audioClip0);
             PublicStaticStatus.RowToSave= ExcuteLoad(slotNum).ReferencedRow;
             SceneManager.LoadScene("ScenarioScene");
         }
         else
         {
+            SimpleAudioManager_SE.instance.PlaySE(audioClip2);
             Debug.Log("空だよ");
         }
     }
-
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SimpleAudioManager_SE.instance.PlaySE(audioClip1);
+    }
 
     private void Update()
     {

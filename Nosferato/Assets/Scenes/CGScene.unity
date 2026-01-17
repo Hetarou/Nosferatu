@@ -173,6 +173,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: -2065436333663844292, guid: e451184eeab453d4e8ec53b3965a6bfe, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &36705169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: ExtraScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &61584652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +624,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: -6384835432937628163, guid: 11b133b63a4a23b4fac5e3d0fce83363, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &353258890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +787,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 3002264032208314774, guid: 665a189d1f9e74144b597a921acd6086, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &518108287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +950,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 2004441603844902057, guid: 67d867043736d434883bd624148f10ab, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &639580866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1180,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 7188548886256100649, guid: ec5d0f602f9073243a878d5399cdbfb1, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &721932581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,6 +1343,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: -3090977600983525344, guid: f83f1b4c3d7594c41b24f8d29d5dbab4, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &861877115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1585,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 7894464745192805951, guid: 4e371a011ad689b47bdb2968e39b317e, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &941886616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,6 +1813,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: -4942470059778506882, guid: 345103f413621c049b9320e21db888fb, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1075550945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,6 +1976,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 733182094895945917, guid: ab0972426ca0dbf4f9e2b5d44e7759ff, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1105165868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2175,6 +2203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2903193e7c05d4b478127826911e85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip0: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1228466382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2384,6 +2414,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 6815525329191289970, guid: adf78392f6fda3141aa4e3cd7ef6bdd2, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1430950392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2544,6 +2577,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 5613994880156828926, guid: 3b7b3f7037a045e4091766a47c2bc5dc, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1452606558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3151,6 +3187,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: -701344108423143198, guid: b44f045fc1a695f4990185903ba39d26, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1633478034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3311,6 +3350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 7417655878716066853, guid: 8345a676a773f49468af3d8f2282fb84, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1735413782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3546,6 +3588,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 247010542924736176, guid: 6251255ffef9704448b32075ce31c306, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1903567129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3812,6 +3857,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PannelToCloseUp: {fileID: 182888434}
   myPannel: {fileID: 5689847724286659019, guid: 3d770dbd1e1b6a54aaa8aa32b56e772c, type: 3}
+  audioClip0: {fileID: 8300000, guid: 93a6b6c58560900418b6417381f3b474, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip2: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

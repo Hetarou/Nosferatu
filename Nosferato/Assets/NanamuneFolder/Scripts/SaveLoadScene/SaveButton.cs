@@ -3,9 +3,10 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
+public class SaveButton : MonoBehaviour, IPointerEnterHandler//参考TextDisplayerRuby
 {
     [SerializeField]
     private int slotNum;
@@ -23,6 +24,13 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     private Image backgroudImage;
     [SerializeField]
     GameObject characterSprite;
+
+    [SerializeField]
+    AudioClip audioClip0;
+    [SerializeField]
+    AudioClip audioClip1;
+    [SerializeField]
+    AudioClip audioClip2;
 
     private void Start()
     {
@@ -51,16 +59,21 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         Debug.Log("SaveButton Clicked");
         if (slotNum != 0)
         {
+            SimpleAudioManager_SE.instance.PlaySE(audioClip0);
             thumbnailObj.SetActive(true);
             ExcuteSave(slotNum);
             ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow, ExcuteLoad(slotNum).SavedDate);
         }
         else if(slotNum==0)
         {
-            //SEをならす
+            SimpleAudioManager_SE.instance.PlaySE(audioClip2);
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SimpleAudioManager_SE.instance.PlaySE(audioClip1);
+    }
 
     private void Update()
     {

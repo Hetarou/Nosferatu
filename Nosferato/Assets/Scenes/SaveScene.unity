@@ -389,6 +389,9 @@ MonoBehaviour:
   scenarioText: {fileID: 1451351629}
   backgroudImage: {fileID: 581248958}
   characterSprite: {fileID: 223504535}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &143651428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,6 +545,9 @@ MonoBehaviour:
   scenarioText: {fileID: 455640250}
   backgroudImage: {fileID: 626341687}
   characterSprite: {fileID: 111385167}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &189818657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,6 +952,9 @@ MonoBehaviour:
   scenarioText: {fileID: 1894858755}
   backgroudImage: {fileID: 741830698}
   characterSprite: {fileID: 1301654629}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &229730717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1817,6 +1826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: ScenarioScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &502731518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2889,6 +2899,9 @@ MonoBehaviour:
   scenarioText: {fileID: 1349169477}
   backgroudImage: {fileID: 978459922}
   characterSprite: {fileID: 532106573}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &838472121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3042,6 +3055,9 @@ MonoBehaviour:
   scenarioText: {fileID: 773500407}
   backgroudImage: {fileID: 241107950}
   characterSprite: {fileID: 397698058}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &860559013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5593,6 +5609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2903193e7c05d4b478127826911e85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
 --- !u!114 &1910398882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5922,6 +5939,9 @@ MonoBehaviour:
   scenarioText: {fileID: 932802885}
   backgroudImage: {fileID: 331281934}
   characterSprite: {fileID: 542247228}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
+  audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &2098829189
 MonoBehaviour:
   m_ObjectHideFlags: 0

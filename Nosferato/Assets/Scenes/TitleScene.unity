@@ -552,6 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 74703324}
   - component: {fileID: 74703323}
+  - component: {fileID: 74703325}
   m_Layer: 0
   m_Name: BGMPlayer
   m_TagString: Untagged
@@ -566,7 +567,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74703322}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 48fb97d35d1e5ae4eb80c790e54f030f, type: 3}
@@ -671,6 +672,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &74703325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74703322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add25e90612e1a6478d1e63ef92279be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 48fb97d35d1e5ae4eb80c790e54f030f, type: 3}
 --- !u!1 &136283565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ConfigScene
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1136121481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,6 +2454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: LoadScene
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1210825234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2783,6 +2801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: LoadScene
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1356068617
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,6 +3098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ExtraScene
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1485852073
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ConfigScene
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1485852076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3657,6 +3681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac67d04ab85e8240a36e545844390c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1708331923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3933,6 +3959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac67d04ab85e8240a36e545844390c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1905949837
 GameObject:
   m_ObjectHideFlags: 0

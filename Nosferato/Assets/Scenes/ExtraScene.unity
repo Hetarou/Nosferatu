@@ -252,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: StaffScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &137753931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,6 +962,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: CGScene
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &995857477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: TitleScene
+  audioClip0: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &995857483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,6 +1287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: TitleScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1342053261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,6 +1528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: 
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1749429375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +1948,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: StaffScene
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &2000641791
 GameObject:
   m_ObjectHideFlags: 0
