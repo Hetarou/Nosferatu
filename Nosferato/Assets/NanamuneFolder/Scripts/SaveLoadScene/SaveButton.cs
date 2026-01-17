@@ -14,6 +14,8 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     [SerializeField]
     private GameObject thumbnailObj;
     [SerializeField]
+    private TMP_Text dateText;
+    [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
     private TMP_Text scenarioText;
@@ -37,7 +39,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         //サムネの設定
         if (ExcuteLoad(slotNum) != null)
         {
-            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow);
+            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow, ExcuteLoad(slotNum).SavedDate);
         }
         else
         {
@@ -51,7 +53,7 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
         {
             thumbnailObj.SetActive(true);
             ExcuteSave(slotNum);
-            ChangeThumbnail(PublicStaticStatus.RowToSave);
+            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow, ExcuteLoad(slotNum).SavedDate);
         }
         else if(slotNum==0)
         {
@@ -73,7 +75,8 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     {
         ScenarioDataToSave myScenarioDataToSave = new ScenarioDataToSave()
         {
-            ReferencedRow = PublicStaticStatus.RowToSave
+            ReferencedRow = PublicStaticStatus.RowToSave,
+            SavedDate = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
         };
         string json = JsonUtility.ToJson(myScenarioDataToSave, true);
         string key = $"ScenarioData{slot}";
@@ -102,8 +105,10 @@ public class SaveButton : MonoBehaviour//参考TextDisplayerRuby
     }
 
 
-    private void ChangeThumbnail(int myRowNumber)
+    private void ChangeThumbnail(int myRowNumber, string savedDate)
     {
+        //日付テキスト
+        dateText.text = savedDate;
         //テキスト
         scenarioText.text = csvData[myRowNumber][2];
         //名前

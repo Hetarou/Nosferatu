@@ -15,6 +15,8 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
     [SerializeField]
     GameObject thumbnailObj;
     [SerializeField]
+    private TMP_Text dateText;
+    [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
     private TMP_Text scenarioText;
@@ -37,7 +39,7 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
 
         if (ExcuteLoad(slotNum) != null)
         {
-            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow);
+            ChangeThumbnail(ExcuteLoad(slotNum).ReferencedRow,ExcuteLoad(slotNum).SavedDate);
         }
         else
         {
@@ -51,6 +53,10 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
         {
             PublicStaticStatus.RowToSave= ExcuteLoad(slotNum).ReferencedRow;
             SceneManager.LoadScene("ScenarioScene");
+        }
+        else
+        {
+            Debug.Log("空だよ");
         }
     }
 
@@ -68,7 +74,8 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
     {
         ScenarioDataToSave myScenarioDataToSave = new ScenarioDataToSave()
         {
-            ReferencedRow = PublicStaticStatus.RowToSave
+            ReferencedRow = PublicStaticStatus.RowToSave,
+            SavedDate = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
         };
         string json = JsonUtility.ToJson(myScenarioDataToSave, true);
         string key = $"ScenarioData{slot}";
@@ -85,7 +92,6 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
             //jsonデータにしたやつをここで元に戻す
             string json = PlayerPrefs.GetString(key);//Slot番号からJSON持ってくる
             ScenarioDataToSave myScenarioDataToSave = JsonUtility.FromJson<ScenarioDataToSave>(json);//クラスをUserDataToSaveに戻す
-            Debug.Log("セーブ" + slot + "をロードしました。" + "Ref" + myScenarioDataToSave.ReferencedRow);
             Debug.Log("LoadExcuted.Key:" + $"ScenarioData{slot}" + "\n" + "Ref:" + myScenarioDataToSave.ReferencedRow + "\n" + "JSON:" + json);
             return (myScenarioDataToSave);
         }
@@ -97,11 +103,13 @@ public class LoadButton : MonoBehaviour//参考TextDisplayerRuby
     }
 
 
-    private void ChangeThumbnail(int myRowNumber)
+    private void ChangeThumbnail(int myRowNumber,string savedDate)
     {
-        //テキスト
+        //日付テキスト
+        dateText.text = savedDate;
+        //本文テキスト
         scenarioText.text = csvData[myRowNumber][2];
-        //名前
+        //名前テキスト
         if (csvData[myRowNumber][1] != null && nameText.text != nameText.text + "\n")
         {
             nameText.text = csvData[myRowNumber][1] + "\n";

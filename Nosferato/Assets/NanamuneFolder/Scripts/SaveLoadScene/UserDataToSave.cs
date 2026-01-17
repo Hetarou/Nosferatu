@@ -10,4 +10,6 @@ public class UserDataToSave
     public int Volume;
     public int BGMVolume;
     public int SEVolume;
+
+    public int BiggestRow;
 }

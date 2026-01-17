@@ -7,7 +7,8 @@ public class QuickSaveExcuter : MonoBehaviour
     {
         ScenarioDataToSave myScenarioDataToSave = new ScenarioDataToSave()
         {
-            ReferencedRow = PublicStaticStatus.RowToSave
+            ReferencedRow = PublicStaticStatus.RowToSave,
+            SavedDate = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
         };
         string json = JsonUtility.ToJson(myScenarioDataToSave, true);
         string key = $"ScenarioData{0}";
