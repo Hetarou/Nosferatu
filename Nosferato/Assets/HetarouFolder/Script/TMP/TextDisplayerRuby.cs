@@ -104,7 +104,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatusÇçXêVÇ∑ÇÈÇ±Ç
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log($"\ncurrentRowNumber:{PublicStaticStatus.RowToSave}\nCGsCount:{DisplayCGsCalculater.Instance.CalculateCGsToDisplay(PublicStaticStatus.RowToSave)}");
+            //Debug.Log($"\ncurrentRowNumber:{PublicStaticStatus.RowToSave}\nCGsCount:{DisplayCGsCalculater.Instance.CalculateCGsToDisplay(PublicStaticStatus.RowToSave)}");
             //canvasGroup.DOFade(1f, 2.0f);
         }
 

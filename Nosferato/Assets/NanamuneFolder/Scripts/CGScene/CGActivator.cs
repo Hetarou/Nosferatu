@@ -16,7 +16,7 @@ public class CGActivator : MonoBehaviour
     }
     private int CalculateCGsToDisplay()
     {
-        return (6);
+        return (DisplayCGsCalculater.CalculateCGsToDisplay(PublicStaticStatus.BiggestRow));
     }
 
 }

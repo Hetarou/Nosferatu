@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DisplayCGsCalculater : MonoBehaviour
 {
-    private int[] activeCGRowNumbers = {2, 38, 64, 114, 199, 231, 243, 419, 427, 493, 512, 557, 608, 625, 661};
+    private static int[] activeCGRowNumbers = {2, 38, 64, 114, 199, 231, 243, 419, 427, 493, 512, 557, 608, 625, 661};
 
 
     public static DisplayCGsCalculater Instance { get; private set; }
@@ -14,7 +14,7 @@ public class DisplayCGsCalculater : MonoBehaviour
         }
     }
 
-    public int CalculateCGsToDisplay(int currentRowNumber)
+    public static int CalculateCGsToDisplay(int currentRowNumber)
     {
         int CGsCount = 0;
 
