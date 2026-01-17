@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class QuickSaveExcuter : MonoBehaviour
+public class QuickSaveExcuter
 {
     public static void ExcuteQuickSave()
     {
