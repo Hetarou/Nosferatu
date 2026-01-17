@@ -498,7 +498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &140209266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -691,10 +691,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 1
   thumbnailObj: {fileID: 1628802240}
+  dateText: {fileID: 0}
   nameText: {fileID: 581416960}
   scenarioText: {fileID: 52401912}
   backgroudImage: {fileID: 2115161277}
   characterSprite: {fileID: 950677935}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &223893291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,10 +1194,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 2
   thumbnailObj: {fileID: 1119557008}
+  dateText: {fileID: 0}
   nameText: {fileID: 1931030642}
   scenarioText: {fileID: 1690196927}
   backgroudImage: {fileID: 2023436357}
   characterSprite: {fileID: 1197727900}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &484517445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,10 +1736,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 5
   thumbnailObj: {fileID: 1449282598}
+  dateText: {fileID: 0}
   nameText: {fileID: 438467550}
   scenarioText: {fileID: 317043724}
   backgroudImage: {fileID: 1595355269}
   characterSprite: {fileID: 536695118}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &598176406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,10 +2057,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 4
   thumbnailObj: {fileID: 1708334088}
+  dateText: {fileID: 0}
   nameText: {fileID: 1226781012}
   scenarioText: {fileID: 803905286}
   backgroudImage: {fileID: 1433805399}
   characterSprite: {fileID: 223893291}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &782211645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,10 +2683,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 6
   thumbnailObj: {fileID: 528698165}
+  dateText: {fileID: 0}
   nameText: {fileID: 1898123974}
   scenarioText: {fileID: 1802850063}
   backgroudImage: {fileID: 1985987082}
   characterSprite: {fileID: 1693990618}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &1119557008
 GameObject:
   m_ObjectHideFlags: 0
@@ -3433,10 +3453,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotNum: 3
   thumbnailObj: {fileID: 1192126495}
+  dateText: {fileID: 0}
   nameText: {fileID: 484517447}
   scenarioText: {fileID: 2019674008}
   backgroudImage: {fileID: 1380495135}
   characterSprite: {fileID: 1630493325}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
+  audioClip2: {fileID: 0}
 --- !u!1 &1595355267
 GameObject:
   m_ObjectHideFlags: 0
@@ -4608,10 +4632,10 @@ RectTransform:
   - {fileID: 1416217788}
   m_Father: {fileID: 140209266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940708440
 MonoBehaviour:
@@ -4627,6 +4651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneToLoad: ScenarioScene
   IsCommand: 0
+  IsDelete: 0
 --- !u!114 &1940708441
 MonoBehaviour:
   m_ObjectHideFlags: 0
