@@ -6,7 +6,9 @@ public class TestButton : MonoBehaviour
     [SerializeField]
     string SceneToLoad;
     [SerializeField]
-    bool IsCommand=false;
+    bool IsCommand = false;
+    [SerializeField]
+    bool IsDelete=false;
     public void OnClick()
     {
         if (!IsCommand)
@@ -17,6 +19,10 @@ public class TestButton : MonoBehaviour
         else if (IsCommand)
         {
             ExcuteCommand();
+        }
+        else if (IsDelete)
+        {
+            ExcuteCommand2();
         }
     }
 
@@ -30,5 +36,12 @@ public class TestButton : MonoBehaviour
             // ビルド版ならアプリケーションを終了
             Application.Quit();
 #endif
+    }
+
+    void ExcuteCommand2()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.LogWarning("All PlayerPrefs deleted");
     }
 }

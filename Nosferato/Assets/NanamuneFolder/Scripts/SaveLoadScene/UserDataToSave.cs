@@ -12,4 +12,5 @@ public class UserDataToSave
     public int SEVolume;
 
     public int BiggestRow;
+    public bool IsCleared;
 }

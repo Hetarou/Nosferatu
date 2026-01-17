@@ -39,7 +39,9 @@ public class SaveLoadSystem_Config : MonoBehaviour
             ReadingSpeed = PublicStaticStatus.ReadingSpeed,
             Volume = PublicStaticStatus.Volume,
             BGMVolume = PublicStaticStatus.BGMVolume,
-            SEVolume = PublicStaticStatus.SEVolume
+            SEVolume = PublicStaticStatus.SEVolume,
+            BiggestRow = PublicStaticStatus.BiggestRow,
+            IsCleared = PublicStaticStatus.IsCleared,
         };
 
         string json = JsonUtility.ToJson(myUserDataToSave, true);
