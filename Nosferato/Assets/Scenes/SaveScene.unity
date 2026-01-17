@@ -389,7 +389,7 @@ MonoBehaviour:
   scenarioText: {fileID: 1451351629}
   backgroudImage: {fileID: 581248958}
   characterSprite: {fileID: 223504535}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &143651428
@@ -545,7 +545,7 @@ MonoBehaviour:
   scenarioText: {fileID: 455640250}
   backgroudImage: {fileID: 626341687}
   characterSprite: {fileID: 111385167}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &189818657
@@ -952,7 +952,7 @@ MonoBehaviour:
   scenarioText: {fileID: 1894858755}
   backgroudImage: {fileID: 741830698}
   characterSprite: {fileID: 1301654629}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &229730717
@@ -2899,7 +2899,7 @@ MonoBehaviour:
   scenarioText: {fileID: 1349169477}
   backgroudImage: {fileID: 978459922}
   characterSprite: {fileID: 532106573}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &838472121
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   scenarioText: {fileID: 773500407}
   backgroudImage: {fileID: 241107950}
   characterSprite: {fileID: 397698058}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &860559013
@@ -5940,7 +5940,7 @@ MonoBehaviour:
   scenarioText: {fileID: 932802885}
   backgroudImage: {fileID: 331281934}
   characterSprite: {fileID: 542247228}
-  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip0: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   audioClip2: {fileID: 8300000, guid: c3a1f70522063254c8792fb1d0e75be3, type: 3}
 --- !u!114 &2098829189
