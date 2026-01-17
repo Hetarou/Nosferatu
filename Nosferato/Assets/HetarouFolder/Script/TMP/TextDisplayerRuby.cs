@@ -358,14 +358,14 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             if (message == "ED")
             {
                 PublicStaticStatus.RowToSave = rowNumber + 1;
-                PublicStaticStatus.IsCleared = true;
+                BiggestRowSaver.EnableIsCleared();
                 yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
                 SceneManager.LoadScene("EDScene");
                 yield break; // C³: break‚¾‚ÆŒã‚Ìˆ—‚ª‘–‚é‚½‚ßyield break
             }
             else if(message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
             {
-                PublicStaticStatus.IsCleared = true;
+                BiggestRowSaver.EnableIsCleared();
                 yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
                 SceneManager.LoadScene("TitleScene");
                 yield break;
@@ -438,6 +438,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
         isSkipRequested = false; // I—¹‚Éƒtƒ‰ƒO‚ğ–ß‚·
+        BiggestRowSaver.SaveIfBiggestRow();
     }
 
     public void RequestHide()
