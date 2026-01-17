@@ -77,7 +77,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        //rowNumber = PublicStaticStatus.RowToSave;
+        rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -110,7 +110,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         foreach (var key in targetKeys)
         {
-            if (Input.GetKeyDown(key) && gameMode.modeRead && !PublicStaticStatus.IsEnter)
+            if (Input.GetKeyDown(key) && !PublicStaticStatus.IsEnter)
             {
                 // --- ’Ç‰ÁEC³‰ÓŠ ---
                 if (isTyping)
@@ -118,7 +118,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                     // ƒ^ƒCƒsƒ“ƒO’†‚ÉƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒXƒLƒbƒv
                     SkipTypewriter();
                 }
-                else
+                else if(gameMode.modeRead)
                 {
                     // ƒ^ƒCƒsƒ“ƒO’†‚Å‚È‚¯‚ê‚ÎŸ‚Ìs‚Ö
                     waitObj.SetActive(false);

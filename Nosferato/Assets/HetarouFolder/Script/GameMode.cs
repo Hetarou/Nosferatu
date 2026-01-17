@@ -50,7 +50,7 @@ public class GameMode : MonoBehaviour
                 break;
 
             case "Auto":
-                modeRead = true;
+                modeRead = false;
                 modeSkip = false;
                 modeAuto = true;
                 modeBackLog = true;

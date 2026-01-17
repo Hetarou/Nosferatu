@@ -1,23 +1,50 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Scrolltest : MonoBehaviour
 {
     [SerializeField] private ScrollRect scrollRect;
-    [SerializeField] private float speed = 0.2f; // �X�N���[�����x
+    [SerializeField] private float pixelsPerSecond = 50f; // 1秒間に進むピクセル数
+    [SerializeField] private float currentContentHeight;
+    bool a=false;
 
+    /*private void Start()
+    {
+        firstContentHeight = scrollRect.content.rect.height;
+        Debug.Log(firstContentHeight);
+    }*/
     void Update()
     {
-        // ���݂̈ʒu���擾
-        Vector2 pos = scrollRect.normalizedPosition;
+        if (scrollRect == null || scrollRect.content == null) return;
+        // 現在のピクセル座標を取得
+        Vector2 pos = scrollRect.content.anchoredPosition;
 
-        // Y�����������炷�i0 = ���[, 1 = ��[�j
-        pos.y -= speed /** Time.deltaTime*/;
+        // Contentの高さからスクロール可能な最大値（下端）を計算
+        // ScrollRectの高さ(Viewport)を引いた分が、動かせる最大範囲
+        float contentHeight = scrollRect.content.rect.height;
+        float viewportHeight = scrollRect.viewport.rect.height;
+        float maxScrollY = Mathf.Max(0, contentHeight - viewportHeight);
 
-        // �͈͂𐧌�
-        pos.y = Mathf.Clamp01(pos.y);
+        if (contentHeight >= currentContentHeight)
+        {
+            if (pos.y >= maxScrollY) return;
 
-        // �K�p
-        scrollRect.normalizedPosition = pos;
+            // Y座標を加算して上に動かす（＝画面上は下にスクロールする）
+            pos.y += pixelsPerSecond * Time.deltaTime;
+
+            // 範囲を制限（0 〜 最大値）
+            pos.y = Mathf.Clamp(pos.y, 0, maxScrollY);
+
+            // 座標を適用
+            scrollRect.content.anchoredPosition = pos;
+        }
+        else
+        {
+            pos.y = 0f;
+        }
+
+        // 座標を適用
+        scrollRect.content.anchoredPosition = pos;
+        currentContentHeight = scrollRect.content.rect.height;
     }
 }

@@ -7,6 +7,8 @@ public class ExacuteAuto : ButtonScript
 {
     public static bool isAuto = false;
 
+    public static bool hasSkiped = false;
+
     public List<Image> autoImages = new List<Image>();
 
     public TextDisplayerRuby displayer;
@@ -78,11 +80,9 @@ public class ExacuteAuto : ButtonScript
                 for (int i = 0; i < autoImages.Count; i++)
                      autoImages[i].sprite = specificAutoSprite[i];
 
-            // すでに Auto コルーチンが走っていなければ開始
-            if (autoCoroutine == null)
-                autoCoroutine = StartCoroutine(AutoLoop());
-
-
+                // すでに Auto コルーチンが走っていなければ開始
+                if (autoCoroutine == null)
+                    autoCoroutine = StartCoroutine(AutoLoop());
             }
             else
             {
@@ -111,14 +111,17 @@ public class ExacuteAuto : ButtonScript
             yield return new WaitUntil(() => !displayer.isTyping);
 
             // 文字送りが終わった後に autoDelay を待つ
-            yield return new WaitForSeconds(displayer.autoDelay);
+            if (!hasSkiped)
+            {
+                yield return new WaitForSeconds(displayer.autoDelay);
+            }
 
             yield return new WaitUntil(() => GameMode.modeAuto);
 
             // 自動で次を表示
             displayer.rowNumber++;
             displayer.AnyDisplay();
-            
+            hasSkiped = false;
         }
         autoCoroutine = null; // 終了したらリセット
     }
