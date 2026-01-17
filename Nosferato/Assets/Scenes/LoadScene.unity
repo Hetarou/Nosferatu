@@ -1422,7 +1422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2903193e7c05d4b478127826911e85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
+  audioClip0: {fileID: 0}
+  audioClip1: {fileID: 0}
 --- !u!114 &654095798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5269,7 +5270,7 @@ MonoBehaviour:
   dateText: {fileID: 1841034572}
   nameText: {fileID: 268276587}
   scenarioText: {fileID: 958333664}
-  backgroudImage: {fileID: 0}
+  backgroudImage: {fileID: 1107184652}
   characterSprite: {fileID: 1664287421}
   audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
