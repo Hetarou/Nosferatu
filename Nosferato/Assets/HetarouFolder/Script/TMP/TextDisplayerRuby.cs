@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚Æ‚à‚·‚é //SaveScene‚ÍPublicStaticStatus‚ğQÆ‚µ‚ÄƒZ[ƒu‚·‚é
 {
@@ -49,13 +51,24 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     [SerializeField] private Animator waitAnim;
     [SerializeField] private GameObject waitObj;
 
+    [SerializeField] private CanvasGroup canvasGroup;
+
     private bool isHidingRequested = false;
+
+    private bool isSkipRequested = false;
+
+
+    private static bool hasExcuted_BGM = false;
+
+    //[SerializeField] private int skiped
 
     [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
 
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
     [SerializeField] GameMode gameMode;
+    [SerializeField] FadeManager fadeManager;
+
     //[SerializeField] ButtonScript buttonScript;
     void Start()
     {
@@ -64,7 +77,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        //rowNumber = PublicStaticStatus.RowToSave;
+        rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -85,23 +98,45 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         AnyDisplay_Start();
     }
 
+
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log($"\ncurrentRowNumber:{PublicStaticStatus.RowToSave}\nCGsCount:{DisplayCGsCalculater.Instance.CalculateCGsToDisplay(PublicStaticStatus.RowToSave)}");
+            //canvasGroup.DOFade(1f, 2.0f);
+        }
+
         foreach (var key in targetKeys)
         {
-            if (Input.GetKeyDown(key) && !isTyping && gameMode.modeRead && !PublicStaticStatus.IsEnter)
+            if (Input.GetKeyDown(key) && !PublicStaticStatus.IsEnter)
             {
-                waitObj.SetActive(false);
-                waitAnim.SetBool("isWaitAnim", false);
-                rowNumber++;
-                AnyDisplay();
-                break; // 1‚ÂŒ©‚Â‚©‚ê‚Î\•ª‚È‚Ì‚Åƒ‹[ƒv‚ğ”²‚¯‚é
-            }
-            else
-            {
-                Debug.Log("‚Ü‚¾‚Å‚«‚Ü‚¹‚ñI");
+                // --- ’Ç‰ÁEC³‰ÓŠ ---
+                if (isTyping)
+                {
+                    // ƒ^ƒCƒsƒ“ƒO’†‚ÉƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒXƒLƒbƒv
+                    SkipTypewriter();
+                }
+                else if(gameMode.modeRead)
+                {
+                    // ƒ^ƒCƒsƒ“ƒO’†‚Å‚È‚¯‚ê‚ÎŸ‚Ìs‚Ö
+                    waitObj.SetActive(false);
+                    waitAnim.SetBool("isWaitAnim", false);
+                    rowNumber++;
+                    AnyDisplay();
+                }
+                // -----------------------
+                break;
             }
         }
+
+    }
+
+    // ƒXƒLƒbƒv—pƒƒ\ƒbƒh
+    public void SkipTypewriter()
+    {
+        isSkipRequested = true;
     }
 
     public void AnyDisplay()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
@@ -125,7 +160,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         if (csvData[rowNumber][1] != null && (csvData[rowNumber][1] != csvData[rowNumber - 1][1] || csvData[rowNumber][0] != csvData[rowNumber - 1][0]))
         {
             nameText.text += csvData[rowNumber][1] + "\n";
-            Debug.Log(nameText.text);
         }
 
         StartCoroutine(DisplayChar(csvData[rowNumber][2]));
@@ -153,7 +187,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         if (csvData[rowNumber][6].Length != 0)
         {
             AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
-            PlayBGM(clipBGM);
+            SimpleAudioManager_BGM.instance.PlayBGM(clipBGM);
         }
         else if (csvData[rowNumber][6] == "stop")
         {
@@ -177,6 +211,22 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             //ƒZ[ƒu‚·‚é
             PublicStaticStatus.RowToSave = rowNumber;
         }
+
+        //BackLog‚É’¼‹ß50s‚ğ•\¦‚³‚¹‚é
+        for (int i = 50; i > 0; i--)
+        {
+            int currentIndex = rowNumber - i;
+
+            if (currentIndex < 0 || csvData[currentIndex][2] == "OP" || csvData[currentIndex][2] == "ED")
+            {
+                continue;
+            }
+
+            backLogText.text += csvData[currentIndex][2];
+            backLogText.text += "\n";
+        }
+
+
 
         //–¼‘O
         if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
@@ -247,27 +297,25 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         //BGM
         if (csvData[rowNumber][6].Length != 0)
         {
-            Debug.Log("‹N“®bgmif");
             AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
             PlayBGM(clipBGM);
         }
         else if (csvData[rowNumber][6] == "stop")
         {
-            Debug.Log("‹N“®bgmstop");
             StopBGM(); 
 
         }
         else
         {
-            Debug.Log("‹N“®bgmelse");
             //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
             for (int i = rowNumber; i > 0; i--)
             {
                 
-                if (csvData[i][6].Length != 0)
+                if (csvData[i][6].Length != 0 && !hasExcuted_BGM)
                 {
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
                     PlayBGM(clipBGM);
+                    hasExcuted_BGM = true;
                     break;
                 }
             }
@@ -279,65 +327,49 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     public IEnumerator DisplayChar(string message)
     {
         isTyping = true;
-        isHidingRequested = false; // ‰Šú‰»
+        isHidingRequested = false;
+        isSkipRequested = false; // ŠJn‚ÉƒŠƒZƒbƒg
 
-
-        // ---------------------------------------------------------
-        // 1. ƒoƒbƒNƒƒOˆ— (Œ³‚ÌƒR[ƒh‚Ì‚Ü‚Ü)
-        // ---------------------------------------------------------
+        // 1. ƒoƒbƒNƒƒOˆ— (•ÏX‚È‚µ)
         foreach (char c in message)
         {
             isAddWord = true;
-
-            if (message == "OP") { Debug.Log(message); break; }
-
             if (csvData[rowNumber][7].Length != 0)
             {
-                if (c == '_') WaitTmpRuby(); // Šù‘¶ƒƒ\ƒbƒh‚ğ—˜—p
+                if (c == '_') WaitTmpRuby();
                 else if (c == '|') TmpIcon();
             }
-
             if (isAddWord) backLogText.text += c;
         }
         backLogText.text += "\n";
-
-        // ƒoƒbƒNƒƒO¶¬‚Å isWaitRuby ƒtƒ‰ƒO‚ª•Ï“®‚µ‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚½‚ßƒŠƒZƒbƒg
-        // (¦WaitTmpRuby‚ªƒNƒ‰ƒX•Ï”‚ÌisWaitRuby‚ğg‚Á‚Ä‚¢‚éê‡‚Ö‚ÌˆÀ‘Sô)
         isWaitRuby = false;
 
-
-        // ---------------------------------------------------------
-        // 2. •\¦ˆ— (‚±‚±‚ğ‚²—v–]‚ÌƒƒWƒbƒN‚É·‚µ‘Ö‚¦)
-        // ---------------------------------------------------------
-
-        bool isInsideRuby = false;   // ƒ‹ƒr“à‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
-        int hiddenCharCount = 0;     // ƒ‹ƒr‚Ì’†‚É‰½•¶š‰B‚ê‚Ä‚¢‚é‚©ƒJƒEƒ“ƒg‚·‚é•Ï”
-
+        // 2. •\¦ˆ—
+        bool isInsideRuby = false;
+        int hiddenCharCount = 0;
         char[] chars = message.ToCharArray();
 
-        // •¶š—ñ‚ğˆê•¶š‚¸‚Â‘–¸
         for (int i = 0; i < chars.Length; i++)
         {
             char c = chars[i];
             isAddWord = true;
 
-            // --- OP / ED •ªŠò (Œ³‚ÌƒR[ƒh‚©‚çˆÚA) ---
-            if (message == "OP")
+            // ED •ªŠò
+            if (message == "ED")
             {
-                Debug.Log(message);
-                PublicStaticStatus.RowToSave = rowNumber + 1;
-                SceneManager.LoadScene("OPScene");
-                break;
-            }
-            else if (message == "ED")
-            {
-                Debug.Log(message);
                 PublicStaticStatus.RowToSave = rowNumber + 1;
                 PublicStaticStatus.IsCleared = true;
+                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
                 SceneManager.LoadScene("EDScene");
-                break;
+                yield break; // C³: break‚¾‚ÆŒã‚Ìˆ—‚ª‘–‚é‚½‚ßyield break
             }
-            // ---------------------------------------
+            else if(message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
+            {
+                PublicStaticStatus.IsCleared = true;
+                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+                SceneManager.LoadScene("TitleScene");
+                yield break;
+            }
 
             // ƒJƒXƒ^ƒ€ƒ^ƒO”»’è
             if (csvData[rowNumber][7].Length != 0)
@@ -345,31 +377,24 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 if (c == '_')
                 {
                     isAddWord = false;
-
                     if (!isInsideRuby)
                     {
-                        // ƒ‹ƒrŠJn
                         isInsideRuby = true;
-                        // TmpRuby‚Åg‚¤‚½‚ß‚ÉŒ»İ‚ÌƒeƒLƒXƒg‚ğ•Û‘¶
                         lastMessageText = messageText.text;
-                        hiddenCharCount = 0; // ƒJƒEƒ“ƒgƒŠƒZƒbƒg
+                        hiddenCharCount = 0;
                     }
                     else
                     {
-                        // ƒ‹ƒrI—¹
                         isInsideRuby = false;
-
-                        // š‚±‚±‚ÅuŠ¿šv‚ª‰ò‚Åƒhƒ“‚Æo‚é
                         TmpRuby(csvData[rowNumber][7]);
 
-                        // š‚±‚±‚ªƒŠƒYƒ€’²®
-                        // ‰B‚µ‚Ä‚¢‚½•¶š”•ª‚¾‚¯‘Ò‹@‚·‚é‚±‚Æ‚ÅAƒŠƒYƒ€‚ğ‡‚í‚¹‚é
-                        if (hiddenCharCount > 0)
+                        // ƒXƒLƒbƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚¾‚¯‘Ò‹@
+                        if (hiddenCharCount > 0 && !isSkipRequested)
                         {
                             yield return new WaitForSeconds(charDelay * hiddenCharCount);
                         }
                     }
-                    continue; // Ÿ‚Ìƒ‹[ƒv‚Ö
+                    continue;
                 }
                 else if (c == '|')
                 {
@@ -377,39 +402,42 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 }
             }
 
-            // ƒ‹ƒr‚Ì’†giŠ¿š‚È‚Çj‚ğ‰B‚·ˆ—
+            // ƒ‹ƒr“à‚ğƒJƒEƒ“ƒg
             if (isInsideRuby)
             {
                 isAddWord = false;
-                hiddenCharCount++; // ‰B‚µ‚Ä‚¢‚é•¶š”‚ğ”‚¦‚é
+                hiddenCharCount++;
             }
 
-            // ’Êí•¶š‚Ì’Ç‰Á
+            // ’Êí•¶š‚Ì•\¦
             if (isAddWord)
             {
                 messageText.text += c;
-                yield return new WaitForSeconds(charDelay);
+
+                // ƒXƒLƒbƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚¾‚¯‘Ò‹@
+                if (!isSkipRequested)
+                {
+                    yield return new WaitForSeconds(charDelay);
+                }
             }
         }
 
-
-        // ---------------------------------------------------------
-        // 3. I—¹ˆ— (Œ³‚ÌƒR[ƒh‚Ì‚Ü‚Ü)
-        // ---------------------------------------------------------
+        // 3. I—¹ˆ—
         messageText.text += "\n";
 
         if (isHidingRequested)
         {
             isTyping = false;
-            gameObject.SetActive(false); // ”ñ•\¦Às
+            gameObject.SetActive(false);
             isHidingRequested = false;
-            yield break; // ƒRƒ‹[ƒ`ƒ“I—¹
+            yield break;
         }
 
         // •¶š‘—‚èI—¹
         waitObj.SetActive(true);
         waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
+        isSkipRequested = false; // I—¹‚Éƒtƒ‰ƒO‚ğ–ß‚·
     }
 
     public void RequestHide()
@@ -461,8 +489,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         if (sprite != null)
         {
-
-           
             if (isCharacterSprite == false)
             {
                 
@@ -499,7 +525,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             }
             else
             {
-                Debug.LogError("w’è‚µ‚½–¼‘O‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+                Debug.LogError("w’è‚µ‚½"+ csvData[myRowNumber][4] + "‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
             }
         }
     }
@@ -521,14 +547,12 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     public void PlaySE(AudioClip SE)
     {
-        audioSourceSE.PlayOneShot(SE);
+        SimpleAudioManager_SE.instance.PlaySE(SE);
     }
     
     public void PlayBGM(AudioClip BGM, bool loop = true)
     {
-        audioSourceBGM.clip = BGM;
-        audioSourceBGM.loop = loop;
-        audioSourceBGM.Play();
+        SimpleAudioManager_BGM.instance.PlayBGM(BGM);
     }
     public void StopBGM()
     {

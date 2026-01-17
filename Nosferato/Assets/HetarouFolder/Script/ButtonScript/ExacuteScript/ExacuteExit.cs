@@ -13,7 +13,7 @@ public class ExacuteExit : ButtonScript
     {
         menuAnim = Menu.GetComponent<Animator>();
     }
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         menuAnim.SetBool("isMenuAnim", isMenu);
         menuAnim.SetBool("exIsMenuAnim", true);

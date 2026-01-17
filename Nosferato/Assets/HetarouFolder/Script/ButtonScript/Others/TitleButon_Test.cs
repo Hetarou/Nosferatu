@@ -9,7 +9,7 @@ public class TitleButtonScript_Test : ButtonScript
     GameObject backTitle;
     [SerializeField]
     List<GameObject> objList = new List<GameObject>();
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         backTitle.SetActive(true);
 

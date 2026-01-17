@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class ExacuteLoad : ButtonScript
 {
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
-        Debug.Log("Load");
+        PublicStaticStatus.PreviousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("LoadScene");
     }
 }

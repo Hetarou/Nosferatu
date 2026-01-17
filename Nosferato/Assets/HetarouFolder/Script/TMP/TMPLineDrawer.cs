@@ -94,7 +94,6 @@ public class TMPLineDrawer : MonoBehaviour
         int totalLineCount = textInfo.lineCount;
 
         float heightAjust = parent.rect.height / 2;
-        Debug.Log(heightAjust);
 
         // 現在のスクロール位置
         float contentTopY = parent.anchoredPosition.y;

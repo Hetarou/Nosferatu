@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems; // EventSystemsをusing
@@ -11,12 +12,14 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
     [Header("SEを流すためのフィールド")]
     [SerializeField] private AudioSource clikSESource;
     [SerializeField] private AudioClip clikSEClip;
+    [SerializeField] private AudioClip mousOverSEClip;
 
     // マウスカーソルとオブジェクトが重なっているかを調べる
     public void OnPointerEnter(PointerEventData eventData)
     {
         PublicStaticStatus.IsEnter = true;
         transform.localScale *= scaleRate;
+        SimpleAudioManager_SE.instance.PlaySE(mousOverSEClip);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -31,21 +34,32 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
         // eventData.button を使えば、左クリックか右クリックかも判定できます
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            PublicStaticStatus.IsEnter = false;
             Debug.Log(thisFunction + " がクリックされました！");
             transform.localScale = new(1.0f, 1.0f, 1.0f);
 
-            if (clikSESource == null || clikSEClip == null)
-            {
-                Debug.LogWarning("SEが再生できません！");
-            }
-            else
-            {
-                clikSESource.PlayOneShot(clikSEClip);
-            }
-
-            ExcuteButton(); // 抽象メソッドを呼ぶ
+            StartCoroutine(PerformPostClickAction()); // 抽象メソッドを呼ぶ
         }
     }
 
-    public abstract void ExcuteButton();
+    public abstract void ExecuteCustomLogic();
+
+    protected virtual IEnumerator PerformPostClickAction()
+    {
+        if (clikSESource != null && clikSEClip != null)
+        {
+            SimpleAudioManager_SE.instance.PlaySE(clikSEClip);
+
+            // 2. SEが鳴り終わるまで待機
+            // PlayOneShot直後はisPlayingが即座に反映されない場合があるため少し待つか、
+            // クリップの長さを直接待つのが確実です
+            //yield return new WaitForSeconds(clikSEClip.length-0.8f);
+
+
+        }
+
+        ExecuteCustomLogic();
+
+        yield return null;
+    }
 }

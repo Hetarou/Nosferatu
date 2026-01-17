@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExacuteConfig : ButtonScript
 {
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
-        Debug.Log("Config");
+        PublicStaticStatus.PreviousScene = SceneManager.GetActiveScene().name;
+        Debug.Log(PublicStaticStatus.PreviousScene);
+        SceneManager.LoadScene("ConfigScene");
     }
 }

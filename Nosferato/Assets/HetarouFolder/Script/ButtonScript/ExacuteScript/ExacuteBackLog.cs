@@ -16,7 +16,7 @@ public class ExacuteBackLog : ButtonScript
 
     }
 
-    public override void ExcuteButton()
+    public override void ExecuteCustomLogic()
     {
         backLog.SetActive(true);
         GameMode.ModeManager("BackLog");
