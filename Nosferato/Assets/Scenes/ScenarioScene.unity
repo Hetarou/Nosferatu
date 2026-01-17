@@ -11010,7 +11010,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: b53434925d8444e46a71c460dd513c34, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1627196856
 GameObject:
@@ -13320,7 +13320,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &2010032105
 GameObject:
