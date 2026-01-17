@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PublicStaticStatus : MonoBehaviour
 {
-    public static int RowToSave;//セーブ対象
+    public static int RowToSave = 2;//セーブ対象
     public static string DisplayedText;//いらなければ使わないけどどう？
 
     public static string PreviousScene;//PreviousSceneRecorder参照
