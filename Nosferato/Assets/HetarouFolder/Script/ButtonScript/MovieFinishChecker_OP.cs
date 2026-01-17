@@ -38,13 +38,15 @@ public class MovieFinishChecker_OP : MonoBehaviour
 
     private IEnumerator PlayMovieCoroutine()
     {
+        
         videoPlayer.Prepare();
-
+        Debug.Log("到達度:" + "1");
         while (!videoPlayer.isPrepared)
         {
             yield return null; // 1フレーム待ってから再度チェック
         }
 
+        Debug.Log("到達度:" + "2");
         forteSoftLogo.SetActive(true);
         if (fadeImage != null) fadeImage.color = Color.black;
         yield return fadeCanvasGroup.DOFade(0f, 1.0f).WaitForCompletion();
