@@ -95,6 +95,6 @@ public class MovieFinishChecker_OP : MonoBehaviour
         if (fadeImage != null) fadeImage.color = Color.black;
         yield return fadeCanvasGroup.DOFade(1f, 1.0f).WaitForCompletion();
 
-        SceneManager.LoadScene("ScenarioScene");
+        SceneManager.LoadScene("TitleScene");
     }
 }

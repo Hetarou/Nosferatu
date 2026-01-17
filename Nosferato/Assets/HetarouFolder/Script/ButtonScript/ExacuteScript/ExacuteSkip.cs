@@ -172,7 +172,7 @@ public class ExacuteSkip : ButtonScript
 
         backLogText.text = "";
 
-        while (displayer.rowNumber < nextTarget)
+        /*while (displayer.rowNumber < nextTarget)
         {
             if (!isSkipping) yield break;
 
@@ -192,7 +192,14 @@ public class ExacuteSkip : ButtonScript
 
             // 1フレームに1行だと速すぎる場合は、少しだけ待つ
             yield return null;
-        }
+        }*/
+
+        displayer.rowNumber = nextTarget;
+
+        displayer.AnyDisplay_Start();
+
         StopSkip();
+
+        yield break;
     }
 }

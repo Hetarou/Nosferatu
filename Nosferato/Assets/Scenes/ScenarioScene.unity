@@ -12545,7 +12545,7 @@ MonoBehaviour:
   clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   displayer: {fileID: 898195126}
-  targetRows: 330000002d010000ae010000ff010000
+  targetRows: 330000002d010000ae01000000020000
   acceleration: 1000
   GameMode: {fileID: 1892221644}
   backLogText: {fileID: 311957138}
