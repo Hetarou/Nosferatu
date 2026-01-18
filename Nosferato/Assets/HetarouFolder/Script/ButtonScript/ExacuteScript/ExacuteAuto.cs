@@ -30,7 +30,7 @@ public class ExacuteAuto : ButtonScript
 
         if (isAuto)
         {
-            /*// isAutoがtrue（オートモードであるべき）な場合
+            // isAutoがtrue（オートモードであるべき）な場合
 
             // 1. 画像をオートモード用に設定
             for (int i = 0; i < autoImages.Count; i++)
@@ -47,9 +47,8 @@ public class ExacuteAuto : ButtonScript
                 StopCoroutine(autoCoroutine);
             }
             GameMode.ModeManager("Auto");
-            autoCoroutine = StartCoroutine(AutoLoop());*/
+            autoCoroutine = StartCoroutine(AutoLoop());
 
-            isAuto = false;
         }
         else
         {

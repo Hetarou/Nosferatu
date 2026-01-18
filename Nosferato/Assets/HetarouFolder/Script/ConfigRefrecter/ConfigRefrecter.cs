@@ -13,6 +13,7 @@ public class ConfigRefrecter : MonoBehaviour
     //SetFontÇ≈égÇ§ïœêî
     [SerializeField] private TextMeshProUGUI targetTMP_MessageText;
     [SerializeField] private TextMeshProUGUI targetTMP_NameText;
+    [SerializeField] private TextMeshProUGUI targetTMP_ExecuteText;
     [SerializeField] private List<TMP_FontAsset> newTMPFontAssets = new List<TMP_FontAsset>();
 
     //SetReadingSpeedÇ≈égÇ§ïœêî
@@ -102,11 +103,11 @@ public class ConfigRefrecter : MonoBehaviour
 
     private void SetBGMVolume()
     {
-        SimpleAudioManager_BGM.instance.SetVolume(PublicStaticStatus.BGMVolume * mainVolume / 10);
+        SimpleAudioManager_BGM.instance.SetVolume(mainVolume, PublicStaticStatus.BGMVolume / 10);
     }
 
     private void SetSEVolume()
     {
-        SimpleAudioManager_SE.instance.SetVolume(PublicStaticStatus.SEVolume * mainVolume / 10);
+        SimpleAudioManager_SE.instance.SetVolume(mainVolume, PublicStaticStatus.SEVolume  / 10);
     }
 }

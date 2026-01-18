@@ -26,8 +26,10 @@ public class SimpleAudioManager_SE : MonoBehaviour
         audioSource.PlayOneShot(clip);
     }
 
-    public void SetVolume(float Volume)
+    public void SetVolume(float MainVolume, float SEVolume)
     {
+        float Volume = MainVolume * SEVolume /100;
+
         audioSource.volume = Volume;
     }
 }

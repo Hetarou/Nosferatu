@@ -20,14 +20,21 @@ public class SimpleAudioManager_BGM : MonoBehaviour
     }
 
     public void PlayBGM(AudioClip clip)
-    { 
+    {
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
     }
 
-    public void SetVolume(float Volume)
+    public void StopBGM()
     {
+        audioSource.Stop();
+    }
+
+    public void SetVolume(float MainVolume, float BGMVolume)
+    {
+        float Volume = MainVolume * BGMVolume / 100;
+
         audioSource.volume = Volume;
     }
 }
