@@ -130,7 +130,7 @@ public class ExacuteAuto : ButtonScript
             autoImages[i].sprite = normalAutoSprite[i];
         }
 
-        isAuto = !isAuto;
+        isAuto = false;
         GameMode.ModeManager("Reading");
 
         if (autoCoroutine != null)
