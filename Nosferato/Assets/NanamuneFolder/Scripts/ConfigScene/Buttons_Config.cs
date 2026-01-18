@@ -53,7 +53,7 @@ public class Buttons_Config : MonoBehaviour
     }
     public void SetWindowed()
     {
-        Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
+        Screen.SetResolution(1280 , 720, FullScreenMode.Windowed);
     }
 
     public void SetFullscreen()
