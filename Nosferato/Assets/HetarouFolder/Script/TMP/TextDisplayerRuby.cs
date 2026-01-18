@@ -287,37 +287,31 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatusÇçXêVÇ∑ÇÈÇ±Ç
         }
 
         //SE
-        if (csvData[rowNumber][5].Length != 0)
+        for (int i = rowNumber; i > 0; i--)
         {
-            AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
-            PlaySE(clipSE);
-        }
-        //elseÇÕÇ¢ÇÁÇ»Ç¢Ç©
-
-        //BGM
-        if (csvData[rowNumber][6].Length != 0)
-        {
-            AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
-            PlayBGM(clipBGM);
-        }
-        else if (csvData[rowNumber][6] == "stop")
-        {
-            StopBGM(); 
-
-        }
-        else
-        {
-            //Ç≥Ç©ÇÃÇ⁄Ç¡ÇƒéÊìæ
-            for (int i = rowNumber; i > 0; i--)
+            if (csvData[rowNumber][5].Length != 0)
             {
+                AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
+                PlaySE(clipSE);
+            }
+        }
+
+        //Ç≥Ç©ÇÃÇ⁄Ç¡ÇƒéÊìæ
+        for (int i = rowNumber; i > 0; i--)
+        {
                 
-                if (csvData[i][6].Length != 0 && !hasExcuted_BGM)
+            if (csvData[i][6].Length != 0)
+            {
+                if (csvData[rowNumber][6] == "stop")
+                {
+                    StopBGM();
+                }
+                else
                 {
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
                     PlayBGM(clipBGM);
-                    hasExcuted_BGM = true;
-                    break;
-                }
+                }  
+                break;
             }
         }
         
@@ -557,6 +551,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatusÇçXêVÇ∑ÇÈÇ±Ç
     }
     public void StopBGM()
     {
-        audioSourceBGM.Stop();
+        SimpleAudioManager_BGM.instance.StopBGM();
     }
 }
