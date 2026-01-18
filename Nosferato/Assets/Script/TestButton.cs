@@ -11,8 +11,10 @@ public class TestButton : MonoBehaviour
     bool IsDelete=false;
     public void OnClick()
     {
-        if (!IsCommand)
+        if (!IsCommand&&!IsDelete)
         {
+            BiggestRowSaver.EnableIsCleared();
+            Debug.Log("全クリフラグ立てました");
             Debug.Log(SceneToLoad+"に遷移します");
             SceneManager.LoadScene(SceneToLoad);
         }
