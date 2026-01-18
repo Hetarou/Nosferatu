@@ -23,5 +23,46 @@ public class SaveDataInitializer : MonoBehaviour
         {
             Debug.Log("PlayerUserDataÇ™ë∂ç›ÇµÇ‹ÇπÇÒ");
         }
+
+        //ScreenModeÇÃîΩâf
+        ApplyScreenMode();
+    }
+
+    private void ApplyScreenMode()
+    {
+        if (PublicStaticStatus.ScreenMode == 0)
+        {
+            SetWindowed();
+        }
+        else if (PublicStaticStatus.ScreenMode == 1)
+        {
+            SetFullscreen();
+        }
+        else if (PublicStaticStatus.ScreenMode == 2)
+        {
+            SetBorderless();
+        }
+    }
+    public void SetWindowed()
+    {
+        Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
+    }
+
+    public void SetFullscreen()
+    {
+        Screen.SetResolution(
+            Screen.currentResolution.width,
+            Screen.currentResolution.height,
+            FullScreenMode.ExclusiveFullScreen
+        );
+    }
+
+    public void SetBorderless()
+    {
+        Screen.SetResolution(
+            Screen.currentResolution.width,
+            Screen.currentResolution.height,
+            FullScreenMode.FullScreenWindow
+        );
     }
 }
