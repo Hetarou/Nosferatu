@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ExitButton : MonoBehaviour
+public class ExitButton : MonoBehaviour, IPointerEnterHandler
 {
+    [SerializeField]
+    AudioClip audioClip0;
     public void OnClick()
     {
         Debug.Log("ゲーム終了");
@@ -13,5 +16,9 @@ public class ExitButton : MonoBehaviour
             // ビルド版ならアプリケーションを終了
             Application.Quit();
 #endif
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SimpleAudioManager_SE.instance.PlaySE(audioClip0);
     }
 }

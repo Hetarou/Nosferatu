@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ConfigScene
-  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1136121481
 GameObject:
@@ -2454,7 +2454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: LoadScene
-  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1210825234
 MonoBehaviour:
@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: LoadScene
-  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1356068617
 GameObject:
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ExtraScene
-  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1485852073
 GameObject:
@@ -3152,7 +3152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneToLoad: ConfigScene
-  audioClip0: {fileID: 8300000, guid: ffcd0aba1a386ed4da3d9c184437987e, type: 3}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1485852076
 MonoBehaviour:
@@ -3472,6 +3472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9044ce03d11ae64386cdc680e9fff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip0: {fileID: 8300000, guid: 862ef42e463f301468aa5cbf4f2d6137, type: 3}
 --- !u!1 &1643485079
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,6 +3524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9044ce03d11ae64386cdc680e9fff50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip0: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!114 &1643485082
 MonoBehaviour:
   m_ObjectHideFlags: 0
