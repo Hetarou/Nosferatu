@@ -100,7 +100,7 @@ public static class TMProRubyUtil
 				builder.Append($"{kanji}<space={space:F2}em>{StartTag}{ruby}{EndTag}");
 
 				// 後ろに付ける空白
-				space = kL2 > rL ? (kL2 - rL) * 0.25f : 0f;
+				space = kL2 > rL ? (kL2 - rL) * 0.25f : 0;
 				if (space < 0 || space > 0)
 				{
 					builder.Append($"<space={space:F2}em>");

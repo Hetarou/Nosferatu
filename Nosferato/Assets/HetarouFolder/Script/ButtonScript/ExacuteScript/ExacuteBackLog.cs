@@ -18,6 +18,7 @@ public class ExacuteBackLog : ButtonScript
 
     public override void ExecuteCustomLogic()
     {
+        PublicStaticStatus.IsEnter = false;
         backLog.SetActive(true);
         GameMode.ModeManager("BackLog");
     }

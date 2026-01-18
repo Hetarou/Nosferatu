@@ -1588,6 +1588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameLaunchar: {fileID: 574512818}
+  audioClip0: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  audioClip1: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1749429375
 GameObject:
   m_ObjectHideFlags: 0

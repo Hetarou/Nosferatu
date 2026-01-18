@@ -8,11 +8,15 @@ public class ExacuteTitle : ButtonScript
     
     public override void ExecuteCustomLogic()
     {
-            backTitle.SetActive(true);
+        PublicStaticStatus.IsEnter = false;
+
+        BackTitleDirector.Instance.InitializeMenu();
+
+        backTitle.SetActive(true);
 
             for (int i = 0; i < objList.Count; i++)
             {
                 objList[i].SetActive(false);
             }
-        }
+    }
 }

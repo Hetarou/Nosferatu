@@ -22,6 +22,8 @@ public class ExacuteSkip : ButtonScript
 
     [SerializeField] private TextMeshProUGUI backLogText;
 
+    [SerializeField] private ExacuteAuto ExacuteAuto;
+
 
     // [追加] Awakeで元の速度を保存
     void Awake()
@@ -69,8 +71,8 @@ public class ExacuteSkip : ButtonScript
     /// </summary>
     public override void ExecuteCustomLogic()
     {
-        if (GameMode.modeSkip)
-        {
+        //if (GameMode.modeSkip)
+        //{
             isSkipping = !isSkipping;
 
             // [修正] GameMode.ModeManager の呼び出し位置
@@ -86,11 +88,11 @@ public class ExacuteSkip : ButtonScript
                 Debug.Log("Skip STOP requested by user.");
                 StopSkip();
             }
-        }
-        else
-        {
-            Debug.Log("Skipできません！");
-        }
+        //}
+        //else
+        //{
+            //Debug.Log("Skipできません！");
+        //}
     }
 
     /// <summary>
@@ -148,7 +150,7 @@ public class ExacuteSkip : ButtonScript
 
         // 3. 状態をリセット
         // (StopSkipが呼ばれたら、理由に関わらず「非スキップ状態」にする)
-        GameMode.ModeManager("Reading");
+        ExacuteAuto.StopCoroutine();
         isSkipping = false;
     }
 
@@ -193,6 +195,7 @@ public class ExacuteSkip : ButtonScript
             // 1フレームに1行だと速すぎる場合は、少しだけ待つ
             yield return null;
         }*/
+        yield return new WaitUntil(() => !displayer.isTyping);
 
         displayer.rowNumber = nextTarget;
 

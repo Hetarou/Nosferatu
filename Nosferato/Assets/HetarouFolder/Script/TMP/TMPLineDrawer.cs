@@ -129,7 +129,7 @@ public class TMPLineDrawer : MonoBehaviour
                 // 4. 座標を適用
                 // X座標は 0 (Contentの中央) にするか、元々のズレを維持するか選べますが
                 // とりあえず Y座標 はこれで完璧に合います。
-                line.anchoredPosition = new Vector2(0, localPosInContent.y + heightAjust);
+                line.anchoredPosition = new Vector2(0, localPosInContent.y + heightAjust+2.5f);
             }
         }
     }

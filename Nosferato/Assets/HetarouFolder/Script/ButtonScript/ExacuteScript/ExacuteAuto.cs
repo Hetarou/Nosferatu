@@ -86,9 +86,6 @@ public class ExacuteAuto : ButtonScript
             }
             else
             {
-                for (int i = 0; i < autoImages.Count; i++)
-                     autoImages[i].sprite = normalAutoSprite[i];
-
                 // ’âŽ~
                 if (autoCoroutine != null)
                 {
@@ -128,9 +125,19 @@ public class ExacuteAuto : ButtonScript
 
     public void StopCoroutine()
     {
+        for (int i = 0; i < autoImages.Count; i++)
+        {
+            autoImages[i].sprite = normalAutoSprite[i];
+        }
+
+        isAuto = !isAuto;
         GameMode.ModeManager("Reading");
-        StopCoroutine(autoCoroutine);
-        autoCoroutine = null;
+
+        if (autoCoroutine != null)
+        {
+            StopCoroutine(autoCoroutine);
+            autoCoroutine = null;
+        }
     }
 
 }

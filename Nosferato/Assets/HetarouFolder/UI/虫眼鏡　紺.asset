@@ -90,9 +90,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 1143
       m_Height: 968
-      m_HorizontalBearingX: -1300
-      m_HorizontalBearingY: 450
-      m_HorizontalAdvance: -6
+      m_HorizontalBearingX: -1400
+      m_HorizontalBearingY: 900
+      m_HorizontalAdvance: 110
     m_GlyphRect:
       m_X: 0
       m_Y: 0

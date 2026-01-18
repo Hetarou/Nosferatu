@@ -34,7 +34,6 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
         // eventData.button を使えば、左クリックか右クリックかも判定できます
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            PublicStaticStatus.IsEnter = false;
             Debug.Log(thisFunction + " がクリックされました！");
             transform.localScale = new(1.0f, 1.0f, 1.0f);
 
@@ -46,7 +45,7 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
 
     protected virtual IEnumerator PerformPostClickAction()
     {
-        if (clikSESource != null && clikSEClip != null)
+        if (clikSEClip != null)
         {
             SimpleAudioManager_SE.instance.PlaySE(clikSEClip);
 

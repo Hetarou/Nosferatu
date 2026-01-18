@@ -705,7 +705,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   Menu: {fileID: 1011474991}
   isMenu: 1
@@ -1481,7 +1481,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 0}
+  - {fileID: 2010032105}
+  - {fileID: 1011474991}
+  Menu_Group1: {fileID: 930258584}
+  Menu_Group2: {fileID: 718900133}
+  Menu_backGround: {fileID: 1809626960}
   textDisplayerRuby: {fileID: 898195126}
 --- !u!4 &203341237
 Transform:
@@ -1959,6 +1963,7 @@ GameObject:
   - component: {fileID: 311957139}
   - component: {fileID: 311957138}
   - component: {fileID: 311957140}
+  - component: {fileID: 311957141}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1983,7 +1988,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 20.251, y: 0}
-  m_SizeDelta: {x: -40.5023, y: 0}
+  m_SizeDelta: {x: -20.251, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &311957138
 MonoBehaviour:
@@ -2014,7 +2019,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2073,7 +2078,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &311957139
@@ -2098,6 +2103,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &311957141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311957136}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 50
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 50
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &317960919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,6 +2387,7 @@ GameObject:
   - component: {fileID: 353693193}
   - component: {fileID: 353693192}
   - component: {fileID: 353693194}
+  - component: {fileID: 353693195}
   m_Layer: 5
   m_Name: NoUI
   m_TagString: Untagged
@@ -2433,14 +2465,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: isObj
+  scaleRate: 1.1
+  clikSESource: {fileID: 1649158781}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 0}
+  - {fileID: 2010032105}
   - {fileID: 1008131627}
-  - {fileID: 898195118}
-  mouseOversprite: {fileID: -5020664553588423779, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
+  - {fileID: 1011474991}
   mouseOutsprite: {fileID: 8494218949588162087, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
   thisImage: {fileID: 353693192}
+--- !u!114 &353693195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353693190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4227d3e7f78444aa5c263ba8ea57a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseOversprite: {fileID: -5020664553588423779, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
+  mouseOutsprite: {fileID: 8494218949588162087, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
 --- !u!1 &359413659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,7 +2840,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &381819497
 GameObject:
@@ -3759,8 +3808,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48.290833, y: -52}
-  m_SizeDelta: {x: 931.9861, y: 192}
+  m_AnchoredPosition: {x: -40, y: -30.9954}
+  m_SizeDelta: {x: 931.9861, y: 169.9907}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &587840747
 MonoBehaviour:
@@ -4422,7 +4471,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   Menu: {fileID: 1011474991}
   isMenu: 0
@@ -5081,7 +5130,7 @@ MonoBehaviour:
   thisFunction: BackLog
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   backLog: {fileID: 1752874395}
   GameMode: {fileID: 1892221644}
@@ -6130,8 +6179,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -932.00006, y: 96}
-  m_SizeDelta: {x: 932.0001, y: 190.0545}
+  m_AnchoredPosition: {x: -931.99, y: 84.995}
+  m_SizeDelta: {x: 932.0001, y: 169.99}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1008131629
 MonoBehaviour:
@@ -8599,7 +8648,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1226749960
 GameObject:
@@ -9768,10 +9817,10 @@ RectTransform:
   - {fileID: 311957137}
   m_Father: {fileID: 873262074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -781, y: 337.35388}
+  m_SizeDelta: {x: 1545, y: 670.7224}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1426919894
 MonoBehaviour:
@@ -9950,6 +9999,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: Back
+  scaleRate: 1.1
+  clikSESource: {fileID: 1649158781}
+  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   exacutedObject: {fileID: 1752874395}
   gameMode: {fileID: 1892221644}
 --- !u!114 &1448922233
@@ -10248,7 +10301,7 @@ MonoBehaviour:
   thisFunction: 
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
 --- !u!1 &1501113982
 GameObject:
@@ -10471,9 +10524,8 @@ MonoBehaviour:
   thisFunction: TITLE
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1008131627}
+  - {fileID: 1011474991}
+  - {fileID: 2010032105}
 --- !u!114 &1528161989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10489,11 +10541,11 @@ MonoBehaviour:
   thisFunction: TITLE
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 0}
+  - {fileID: 1011474991}
   - {fileID: 1008131627}
 --- !u!1 &1548340548
 GameObject:
@@ -11998,6 +12050,7 @@ GameObject:
   - component: {fileID: 1789159368}
   - component: {fileID: 1789159367}
   - component: {fileID: 1789159369}
+  - component: {fileID: 1789159370}
   m_Layer: 5
   m_Name: YesUI
   m_TagString: Untagged
@@ -12075,10 +12128,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisFunction: LoadToTitle
+  scaleRate: 1.1
+  clikSESource: {fileID: 1649158781}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
+  mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   SceneToLoad: TitleScene
-  mouseOversprite: {fileID: 5497559905251093835, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
   mouseOutsprite: {fileID: -7545805223035890800, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
   thisImage: {fileID: 1789159367}
+--- !u!114 &1789159370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789159365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4227d3e7f78444aa5c263ba8ea57a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseOversprite: {fileID: 5497559905251093835, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
+  mouseOutsprite: {fileID: -7545805223035890800, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
 --- !u!1 &1799450700
 GameObject:
   m_ObjectHideFlags: 0
@@ -12337,7 +12407,7 @@ MonoBehaviour:
   thisFunction: AUTO
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   autoImages:
   - {fileID: 1063049318}
@@ -12542,13 +12612,14 @@ MonoBehaviour:
   thisFunction: SKIP
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: ff8b678f6221b5040b4cac99c40dec3f, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   displayer: {fileID: 898195126}
   targetRows: 330000002d010000ae01000000020000
-  acceleration: 1000
+  acceleration: 1
   GameMode: {fileID: 1892221644}
   backLogText: {fileID: 311957138}
+  ExacuteAuto: {fileID: 1835580638}
 --- !u!1 &1892221643
 GameObject:
   m_ObjectHideFlags: 0

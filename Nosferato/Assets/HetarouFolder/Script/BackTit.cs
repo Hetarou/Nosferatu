@@ -9,8 +9,35 @@ public class BackTitleDirector : MonoBehaviour
     [SerializeField]
     List<GameObject> objList = new List<GameObject>();
 
+    [SerializeField] private GameObject Menu_Group1;
+    [SerializeField] private GameObject Menu_Group2;
+    [SerializeField] private GameObject Menu_backGround;
+
+    RectTransform rectTransform;
+
+    private Vector2 initialAnchoredPosition;
+    private float menuBackGroundHeight;
+
     [SerializeField] private TextDisplayerRuby textDisplayerRuby;
 
+    private CanvasGroup canvasGroup_Group1;
+
+    public static BackTitleDirector Instance;
+
+    private void Start()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+        canvasGroup_Group1 = Menu_Group1.GetComponentInChildren<CanvasGroup>();
+
+        rectTransform = Menu_backGround.GetComponent<RectTransform>();
+
+        initialAnchoredPosition = rectTransform.anchoredPosition;
+        menuBackGroundHeight = rectTransform.rect.height;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -25,5 +52,16 @@ public class BackTitleDirector : MonoBehaviour
                 objList[i].SetActive(false);
             }
         }
+    }
+
+    public void InitializeMenu()
+    {
+        Menu_Group1.SetActive(true);
+        Menu_Group2.SetActive(false);
+
+        canvasGroup_Group1.alpha = 1.0f;
+
+        rectTransform.anchoredPosition = initialAnchoredPosition;
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, menuBackGroundHeight);
     }
 }

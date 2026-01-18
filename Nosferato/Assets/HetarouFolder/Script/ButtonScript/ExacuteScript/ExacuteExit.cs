@@ -15,6 +15,7 @@ public class ExacuteExit : ButtonScript
     }
     public override void ExecuteCustomLogic()
     {
+        //PublicStaticStatus.IsEnter = false;
         menuAnim.SetBool("isMenuAnim", isMenu);
         menuAnim.SetBool("exIsMenuAnim", true);
     }
