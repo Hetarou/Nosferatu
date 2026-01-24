@@ -17,4 +17,5 @@ public class PublicStaticStatus : MonoBehaviour
     public static int BiggestRow = 0;
 
     public static bool IsEnter = false; //Menuのアイコンと重なっているか
+    public static bool IsClearedNow = false;//一度だけBGMを途切れさせない配慮
 }

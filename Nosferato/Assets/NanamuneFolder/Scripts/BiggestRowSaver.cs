@@ -13,6 +13,7 @@ public class BiggestRowSaver : MonoBehaviour
     }
     public static void EnableIsCleared()
     {
+        PublicStaticStatus.IsClearedNow = true;//ˆê“x‚¾‚¯BGM‚ğ“rØ‚ê‚³‚¹‚È‚¢”z—¶
         if (!PublicStaticStatus.IsCleared)
         {
             PublicStaticStatus.IsCleared = true;

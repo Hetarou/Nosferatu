@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SaveDataInitializer : MonoBehaviour//ゲーム開始時にセーブデータとConfigを反映する
 {
-    void Awake()
+    private void Awake()
     {
         if (PlayerPrefs.HasKey("UserData"))
         {
@@ -23,7 +23,10 @@ public class SaveDataInitializer : MonoBehaviour//ゲーム開始時にセーブデータとCo
         {
             Debug.Log("PlayerUserDataが存在しません");
         }
+    }
 
+    private void Start()
+    {
         //ScreenModeの反映
         ApplyScreenMode();
         //BGMとSEを反映する

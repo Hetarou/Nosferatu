@@ -31,34 +31,15 @@ public class ConfigRefrecter : MonoBehaviour
     void Start()
     {
         saveLoadSystem_Config.LoadStatus();
-        SetScreenMode();
+        //SetScreenMode();//ゲーム開始時とConfig変更時のみ使う
         SetFont();
         SetReadingSpeed();
-        /*RefrectVolume();
-        RefrectBGMVolume();
-        RefrectSEVolume();*///ゲーム開始時とConfig変更時のみ使う
+        //RefrectVolume();//ゲーム開始時とConfig変更時のみ使う
+        //RefrectBGMVolume();//ゲーム開始時とConfig変更時のみ使う
+        //RefrectSEVolume();//ゲーム開始時とConfig変更時のみ使う
     }
 
 
-    private void SetScreenMode()
-    {
-        switch (PublicStaticStatus.ScreenMode)
-        {
-            case 0:
-                screenMode = FullScreenMode.Windowed;
-                break;
-            case 1:
-                screenMode = FullScreenMode.ExclusiveFullScreen;
-                break;
-            case 2:
-                screenMode = FullScreenMode.FullScreenWindow;
-                break;
-        }
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, screenMode);
-
-        //UnityEditer状態では反映されないのでこのDebug.Logは残しておきます
-        Debug.Log("ディスプレイモードを切り替えました: " + screenMode);
-    }
 
     private void SetFont()
     {
@@ -97,7 +78,26 @@ public class ConfigRefrecter : MonoBehaviour
                 break;
         }
     }
+    /*
+    private void SetScreenMode()
+    {
+        switch (PublicStaticStatus.ScreenMode)
+        {
+            case 0:
+                screenMode = FullScreenMode.Windowed;
+                break;
+            case 1:
+                screenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 2:
+                screenMode = FullScreenMode.FullScreenWindow;
+                break;
+        }
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, screenMode);
 
+        //UnityEditer状態では反映されないのでこのDebug.Logは残しておきます
+        Debug.Log("ディスプレイモードを切り替えました: " + screenMode);
+    }
     private void RefrectVolume()
     {
         mainVolume = PublicStaticStatus.Volume;
@@ -112,5 +112,5 @@ public class ConfigRefrecter : MonoBehaviour
     private void RefrectSEVolume()
     {
         SimpleAudioManager_SE.instance.SetVolume(mainVolume, PublicStaticStatus.SEVolume  / 10);
-    }
+    }*/
 }

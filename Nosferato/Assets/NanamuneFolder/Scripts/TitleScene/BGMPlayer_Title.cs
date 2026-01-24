@@ -6,6 +6,13 @@ public class BGMPlayer_Title : MonoBehaviour
     AudioClip audioClip;
     void Start()
     {
-        SimpleAudioManager_BGM.instance.PlayBGM(audioClip);
+        if(!PublicStaticStatus.IsClearedNow)
+        {
+            SimpleAudioManager_BGM.instance.PlayBGM(audioClip);
+        }
+        else if(PublicStaticStatus.IsClearedNow)
+        {
+            return;
+        }
     }
 }
