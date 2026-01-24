@@ -4648,6 +4648,7 @@ MonoBehaviour:
   waitAnim: {fileID: 0}
   waitObj: {fileID: 0}
   canvasGroup: {fileID: 0}
+  clickScenarioSE: {fileID: 0}
   targetKeys: 
   gameMode: {fileID: 0}
   fadeManager: {fileID: 0}
@@ -5517,14 +5518,15 @@ MonoBehaviour:
   backgroudImage: {fileID: 968186590}
   characterImage: {fileID: 292385719}
   characterSprite: {fileID: 292385717}
-  messageIndex: 0
-  rowNumber: 650
+  messageIndex: 250
+  rowNumber: 610
   isTyping: 0
   audioSourceBGM: {fileID: 173648093}
   audioSourceSE: {fileID: 1649158781}
   waitAnim: {fileID: 0}
   waitObj: {fileID: 1211563370}
   canvasGroup: {fileID: 936562765}
+  clickScenarioSE: {fileID: 8300000, guid: b65310ab89603074aa222d362513e590, type: 3}
   targetKeys: 20000000430100000d000000
   gameMode: {fileID: 1892221644}
   fadeManager: {fileID: 0}
@@ -10098,7 +10100,7 @@ MonoBehaviour:
   thisFunction: Back
   scaleRate: 1.1
   clikSESource: {fileID: 1649158781}
-  clikSEClip: {fileID: 8300000, guid: 4cb223924aa94e242b354a91a6591285, type: 3}
+  clikSEClip: {fileID: 8300000, guid: 4aaa44fd6a04d284bb74b78597f911f4, type: 3}
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   exacutedObject: {fileID: 1752874395}
   gameMode: {fileID: 1892221644}
@@ -10432,6 +10434,7 @@ MonoBehaviour:
   saveLoadSystem_Config: {fileID: 786585596}
   targetTMP_MessageText: {fileID: 898195121}
   targetTMP_NameText: {fileID: 1205677430}
+  targetTMP_BackLog: {fileID: 311957138}
   targetTMP_ExecuteText: {fileID: 1541461901}
   newTMPFontAssets:
   - {fileID: 11400000, guid: 1413fd7289fb87b47929b2d3cd66a3aa, type: 2}
