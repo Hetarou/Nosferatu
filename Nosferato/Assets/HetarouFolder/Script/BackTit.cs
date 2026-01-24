@@ -6,23 +6,16 @@ public class BackTitleDirector : MonoBehaviour
 {
     [SerializeField]
     GameObject backTitle;
-    [SerializeField]
-    List<GameObject> objList = new List<GameObject>();
 
-    [SerializeField] private GameObject Menu_Group1;
-    [SerializeField] private GameObject Menu_Group2;
-    [SerializeField] private GameObject Menu_backGround;
-
-    RectTransform rectTransform;
-
-    private Vector2 initialAnchoredPosition;
-    private float menuBackGroundHeight;
+    [SerializeField] private GameObject Menu;
 
     [SerializeField] private TextDisplayerRuby textDisplayerRuby;
 
-    private CanvasGroup canvasGroup_Group1;
+    private CanvasGroup canvasGroup;
 
     public static BackTitleDirector Instance;
+
+    [SerializeField] GameMode gameMode;
 
     private void Start()
     {
@@ -31,12 +24,7 @@ public class BackTitleDirector : MonoBehaviour
             Instance = this;
         }
 
-        canvasGroup_Group1 = Menu_Group1.GetComponentInChildren<CanvasGroup>();
-
-        rectTransform = Menu_backGround.GetComponent<RectTransform>();
-
-        initialAnchoredPosition = rectTransform.anchoredPosition;
-        menuBackGroundHeight = rectTransform.rect.height;
+        canvasGroup = Menu.GetComponent<CanvasGroup>();
     }
     // Update is called once per frame
     void Update()
@@ -44,24 +32,26 @@ public class BackTitleDirector : MonoBehaviour
         int i;
         if (Input.GetMouseButtonDown(1))
         {
-            textDisplayerRuby.RequestHide();
-            //タイトルに戻りますかのオブジェクトのみを表示し、あとは非表示にする
-            backTitle.SetActive(true);
-            for (i = 0; i < objList.Count; i++)
-            {
-                objList[i].SetActive(false);
-            }
+            BackTitle();
         }
+    }
+
+    public void BackTitle()
+    {
+        textDisplayerRuby.RequestHide();
+        //タイトルに戻りますかのオブジェクトのみを表示し、あとは非表示にする
+        backTitle.SetActive(true);
+        InitializeMenu();
+        gameMode.ModeManager("BackLog");
     }
 
     public void InitializeMenu()
     {
-        Menu_Group1.SetActive(true);
-        Menu_Group2.SetActive(false);
+        canvasGroup.alpha = 0.0f;
+    }
 
-        canvasGroup_Group1.alpha = 1.0f;
-
-        rectTransform.anchoredPosition = initialAnchoredPosition;
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, menuBackGroundHeight);
+    public void ActivateMenu()
+    {
+        canvasGroup.alpha = 1.0f;
     }
 }

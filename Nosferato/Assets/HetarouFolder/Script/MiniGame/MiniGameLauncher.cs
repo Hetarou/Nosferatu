@@ -40,9 +40,4 @@ public class MiniGameLauncher : MonoBehaviour
             UnityEngine.Debug.LogError("‹N“®Ž¸”s: " + e.Message);
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G)) LaunchMiniGame();
-    }
 }

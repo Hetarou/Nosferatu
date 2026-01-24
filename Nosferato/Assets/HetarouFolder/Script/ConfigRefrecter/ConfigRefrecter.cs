@@ -13,6 +13,7 @@ public class ConfigRefrecter : MonoBehaviour
     //SetFontÇ≈égÇ§ïœêî
     [SerializeField] private TextMeshProUGUI targetTMP_MessageText;
     [SerializeField] private TextMeshProUGUI targetTMP_NameText;
+    [SerializeField] private TextMeshProUGUI targetTMP_BackLog;
     [SerializeField] private TextMeshProUGUI targetTMP_ExecuteText;
     [SerializeField] private List<TMP_FontAsset> newTMPFontAssets = new List<TMP_FontAsset>();
 
@@ -49,16 +50,19 @@ public class ConfigRefrecter : MonoBehaviour
                 targetTMP_MessageText.font = newTMPFontAssets[0];
                 targetTMP_NameText.font = newTMPFontAssets[0];
                 targetTMP_ExecuteText.font = newTMPFontAssets[0];
+                targetTMP_BackLog.font = newTMPFontAssets[0];
                 break;
             case 1:
                 targetTMP_MessageText.font = newTMPFontAssets[1];
                 targetTMP_NameText.font = newTMPFontAssets[1];
                 targetTMP_ExecuteText.font = newTMPFontAssets[1];
+                targetTMP_BackLog.font = newTMPFontAssets[1];
                 break;
             case 2:
                 targetTMP_MessageText.font = newTMPFontAssets[2];
                 targetTMP_NameText.font = newTMPFontAssets[2];
-                targetTMP_ExecuteText.font = newTMPFontAssets[2];
+                targetTMP_ExecuteText.font = newTMPFontAssets[2]; 
+                targetTMP_BackLog.font = newTMPFontAssets[2];
                 break;
         }
     }
@@ -68,13 +72,13 @@ public class ConfigRefrecter : MonoBehaviour
         switch (PublicStaticStatus.ReadingSpeed)
         {
             case 0:
-                textDisplayerRuby.charDelay = 0.1f;
-                break;
-            case 1:
                 textDisplayerRuby.charDelay = 0.05f;
                 break;
-            case 2:
+            case 1:
                 textDisplayerRuby.charDelay = 0.025f;
+                break;
+            case 2:
+                textDisplayerRuby.charDelay = 0.008f;
                 break;
         }
     }

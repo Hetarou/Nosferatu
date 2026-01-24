@@ -10,13 +10,6 @@ public class ExacuteTitle : ButtonScript
     {
         PublicStaticStatus.IsEnter = false;
 
-        BackTitleDirector.Instance.InitializeMenu();
-
-        backTitle.SetActive(true);
-
-            for (int i = 0; i < objList.Count; i++)
-            {
-                objList[i].SetActive(false);
-            }
+        BackTitleDirector.Instance.BackTitle();
     }
 }

@@ -60,7 +60,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     private static bool hasExcuted_BGM = false;
 
-    //[SerializeField] private int skiped
+    [SerializeField] private AudioClip clickScenarioSE;
 
     [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
@@ -68,6 +68,8 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
     [SerializeField] GameMode gameMode;
     [SerializeField] FadeManager fadeManager;
+
+    
 
     //[SerializeField] ButtonScript buttonScript;
     void Start()
@@ -77,7 +79,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        //rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -112,6 +114,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         {
             if (Input.GetKeyDown(key) && !PublicStaticStatus.IsEnter)
             {
+                SimpleAudioManager_SE.instance.PlaySE(clickScenarioSE);
                 // --- ’Ç‰ÁEC³‰ÓŠ ---
                 if (isTyping)
                 {

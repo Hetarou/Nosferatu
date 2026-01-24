@@ -9,8 +9,10 @@ public class ConfigRefrecter_Video : MonoBehaviour
     {
         videoPlayer = GetComponent<VideoPlayer>();
 
-        float volume = PublicStaticStatus.Volume;
-        videoPlayer.SetDirectAudioVolume(0, volume/10);
+        float MainVolume = PublicStaticStatus.Volume;
+        float BGMVolume = PublicStaticStatus.BGMVolume;
+
+        videoPlayer.SetDirectAudioVolume(0, MainVolume * BGMVolume * 1.2f / 100);
     }
 
     // Update is called once per frame
