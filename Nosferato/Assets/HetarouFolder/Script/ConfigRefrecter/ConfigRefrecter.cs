@@ -67,14 +67,17 @@ public class ConfigRefrecter : MonoBehaviour
             case 0:
                 targetTMP_MessageText.font = newTMPFontAssets[0];
                 targetTMP_NameText.font = newTMPFontAssets[0];
+                targetTMP_ExecuteText.font = newTMPFontAssets[0];
                 break;
             case 1:
                 targetTMP_MessageText.font = newTMPFontAssets[1];
                 targetTMP_NameText.font = newTMPFontAssets[1];
+                targetTMP_ExecuteText.font = newTMPFontAssets[1];
                 break;
             case 2:
                 targetTMP_MessageText.font = newTMPFontAssets[2];
                 targetTMP_NameText.font = newTMPFontAssets[2];
+                targetTMP_ExecuteText.font = newTMPFontAssets[2];
                 break;
         }
     }
