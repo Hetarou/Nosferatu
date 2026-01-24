@@ -10,7 +10,7 @@ public class VolumeButton_Config : MonoBehaviour
     AudioClip audioClip0;
     public void OnClick()
     {
-        SimpleAudioManager_SE.instance.PlaySE(audioClip0);
         transform.parent.GetComponent<VolumeButtons_Config>().GetClick(number);
+        SimpleAudioManager_SE.instance.PlaySE(audioClip0);
     }
 }

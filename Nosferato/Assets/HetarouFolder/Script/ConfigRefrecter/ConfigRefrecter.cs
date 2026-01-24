@@ -31,16 +31,16 @@ public class ConfigRefrecter : MonoBehaviour
     void Start()
     {
         saveLoadSystem_Config.LoadStatus();
-        SetGameMode();
+        SetScreenMode();
         SetFont();
         SetReadingSpeed();
-        SetVolume();
-        SetBGMVolume();
-        SetSEVolume();
+        /*RefrectVolume();
+        RefrectBGMVolume();
+        RefrectSEVolume();*///ゲーム開始時とConfig変更時のみ使う
     }
 
 
-    private void SetGameMode()
+    private void SetScreenMode()
     {
         switch (PublicStaticStatus.ScreenMode)
         {
@@ -98,18 +98,18 @@ public class ConfigRefrecter : MonoBehaviour
         }
     }
 
-    private void SetVolume()
+    private void RefrectVolume()
     {
         mainVolume = PublicStaticStatus.Volume;
         mainVolume /= 10;
     }
 
-    private void SetBGMVolume()
+    private void RefrectBGMVolume()
     {
         SimpleAudioManager_BGM.instance.SetVolume(mainVolume, PublicStaticStatus.BGMVolume / 10);
     }
 
-    private void SetSEVolume()
+    private void RefrectSEVolume()
     {
         SimpleAudioManager_SE.instance.SetVolume(mainVolume, PublicStaticStatus.SEVolume  / 10);
     }

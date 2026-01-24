@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SaveDataInitializer : MonoBehaviour
+public class SaveDataInitializer : MonoBehaviour//ゲーム開始時にセーブデータとConfigを反映する
 {
     void Awake()
     {
@@ -26,6 +26,9 @@ public class SaveDataInitializer : MonoBehaviour
 
         //ScreenModeの反映
         ApplyScreenMode();
+        //BGMとSEを反映する
+        RefrectBGMVolume();
+        RefrectSEVolume();
     }
 
     private void ApplyScreenMode()
@@ -64,5 +67,15 @@ public class SaveDataInitializer : MonoBehaviour
             Screen.currentResolution.height,
             FullScreenMode.FullScreenWindow
         );
+    }
+
+    private void RefrectBGMVolume()
+    {
+        SimpleAudioManager_BGM.instance.SetVolume(PublicStaticStatus.Volume, PublicStaticStatus.BGMVolume);
+    }
+
+    private void RefrectSEVolume()
+    {
+        SimpleAudioManager_SE.instance.SetVolume(PublicStaticStatus.Volume, PublicStaticStatus.SEVolume);
     }
 }

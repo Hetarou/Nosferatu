@@ -28,7 +28,7 @@ public class SimpleAudioManager_SE : MonoBehaviour
 
     public void SetVolume(float MainVolume, float SEVolume)
     {
-        float Volume = MainVolume * SEVolume /100;
+        float Volume = MainVolume * SEVolume /120;
 
         audioSource.volume = Volume;
     }

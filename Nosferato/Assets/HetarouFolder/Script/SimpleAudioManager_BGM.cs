@@ -33,7 +33,7 @@ public class SimpleAudioManager_BGM : MonoBehaviour
 
     public void SetVolume(float MainVolume, float BGMVolume)
     {
-        float Volume = MainVolume * BGMVolume / 100;
+        float Volume = MainVolume * BGMVolume / 80;
 
         audioSource.volume = Volume;
     }

@@ -29,5 +29,16 @@ public class VolumeButtons_Config : MonoBehaviour
         if (KindOfVolume == "Volume") { PublicStaticStatus.Volume = num; }
         if (KindOfVolume == "BGMVolume") { PublicStaticStatus.BGMVolume = num; }
         if (KindOfVolume == "SEVolume") { PublicStaticStatus.SEVolume = num; }
+        RefrectBGMVolume();
+        RefrectSEVolume();
+    }
+    private void RefrectBGMVolume()
+    {
+        SimpleAudioManager_BGM.instance.SetVolume(PublicStaticStatus.Volume, PublicStaticStatus.BGMVolume);
+    }
+
+    private void RefrectSEVolume()
+    {
+        SimpleAudioManager_SE.instance.SetVolume(PublicStaticStatus.Volume, PublicStaticStatus.SEVolume);
     }
 }
