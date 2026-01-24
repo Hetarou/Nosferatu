@@ -1480,13 +1480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backTitle: {fileID: 544882946}
-  objList:
-  - {fileID: 2010032105}
-  - {fileID: 1011474991}
-  Menu_Group1: {fileID: 930258584}
-  Menu_Group2: {fileID: 718900133}
-  Menu_backGround: {fileID: 1809626960}
+  Menu: {fileID: 1011474991}
   textDisplayerRuby: {fileID: 898195126}
+  gameMode: {fileID: 1892221644}
 --- !u!4 &203341237
 Transform:
   m_ObjectHideFlags: 0
@@ -2471,11 +2467,10 @@ MonoBehaviour:
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 2010032105}
-  - {fileID: 1008131627}
-  - {fileID: 1011474991}
+  - {fileID: 898195118}
   mouseOutsprite: {fileID: 8494218949588162087, guid: 818a0c18db822494ebca70fbbb75fba4, type: 3}
   thisImage: {fileID: 353693192}
+  gameMode: {fileID: 1892221644}
 --- !u!114 &353693195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4323,7 +4318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &718900134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4361,9 +4356,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718900133}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &724598673
 GameObject:
@@ -6243,6 +6238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1011474992}
   - component: {fileID: 1011474993}
+  - component: {fileID: 1011474994}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -6294,6 +6290,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &1011474994
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011474991}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1011589474
 GameObject:
   m_ObjectHideFlags: 0
@@ -10531,7 +10539,6 @@ GameObject:
   - component: {fileID: 1528161985}
   - component: {fileID: 1528161987}
   - component: {fileID: 1528161986}
-  - component: {fileID: 1528161988}
   - component: {fileID: 1528161989}
   m_Layer: 5
   m_Name: TITLEIcon
@@ -10599,23 +10606,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528161984}
   m_CullTransparentMesh: 1
---- !u!114 &1528161988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528161984}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32bfb5335a216074581af6b932cef348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisFunction: TITLE
-  backTitle: {fileID: 544882946}
-  objList:
-  - {fileID: 1011474991}
-  - {fileID: 2010032105}
 --- !u!114 &1528161989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10635,8 +10625,7 @@ MonoBehaviour:
   mousOverSEClip: {fileID: 8300000, guid: 4e1a1d261b30bfe469936f1c4a21d725, type: 3}
   backTitle: {fileID: 544882946}
   objList:
-  - {fileID: 1011474991}
-  - {fileID: 1008131627}
+  - {fileID: 2010032105}
 --- !u!1 &1541461899
 GameObject:
   m_ObjectHideFlags: 0

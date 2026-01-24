@@ -17,6 +17,8 @@ public class NoButtonScript : ButtonScript
     [SerializeField]
     private Image thisImage;
 
+    [SerializeField] GameMode gameMode;
+
     public override void ExecuteCustomLogic()
     {
         thisImage.sprite = mouseOutsprite;
@@ -27,5 +29,7 @@ public class NoButtonScript : ButtonScript
         {
             objList[i].SetActive(true);
         }
+        BackTitleDirector.Instance.ActivateMenu();
+        gameMode.ModeManager(gameMode.lastModeName);
     }
 }

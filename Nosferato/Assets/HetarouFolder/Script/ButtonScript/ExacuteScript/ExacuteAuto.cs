@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ExacuteAuto : ButtonScript
 {
-    public static bool isAuto = false;
+    private bool isAuto = false;
 
-    public static bool hasSkiped = false;
+    private bool hasSkiped = false;
 
     public List<Image> autoImages = new List<Image>();
 
