@@ -29,8 +29,8 @@ public class ExacuteSkip : ButtonScript
     void Awake()
     {
         // 起動時にオリジナルの速度を一度だけ保存する
-        originalCharDelay = displayer.charDelay;
-        originalAutoDelay = displayer.autoDelay;
+        //originalCharDelay = displayer.charDelay;
+        //originalAutoDelay = displayer.autoDelay;
     }
 
     // [修正] OnEnable のロジック
@@ -114,8 +114,8 @@ public class ExacuteSkip : ButtonScript
             // originalAutoDelay = displayer.autoDelay;
 
             // スキップ用の速度に設定 (Awakeで保存した値を使う)
-            displayer.charDelay = originalCharDelay / acceleration;
-            displayer.autoDelay = originalAutoDelay / acceleration;
+            //displayer.charDelay = originalCharDelay / acceleration;
+            //displayer.autoDelay = originalAutoDelay / acceleration;
 
             skipCoroutine = StartCoroutine(SkipLoop(nextTarget));
             Debug.Log("Skip START -> Row " + nextTarget);
@@ -143,8 +143,8 @@ public class ExacuteSkip : ButtonScript
             skipCoroutine = null; // ハンドルをクリア
 
             // 2. 速度を元に戻す
-            displayer.charDelay = originalCharDelay;
-            displayer.autoDelay = originalAutoDelay;
+            //displayer.charDelay = originalCharDelay;
+            //displayer.autoDelay = originalAutoDelay;
             Debug.Log("Speed restored.");
         }
 
