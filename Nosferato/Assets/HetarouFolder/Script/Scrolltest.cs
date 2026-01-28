@@ -8,13 +8,15 @@ public class Scrolltest : MonoBehaviour
     [SerializeField] private float currentContentHeight;
     bool a=false;
 
-    /*private void Start()
+    private void Start()
     {
-        firstContentHeight = scrollRect.content.rect.height;
-        Debug.Log(firstContentHeight);
-    }*/
+        //firstContentHeight = scrollRect.content.rect.height;
+        Debug.Log(scrollRect.content);
+    }
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+
         if (scrollRect == null || scrollRect.content == null) return;
         // 現在のピクセル座標を取得
         Vector2 pos = scrollRect.content.anchoredPosition;
@@ -24,6 +26,12 @@ public class Scrolltest : MonoBehaviour
         float contentHeight = scrollRect.content.rect.height;
         float viewportHeight = scrollRect.viewport.rect.height;
         float maxScrollY = Mathf.Max(0, contentHeight - viewportHeight);
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log(a);
+        }
+
 
         if (contentHeight >= currentContentHeight)
         {
@@ -37,6 +45,8 @@ public class Scrolltest : MonoBehaviour
 
             // 座標を適用
             scrollRect.content.anchoredPosition = pos;
+
+            a = true;
         }
         else
         {

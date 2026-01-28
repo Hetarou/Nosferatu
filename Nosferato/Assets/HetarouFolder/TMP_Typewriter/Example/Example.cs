@@ -16,7 +16,7 @@ namespace KoganeUnityLib.Example
 			{
                 m_typewriter.Play
             (
-                text: "このテキストは\n<r=かんじ>漢字</r>テキストに\nルビが<r=ふ>振</r>られます\naaaaaaaaaa",
+                text: "このテキストは\n<r=かんじ>漢字あああああ</r>テキストに\nルビが<r=ふ>振</r>られます\naaaaaaaaaa",
                 speed: m_speed,
                 onComplete: () => Debug.Log("完了"),
                 // ルビがある行とない行で高さが変動しないようにするにはtrue

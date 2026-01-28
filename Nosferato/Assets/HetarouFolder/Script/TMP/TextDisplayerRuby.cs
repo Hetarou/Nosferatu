@@ -68,8 +68,10 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
     [SerializeField] GameMode gameMode;
     [SerializeField] FadeManager fadeManager;
+    [SerializeField] private RichTagDiscriminator richTagDiscriminator;
 
-    
+    private int currentVisibleCharacters;
+    private Dictionary<int, int> jumpTable = new Dictionary<int, int>();
 
     //[SerializeField] ButtonScript buttonScript;
     void Start()
@@ -79,7 +81,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        //rowNumber = PublicStaticStatus.RowToSave;
+        rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -115,18 +117,16 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             if (Input.GetKeyDown(key) && !PublicStaticStatus.IsEnter)
             {
                 SimpleAudioManager_SE.instance.PlaySE(clickScenarioSE);
-                // --- ’Ç‰ÁEC³‰ÓŠ ---
                 if (isTyping)
                 {
-                    // ƒ^ƒCƒsƒ“ƒO’†‚ÉƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒXƒLƒbƒv
                     SkipTypewriter();
                 }
                 else if(gameMode.modeRead)
                 {
-                    // ƒ^ƒCƒsƒ“ƒO’†‚Å‚È‚¯‚ê‚ÎŸ‚Ìs‚Ö
                     waitObj.SetActive(false);
                     waitAnim.SetBool("isWaitAnim", false);
                     rowNumber++;
+
                     AnyDisplay();
                 }
                 // -----------------------
@@ -154,9 +154,15 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             messageText.text = "";
             nameText.text = "";
             lastThreadNumber = threadNumber;
-            
+            messageText.maxVisibleCharacters = 0;
+            currentVisibleCharacters = 0;
+
             //ƒZ[ƒu‚·‚é
             PublicStaticStatus.RowToSave = rowNumber;
+        }
+        else
+        {
+            messageText.maxVisibleCharacters = currentVisibleCharacters;
         }
 
         //–¼‘O
@@ -165,7 +171,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             nameText.text += csvData[rowNumber][1] + "\n";
         }
 
-        StartCoroutine(DisplayChar(csvData[rowNumber][2]));
+        StartTypewriter(csvData[rowNumber][2]);
 
         //—§‚¿ŠG
         if (csvData[rowNumber][3].Length != 0)
@@ -198,9 +204,56 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
     }
 
+    private void StartTypewriter(string message)
+    {
+        jumpTable = richTagDiscriminator.MakeJumpTable(message);
+        messageText.SetTextAndExpandRuby(messageText.text + message, fixedLineHeight: true, autoMarginTop: false);
+
+        //BackLog‚Ì“K‰
+        backLogText.text += richTagDiscriminator.ReplaceRuby(message);
+        backLogText.text += "\n";
+
+        if (message == "ED")
+        {
+            StartCoroutine(EndRoutine(rowNumber));
+        }
+        else if (message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
+        {
+            StartCoroutine(BackTitleRoutine());
+        }
+        else
+        {
+            StartCoroutine(DisplayChar());
+        }
+    }
+
+    private IEnumerator EndRoutine(int rowNumber)
+    {
+        PublicStaticStatus.RowToSave = rowNumber + 1;
+        BiggestRowSaver.EnableIsCleared();
+
+        // 1. ƒtƒF[ƒhŠJn‚µAI‚í‚é‚Ü‚Å‘Ò‹@
+        // DOFade().WaitForCompletion() ‚ğ yield return ‚·‚é‚Ì‚ªƒ|ƒCƒ“ƒg
+        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+
+        // 2. ƒtƒF[ƒh‚ªI‚í‚Á‚½‚çƒV[ƒ“‘JˆÚ
+        SceneManager.LoadScene("EDScene");
+    }
+
+    private IEnumerator BackTitleRoutine()
+    {
+        BiggestRowSaver.EnableIsCleared();
+        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+        SceneManager.LoadScene("TitleScene");
+        yield break;
+    }
+
     public void AnyDisplay_Start()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
     {
         isTyping = true;
+
+        currentVisibleCharacters = 0;
+        messageText.maxVisibleCharacters = currentVisibleCharacters;
 
         threadNumber = csvData[rowNumber][0];
 
@@ -210,7 +263,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             messageText.text = "";
             nameText.text = "";
             lastThreadNumber = threadNumber;
-
             //ƒZ[ƒu‚·‚é
             PublicStaticStatus.RowToSave = rowNumber;
         }
@@ -225,7 +277,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 continue;
             }
 
-            backLogText.text += csvData[currentIndex][2];
+            backLogText.text += richTagDiscriminator.ReplaceRuby(csvData[currentIndex][2]);
             backLogText.text += "\n";
         }
 
@@ -302,7 +354,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
         for (int i = rowNumber; i > 0; i--)
         {
-                
+
             if (csvData[i][6].Length != 0)
             {
                 if (csvData[rowNumber][6] == "stop")
@@ -313,117 +365,28 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 {
                     AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
                     PlayBGM(clipBGM);
-                }  
+                }
                 break;
             }
         }
-        
-        StartCoroutine(DisplayChar(csvData[rowNumber][2]));
+
+
+
+        StartTypewriter(csvData[rowNumber][2]);
     }
 
-    public IEnumerator DisplayChar(string message)
+    public IEnumerator DisplayChar()
     {
+        // ŠJn‚ÉƒŠƒZƒbƒg
         isTyping = true;
         isHidingRequested = false;
-        isSkipRequested = false; // ŠJn‚ÉƒŠƒZƒbƒg
+        isSkipRequested = false;
 
-        // 1. ƒoƒbƒNƒƒOˆ— (•ÏX‚È‚µ)
-        foreach (char c in message)
-        {
-            isAddWord = true;
-            if (csvData[rowNumber][7].Length != 0)
-            {
-                if (c == '_') WaitTmpRuby();
-                else if (c == '|') TmpIcon();
-            }
-            if (isAddWord) backLogText.text += c;
-        }
-        backLogText.text += "\n";
-        isWaitRuby = false;
-
-        // 2. •\¦ˆ—
-        bool isInsideRuby = false;
-        int hiddenCharCount = 0;
+        /*// 2. •\¦ˆ—
+        
         char[] chars = message.ToCharArray();
 
-        for (int i = 0; i < chars.Length; i++)
-        {
-            char c = chars[i];
-            isAddWord = true;
 
-            // ED •ªŠò
-            if (message == "ED")
-            {
-                PublicStaticStatus.RowToSave = rowNumber + 1;
-                BiggestRowSaver.EnableIsCleared();
-                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
-                SceneManager.LoadScene("EDScene");
-                yield break; // C³: break‚¾‚ÆŒã‚Ìˆ—‚ª‘–‚é‚½‚ßyield break
-            }
-            else if(message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
-            {
-                BiggestRowSaver.EnableIsCleared();
-                yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
-                SceneManager.LoadScene("TitleScene");
-                yield break;
-            }
-
-            // ƒJƒXƒ^ƒ€ƒ^ƒO”»’è
-            if (csvData[rowNumber][7].Length != 0)
-            {
-                if (c == '_')
-                {
-                    isAddWord = false;
-                    if (!isInsideRuby)
-                    {
-                        isInsideRuby = true;
-                        lastMessageText = messageText.text;
-                        hiddenCharCount = 0;
-                    }
-                    else
-                    {
-                        isInsideRuby = false;
-                        TmpRuby(csvData[rowNumber][7]);
-
-                        // ƒXƒLƒbƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚¾‚¯‘Ò‹@
-                        if (hiddenCharCount > 0 && !isSkipRequested)
-                        {
-                            yield return new WaitForSeconds(charDelay * hiddenCharCount);
-                        }
-                    }
-                    continue;
-                }
-                else if (c == '|')
-                {
-                    TmpIcon();
-                }
-            }
-
-            // ƒ‹ƒr“à‚ğƒJƒEƒ“ƒg
-            if (isInsideRuby)
-            {
-                isAddWord = false;
-                hiddenCharCount++;
-            }
-
-            // ’Êí•¶š‚Ì•\¦
-            if (isAddWord)
-            {
-                messageText.text += c;
-
-                // ƒXƒLƒbƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚È‚¢‚¾‚¯‘Ò‹@
-                if (!isSkipRequested)
-                {
-                    yield return new WaitForSeconds(charDelay);
-                }
-            }
-        }
-
-        // 3. I—¹ˆ—
-        messageText.text += "\n";
-
-        if (isHidingRequested)
-        {
             isTyping = false;
             gameObject.SetActive(false);
             isHidingRequested = false;
@@ -435,7 +398,33 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim.SetBool("isWaitAnim", true);
         isTyping = false;
         isSkipRequested = false; // I—¹‚Éƒtƒ‰ƒO‚ğ–ß‚·
-        BiggestRowSaver.SaveIfBiggestRow();
+        BiggestRowSaver.SaveIfBiggestRow();*/
+
+        messageText.ForceMeshUpdate();
+        int totalCharacters = messageText.textInfo.characterCount;
+
+        for (int i = currentVisibleCharacters; i <= totalCharacters; i++)
+        {
+            if (jumpTable.TryGetValue(i, out int endPos))
+            {
+                i = endPos;
+            }
+            else if (isSkipRequested)
+            {
+                i = totalCharacters;
+            }
+            messageText.maxVisibleCharacters = i;
+            yield return new WaitForSeconds(charDelay);
+        }
+
+        messageText.text += "\n";
+        currentVisibleCharacters = messageText.maxVisibleCharacters;
+
+        waitObj.SetActive(true);
+        waitAnim.SetBool("isWaitAnim", true);
+
+        isTyping = false;
+        isSkipRequested = false;
     }
 
     public void RequestHide()
