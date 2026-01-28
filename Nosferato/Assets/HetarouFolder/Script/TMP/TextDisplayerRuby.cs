@@ -425,6 +425,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         isTyping = false;
         isSkipRequested = false;
+        BiggestRowSaver.SaveIfBiggestRow();
     }
 
     public void RequestHide()
