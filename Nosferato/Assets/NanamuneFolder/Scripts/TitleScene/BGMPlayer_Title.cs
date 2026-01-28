@@ -12,6 +12,7 @@ public class BGMPlayer_Title : MonoBehaviour
         }
         else if(PublicStaticStatus.IsClearedNow)
         {
+            PublicStaticStatus.IsClearedNow =false;
             return;
         }
     }
