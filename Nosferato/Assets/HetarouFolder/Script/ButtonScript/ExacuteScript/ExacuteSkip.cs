@@ -54,8 +54,8 @@ public class ExacuteSkip : ButtonScript
             // スキップ中でなかった場合
             // 念のため、速度がオリジナルに戻っていることを確認
             // (非アクティブ中に外部から速度が変更された可能性に対処)
-            displayer.charDelay = originalCharDelay;
-            displayer.autoDelay = originalAutoDelay;
+            //displayer.charDelay = originalCharDelay;
+            //displayer.autoDelay = originalAutoDelay;
 
             if (skipCoroutine != null)
             {
