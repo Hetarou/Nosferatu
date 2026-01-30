@@ -21,10 +21,10 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHan
     private PannelExcuterSystem pannelExcuterSystem;
 
     //スクロール
-    [SerializeField]
-    private ScrollRect scrollRect;
-    [SerializeField]
-    private float speed = 0.2f; // スクロール速度
+    [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private float pixelsPerSecond = 50f; // 1秒間に進むピクセル数
+    [SerializeField] private float currentContentHeight;
+    bool a = false;
 
     //重なってる間Image
     [SerializeField]
@@ -45,6 +45,22 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHan
     AudioClip audioClip0;
 
     private Coroutine coroutine;
+
+    private void Start()
+    {
+        switch (PublicStaticStatus.ReadingSpeed)
+        {
+            case 0:
+                charDelay = 0.12f;
+                break;
+            case 1:
+                charDelay = 0.07f;
+                break;
+            case 2:
+                charDelay = 0.035f;
+                break;
+        }
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -71,10 +87,34 @@ public class PannelExcuter : MonoBehaviour, IPointerEnterHandler,IPointerExitHan
     void Update()
     {
         //画面スクロールする
-        Vector2 pos = scrollRect.normalizedPosition;// 現在の位置を取得
-        pos.y -= speed * Time.deltaTime;// Yを少しずつ減らす（0 = 下端, 1 = 上端）
-        pos.y = Mathf.Clamp01(pos.y);// 範囲を制限
-        scrollRect.normalizedPosition = pos;// 適用
+        if (scrollRect == null || scrollRect.content == null) return;
+        // 現在のピクセル座標を取得
+        Vector2 pos = scrollRect.content.anchoredPosition;
+        // Contentの高さからスクロール可能な最大値（下端）を計算
+        // ScrollRectの高さ(Viewport)を引いた分が、動かせる最大範囲
+        float contentHeight = scrollRect.content.rect.height;
+        float viewportHeight = scrollRect.viewport.rect.height;
+        float maxScrollY = Mathf.Max(0, contentHeight - viewportHeight);
+        if (contentHeight >= currentContentHeight)
+        {
+            if (pos.y >= maxScrollY) return;
+
+            // Y座標を加算して上に動かす（＝画面上は下にスクロールする）
+            pos.y += pixelsPerSecond * Time.deltaTime;
+
+            // 範囲を制限（0～最大値）
+            pos.y = Mathf.Clamp(pos.y, 0, maxScrollY);
+
+            // 座標を適用
+            scrollRect.content.anchoredPosition = pos;
+        }
+        else
+        {
+            pos.y = 0f;
+        }
+        // 座標を適用
+        scrollRect.content.anchoredPosition = pos;
+        currentContentHeight = scrollRect.content.rect.height;
     }
     private IEnumerator DisplayChar(string message)
     {

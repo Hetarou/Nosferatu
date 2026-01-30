@@ -448,7 +448,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -4599550757282396031, guid: 3c1a32482610d5e49a8f83a57b7e72a3, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: 4707413539588768629, guid: ad96f548eab4d75429fc2bf74404ec47, type: 3}
@@ -693,8 +694,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48.290833, y: -52}
-  m_SizeDelta: {x: 931.9861, y: 192}
+  m_AnchoredPosition: {x: -48.290833, y: -62.1107}
+  m_SizeDelta: {x: 931.9861, y: 172}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &570294771
 MonoBehaviour:
@@ -716,7 +717,7 @@ MonoBehaviour:
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 0}
+  m_Viewport: {fileID: 775399425}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
   m_HorizontalScrollbarVisibility: 2
@@ -1014,7 +1015,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: 7082447445600895254, guid: a14dd72ab6ef604418afc6709450bbd8, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: -1856909287477537825, guid: fa8e3135c7f2b9242b399c0e49e91cce, type: 3}
@@ -1687,7 +1689,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: 6391527163645569741, guid: 2c33a2dd973f2df4186ed0bbb0e84280, type: 3}
@@ -1806,7 +1809,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -3324150234084327039, guid: 7c7f20ace005e3b4fb8bc7dceba45fe2, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: -2671644829315121134, guid: 64fc60d28b49699409043009d53d79e8, type: 3}
@@ -1923,7 +1927,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: 2090507025962675450, guid: 2f32c26a3e1504b4f86b6ade83cda35e, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: 1665503421574304921, guid: 295089949863af24b9907ba560993792, type: 3}
@@ -1981,6 +1986,148 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867996374}
   m_CullTransparentMesh: 1
+--- !u!1 &877559875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 877559878}
+  - component: {fileID: 877559877}
+  - component: {fileID: 877559876}
+  m_Layer: 0
+  m_Name: AudioDirectorBGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &877559876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877559875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b913f7217520f5d42aec6585d2247b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &877559877
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877559875}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &877559878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877559875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 953.47015, y: 520.7336, z: -2.1229699}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &939623169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2353,7 +2500,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: 2131962632291084265, guid: 4ea2161f09800ca41bf1859e1741f881, type: 3}
@@ -2610,7 +2758,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: -5279653622251706997, guid: fd9eed87784a4cb4db38eff2fb3c765b, type: 3}
@@ -2668,6 +2817,148 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177002070}
   m_CullTransparentMesh: 1
+--- !u!1 &1191213419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1191213422}
+  - component: {fileID: 1191213421}
+  - component: {fileID: 1191213420}
+  m_Layer: 0
+  m_Name: AudioDirectorSE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1191213420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191213419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d508a8800c20243a45253cb3c05007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &1191213421
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191213419}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1191213422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191213419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 953.47015, y: 520.7336, z: -2.1229699}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238245185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +3077,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: -8765307117839258486, guid: aec01989641137a479a42f9f78f9d9e9, type: 3}
@@ -3499,7 +3791,8 @@ MonoBehaviour:
   TextComponent: {fileID: 735347298}
   pannelExcuterSystem: {fileID: 74390559}
   scrollRect: {fileID: 570294771}
-  speed: 0.2
+  pixelsPerSecond: 50
+  currentContentHeight: 0
   SNSSprite: {fileID: -9139393759054842586, guid: d183677904ccbb64b92d5d9c5516298b, type: 3}
   SNSTransparent: {fileID: -3209833726738011397, guid: 89875b0386e74c74da5e50dc4e6d56eb, type: 3}
   nameSpriteA: {fileID: 6879227530795893218, guid: 907f0f1d5925c0b46a60c57b8443f7fa, type: 3}
@@ -3639,3 +3932,5 @@ SceneRoots:
   - {fileID: 1619263676}
   - {fileID: 211155672}
   - {fileID: 1014112930}
+  - {fileID: 877559878}
+  - {fileID: 1191213422}
