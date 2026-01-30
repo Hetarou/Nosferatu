@@ -427,8 +427,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7bbb9bec88fd882468e9b71a36fc8d39, type: 2}
-  m_sharedMaterial: {fileID: 6256397938526802813, guid: 7bbb9bec88fd882468e9b71a36fc8d39, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 460f4c0958f9826479e5cda79163333f, type: 2}
+  m_sharedMaterial: {fileID: 5310642770468416106, guid: 460f4c0958f9826479e5cda79163333f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -517,8 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 115374134}
-  message_test: "\u305B\u3063\u304B\u304F\u3044\u3044\u6C17\u5206\u3060\u3063\u305F\u3068\u3044\u3046\u306E\u306B\u3001\u7121\u7C8B\u306A<Link=\"\u203B\u7121\u65AD\u3067\u5165\u308A\u8FBC\u3093\u3060\u8005\u306E\u3053\u3068\u3002\"><color=#007BFF><r=\u3061\u3093\u306B\u3085\u3046\u3057\u3083>\u95D6\u5165\u8005</r></color></Link><sprite
-    name=\\\"MagnifyingGlass_0\\\">\u3082\u3042\u3063\u305F\u3082\u306E\u3060\u3002"
+  message_test: "\u305B\u3063\u304B\u304F\u3044\u3044\u6C17\u5206\u3060\u3063\u305F\u3068\u3044\u3046\u306E\u306B\u3001\u7121\u7C8B\u306A<Link=\"\u203B\u7121\u65AD\u3067\u5165\u308A\u8FBC\u3093\u3060\u8005\u306E\u3053\u3068\u3002\"><color=#007BFF><r=\u3061\u3093\u306B\u3085\u3046\u3057\u3083>\u95D6\u5165\u8005</r></color></Link>\u3082\u3042\u3063\u305F\u3082\u306E\u3060\u3002"
   speed: 0.05
   jumpTableMaker: {fileID: 922727330}
 --- !u!1 &379687521

@@ -81,7 +81,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         waitAnim = waitObj.GetComponent<Animator>();
 
         //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
-        rowNumber = PublicStaticStatus.RowToSave;
+        //rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
         csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
@@ -206,7 +206,11 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     private void StartTypewriter(string message)
     {
-        jumpTable = richTagDiscriminator.MakeJumpTable(message);
+        jumpTable = richTagDiscriminator.MakeJumpTable(messageText.text + message);
+        foreach (var pair in jumpTable)
+        {
+            Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
+        }
         messageText.SetTextAndExpandRuby(messageText.text + message, fixedLineHeight: true, autoMarginTop: false);
 
         //BackLog‚Ì“K‰
