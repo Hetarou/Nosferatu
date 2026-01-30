@@ -72,13 +72,13 @@ public class ConfigRefrecter : MonoBehaviour
         switch (PublicStaticStatus.ReadingSpeed)
         {
             case 0:
-                textDisplayerRuby.charDelay = 0.05f;
+                textDisplayerRuby.charDelay = 0.08f;
                 break;
             case 1:
                 textDisplayerRuby.charDelay = 0.025f;
                 break;
             case 2:
-                textDisplayerRuby.charDelay = 0.008f;
+                textDisplayerRuby.charDelay = 0.004f;
                 break;
         }
     }
