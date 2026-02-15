@@ -1,20 +1,19 @@
-using DG.Tweening.Core.Easing;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚Æ‚à‚·‚é //SaveScene‚ÍPublicStaticStatus‚ğQÆ‚µ‚ÄƒZ[ƒu‚·‚é
 {
     private TextAsset csvFile; // CSVƒtƒ@ƒCƒ‹
     private List<string[]> csvData = new List<string[]>(); // CSVƒtƒ@ƒCƒ‹‚Ì’†g‚ğ“ü‚ê‚éƒŠƒXƒg
+    private float orizinFontSize = 30;
+    private static float currentFontSize = -1;
 
     private TMP_Text messageText;            // •¶Í‚ÌText
     [SerializeField]
@@ -50,7 +49,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     [SerializeField] private Animator waitAnim;
     [SerializeField] private GameObject waitObj;
-
     [SerializeField] private CanvasGroup canvasGroup;
 
     private bool isHidingRequested = false;
@@ -61,6 +59,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     private static bool hasExcuted_BGM = false;
 
     [SerializeField] private AudioClip clickScenarioSE;
+    [SerializeField] private string CSVDataName;
 
     [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
@@ -68,12 +67,14 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
     [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
     [SerializeField] GameMode gameMode;
     [SerializeField] FadeManager fadeManager;
+    
+    [SerializeField] private FadeTitleController fadeTitle;
     [SerializeField] private RichTagDiscriminator richTagDiscriminator;
 
     private int currentVisibleCharacters;
     private Dictionary<int, int> jumpTable = new Dictionary<int, int>();
 
-    //[SerializeField] ButtonScript buttonScript;
+    //MainScenario
     void Start()
     {
         //‚»‚ê‚¼‚ê‚Ì•K—v‚ÈComponent‚ğæ“¾
@@ -84,7 +85,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
-        csvFile = Resources.Load("MainScenario") as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
+        csvFile = Resources.Load(CSVDataName) as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
         StringReader reader = new StringReader(csvFile.text);         // TextAsset‚ğStringReader‚É•ÏŠ·
 
         while (reader.Peek() != -1)
@@ -95,7 +96,13 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         threadNumber = csvData[rowNumber][0];
         lastThreadNumber = threadNumber;
-        
+
+        if (currentFontSize != -1)
+        {
+            messageText.fontSize = currentFontSize;
+        }
+
+
         //backgroudImage = GetComponent<Image>();
 
         //StartCoroutine(DisplayChar(csvData[rowNumber][2]));@//•¶Í©‘Ì‚ÌƒfƒoƒbƒN‚ªI‚í‚é‚Ü‚ÅƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚¨‚«‚Ü‚·
@@ -193,15 +200,47 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
 
         //BGM
-        if (csvData[rowNumber][6].Length != 0)
+
+        if (csvData[rowNumber][6] == "stop")
         {
-            AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[rowNumber][6]);
-            SimpleAudioManager_BGM.instance.PlayBGM(clipBGM);
-        }
-        else if (csvData[rowNumber][6] == "stop")
-        {
+            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
             StopBGM();
         }
+        else if (csvData[rowNumber][6] == "VOLUME")
+        {
+            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
+            Debug.LogWarning("HelloWorld");
+            float volumeConst = float.Parse(csvData[rowNumber][7]);
+            SimpleAudioManager_BGM.instance.ChangeVolumeConst(volumeConst);
+        }
+        else if (csvData[rowNumber][6] == "FADEOUT")
+        {
+            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
+            StartCoroutine(SimpleAudioManager_BGM.instance.FadeOutCoroutine());
+        }
+        else if (csvData[rowNumber][6].Length != 0)
+        {
+            
+            
+                string bgmName = csvData[rowNumber][6].Trim(); // ‹ó”’œ‹
+                AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + bgmName);
+
+                if (clipBGM == null)
+                {
+                    Debug.LogError($"yƒGƒ‰[zBGM‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñI ƒpƒX: Assets/Resources/BGM/{bgmName}");
+                }
+                else
+                {
+                    Debug.Log($"y¬Œ÷z{bgmName} ‚ğ“Ç‚İ‚İ‚Ü‚µ‚½BÄ¶‚µ‚Ü‚·B");
+                    PlayBGM(clipBGM);
+                }
+            
+        }
+        else
+        {
+            Debug.Log("¨ ‚Ç‚±‚É‚à“ü‚è‚Ü‚¹‚ñ‚Å‚µ‚½i•¶š”‚ª0‚Å‚·j");
+        }
+
     }
 
     private void StartTypewriter(string message)
@@ -214,10 +253,9 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         messageText.SetTextAndExpandRuby(messageText.text + message, fixedLineHeight: true, autoMarginTop: false);
 
         //BackLog‚Ì“K‰
-        backLogText.text += richTagDiscriminator.ReplaceRuby(message);
-        backLogText.text += "\n";
 
-        if (message == "ED")
+
+        /*if (message == "ED")
         {
             StartCoroutine(EndRoutine(rowNumber));
         }
@@ -228,7 +266,65 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         else
         {
             StartCoroutine(DisplayChar());
+        }*/
+
+        switch (message)
+        {
+            case "DISPLAYTITLE":
+                StartCoroutine(FadeTitle());
+                break;
+
+            case "WAIT":
+                float waitTime = float.Parse(csvData[rowNumber][7]);
+                StartCoroutine(WaitCoroutine(waitTime));
+                break;
+
+            case "ED":
+                StartCoroutine(EndRoutine(rowNumber));
+                break;
+
+            case "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö":
+                StartCoroutine(BackTitleRoutine());
+                break;
+
+            case "FADEIN":
+                StartCoroutine(FadeInRoutine());
+                break;
+
+            case "FADEOUT":
+                FadeOut();
+                break;
+
+            case "SMALL":
+                ChangeFontSize(0.8f);
+                break;
+
+            case "NORMAL":
+                ChangeFontSize(1.0f);
+                break;
+
+            default:
+                backLogText.text += richTagDiscriminator.ReplaceRuby(message);
+                backLogText.text += "\n";
+                StartCoroutine(DisplayChar());
+                break;
         }
+    }
+
+    private IEnumerator FadeTitle() // void‚©‚ç•ÏX
+    {
+        rowNumber++;
+        // CoroutineBranch‚ªI‚í‚é‚Ü‚Å‚±‚±‚Å‘Ò‹@‚·‚é
+        yield return StartCoroutine(fadeTitle.CoroutineBranch(csvData[rowNumber - 1][7]));
+
+        AnyDisplay();
+    }
+
+    private IEnumerator WaitCoroutine(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        rowNumber++;
+        AnyDisplay();
     }
 
     private IEnumerator EndRoutine(int rowNumber)
@@ -250,6 +346,57 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
         SceneManager.LoadScene("TitleScene");
         yield break;
+    }
+
+    private IEnumerator FadeInRoutine()
+    {
+        Debug.LogWarning("FadeOut");
+        canvasGroup.alpha = 1f;
+        Debug.LogWarning(csvData[rowNumber][7]);
+        float fadeIn = float.Parse(csvData[rowNumber][7]);
+
+        yield return canvasGroup.DOFade(fadeIn, 0.7f).WaitForCompletion(); 
+        rowNumber++;
+
+        AnyDisplay();
+    }
+
+    private void FadeOut()
+    {
+        float FadeSpeed = 0.4f;
+
+        switch (csvData[rowNumber][7])
+        {
+            case "SLOW":
+                FadeSpeed = 0.7f;
+                break;
+            case "NORMAL":
+                FadeSpeed = 0.4f;
+                break;
+            case "FAST":
+                FadeSpeed = 0.1f;
+                break;
+
+        }
+
+        StartCoroutine(FadeOutRoutine(FadeSpeed));
+    }
+
+    private IEnumerator FadeOutRoutine(float speed)
+    {
+        Debug.LogWarning("FadeOut");
+        rowNumber++;
+        yield return canvasGroup.DOFade(1f, speed).WaitForCompletion();
+        AnyDisplay();
+    }
+
+    private void ChangeFontSize(float sizeConst)
+    {
+        messageText.fontSize = orizinFontSize * sizeConst;
+        currentFontSize = messageText.fontSize;
+
+        rowNumber++;
+        AnyDisplay();
     }
 
     public void AnyDisplay_Start()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
@@ -375,7 +522,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
 
 
-
+        if (csvData[rowNumber][2] == "") return;
         StartTypewriter(csvData[rowNumber][2]);
     }
 
@@ -406,6 +553,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
         messageText.ForceMeshUpdate();
         int totalCharacters = messageText.textInfo.characterCount;
+        float orizinCharDelay = charDelay;
 
         for (int i = currentVisibleCharacters; i <= totalCharacters; i++)
         {
@@ -418,11 +566,18 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 i = totalCharacters;
             }
             messageText.maxVisibleCharacters = i;
+
+            if(csvData[rowNumber][7] == "SLOW")
+            {
+                charDelay *= 1.8f; 
+            }
+
             yield return new WaitForSeconds(charDelay);
         }
 
         messageText.text += "\n";
         currentVisibleCharacters = messageText.maxVisibleCharacters;
+        charDelay = orizinCharDelay;
 
         waitObj.SetActive(true);
         waitAnim.SetBool("isWaitAnim", true);

@@ -4785,6 +4785,7 @@ MonoBehaviour:
   waitObj: {fileID: 0}
   canvasGroup: {fileID: 0}
   clickScenarioSE: {fileID: 0}
+  CSVDataName: 
   targetKeys: 
   gameMode: {fileID: 0}
   fadeManager: {fileID: 0}
@@ -10233,6 +10234,7 @@ MonoBehaviour:
   waitObj: {fileID: 1211563370}
   canvasGroup: {fileID: 936562765}
   clickScenarioSE: {fileID: 8300000, guid: b65310ab89603074aa222d362513e590, type: 3}
+  CSVDataName: MainScenario
   targetKeys: 20000000430100000d000000
   gameMode: {fileID: 1892221644}
   fadeManager: {fileID: 0}

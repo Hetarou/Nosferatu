@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SimpleAudioManager_BGM : MonoBehaviour
 {
     public static SimpleAudioManager_BGM instance;
     private AudioSource audioSource;
-
+    private float Volume;
+    private float VolumeConst = 1;
     void Awake()
     {
         if (instance == null)
@@ -17,6 +19,11 @@ public class SimpleAudioManager_BGM : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        SetVolume(PublicStaticStatus.Volume, PublicStaticStatus.BGMVolume);
     }
 
     public void PlayBGM(AudioClip clip)
@@ -33,8 +40,29 @@ public class SimpleAudioManager_BGM : MonoBehaviour
 
     public void SetVolume(float MainVolume, float BGMVolume)
     {
-        float Volume = MainVolume * BGMVolume / 80;
+        Volume = MainVolume * BGMVolume / 80;
 
-        audioSource.volume = Volume;
+        audioSource.volume = Volume * VolumeConst;
+    }
+
+    public IEnumerator FadeOutCoroutine()
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            // 時間の経過に合わせてボリュームを減らす
+            audioSource.volume -= startVolume * Time.deltaTime / 0.5f;
+            yield return null;
+        }
+
+        StopBGM();
+        audioSource.volume = startVolume; // 必要に応じてリセット
+    }
+
+    public void ChangeVolumeConst(float constNum)
+    {
+        VolumeConst = constNum;
+        audioSource.volume = Volume * VolumeConst;
     }
 }
