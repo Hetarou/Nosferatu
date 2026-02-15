@@ -14,6 +14,10 @@ public abstract class ButtonScript : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private AudioClip clikSEClip;
     [SerializeField] private AudioClip mousOverSEClip;
 
+    private void OnDisable()
+    {
+        PublicStaticStatus.IsEnter = false;
+    }
     // マウスカーソルとオブジェクトが重なっているかを調べる
     public void OnPointerEnter(PointerEventData eventData)
     {
