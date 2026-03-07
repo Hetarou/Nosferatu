@@ -10232,8 +10232,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 936562765}
   charDelay: 0.05
   autoDelay: 1.5
-  CSVDataName: "\u30CE\u30B9\u30C8\u30A5_\u30B7\u30CA\u30EA\u30AA - \u8FFD\u52A0\u30B7\u30CA\u30EA\u30AA\u7528\uFF1A
-    (1)"
+  CSVDataName: MainScenario
   targetKeys: 20000000430100000d000000
   clickScenarioSE: {fileID: 8300000, guid: b65310ab89603074aa222d362513e590, type: 3}
   gameMode: {fileID: 1892221644}
@@ -10242,8 +10241,8 @@ MonoBehaviour:
   richTagDiscriminator: {fileID: 1435108110}
   audioSourceBGM: {fileID: 173648093}
   audioSourceSE: {fileID: 1649158781}
-  rowNumber: 0
-  messageIndex: 250
+  rowNumber: 669
+  messageIndex: 0
   isTyping: 0
 --- !u!114 &1435108110
 MonoBehaviour:

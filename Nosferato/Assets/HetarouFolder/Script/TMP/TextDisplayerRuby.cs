@@ -175,6 +175,11 @@ public class TextDisplayerRuby : MonoBehaviour
         string[] currentRow = csvData[rowNumber];
         threadNumber = currentRow[COL_THREAD];
 
+        if (csvData[rowNumber - 1][COL_TEXT] == "SMALL")
+        {
+            ChangeFontSize(0.8f);
+        }
+
         UpdateThreadInfo();
         GenerateBacklog();
 
@@ -229,15 +234,26 @@ public class TextDisplayerRuby : MonoBehaviour
         for (int i = 50; i > 0; i--)
         {
             int currentIndex = rowNumber - i;
+            if (currentIndex < 0) continue;
 
-            // 範囲外、または演出コマンド(OP, ED, WAITなど)ならバックログに入れない
-            if (currentIndex < 0 || IsSystemCommand(csvData[currentIndex][COL_TEXT]))
+            Debug.Log($"currentIndex:{currentIndex}");
+            string param = csvData[currentIndex][COL_PARAM];
+            string text = csvData[currentIndex][COL_TEXT];
+
+            // デバッグログを出して、実際に何が読み込まれているか見る
+            Debug.Log($"Index:{currentIndex} / Param:{param} / Text:{text}");
+            if (param == "RESET")
             {
+                Debug.Log("RESETを検出！BackLogを空にします");
+                backLogText.text = "";
                 continue;
             }
 
-            backLogText.text += richTagDiscriminator.ReplaceRuby(csvData[currentIndex][COL_TEXT]);
-            backLogText.text += "\n";
+            if (IsSystemCommand(text)) continue;
+
+            backLogText.text += richTagDiscriminator.ReplaceRuby(text) + "\n";
+
+            
         }
     }
 
@@ -318,14 +334,17 @@ public class TextDisplayerRuby : MonoBehaviour
     {
         // ※元のコードにあった「rowNumberを使い続けてループが無限に再生されるバグ」を修正し、
         // 過去の最新のSEを1回だけ取得するように直しています。
-        for (int i = rowNumber; i > 0; i--)
+        /*for (int i = rowNumber; i > 0; i--)
         {
+            if (csvData[i][COL_PARAM] == "STOP") break;
             if (!string.IsNullOrEmpty(csvData[i][COL_SE]))
             {
                 PlaySEFromCSV(csvData[i][COL_SE]);
                 break;
             }
-        }
+        }*/
+
+        PlaySEFromCSV(csvData[rowNumber][COL_SE]);
     }
 
     private void RestoreBGM()
