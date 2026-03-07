@@ -8,93 +8,94 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚Æ‚à‚·‚é //SaveScene‚ÍPublicStaticStatus‚ğQÆ‚µ‚ÄƒZ[ƒu‚·‚é
+public class TextDisplayerRuby : MonoBehaviour
 {
-    private TextAsset csvFile; // CSVƒtƒ@ƒCƒ‹
-    private List<string[]> csvData = new List<string[]>(); // CSVƒtƒ@ƒCƒ‹‚Ì’†g‚ğ“ü‚ê‚éƒŠƒXƒg
-    private float orizinFontSize = 30;
-    private static float currentFontSize = -1;
+    #region •Ï”éŒ¾ (ƒCƒ“ƒXƒyƒNƒ^[‚Ì•R•t‚¯‚ªØ‚ê‚È‚¢‚æ‚¤A–¼‘O‚Í‚»‚Ì‚Ü‚Ü‚É‚µ‚Ä‚¢‚Ü‚·)
 
-    private TMP_Text messageText;            // •¶Í‚ÌText
-    [SerializeField]
-    private TMP_Text nameText;               // –¼‘O‚ÌText
+    [Header("UI Components")]
+    [SerializeField] private TMP_Text messageText;             // •¶Í‚ÌText
+    [SerializeField] private TMP_Text nameText;                // –¼‘O‚ÌText
+    [SerializeField] private TMP_Text backLogText;             // ƒoƒbƒNƒƒO—p‚ÌText
+    [SerializeField] private Image backgroudImage;
+    [SerializeField] private Image characterImage;
+    public GameObject characterSprite;
+    [SerializeField] private GameObject waitObj;
+    [SerializeField] private CanvasGroup canvasGroup;
 
-    private string lastMessageText;
-
-    [SerializeField]
-    private TMP_Text backLogText;            // ƒoƒbƒNƒƒO—p‚ÌText
+    [Header("Settings")]
     public float charDelay = 0.05f;          // •¶š‘—‚è‚Ì‘¬‚³
     public float autoDelay = 2f;
+    [SerializeField] private string CSVDataName;
+    [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>(); // –{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[
+    [SerializeField] private AudioClip clickScenarioSE;
 
-    [SerializeField]
-    private Image backgroudImage;
-    [SerializeField]
-    private Image characterImage;
-    public GameObject characterSprite;
-    bool isCharacterSprite = false;
-
-    public int messageIndex;
-
-    public int rowNumber;
-
-    string threadNumber;
-    string lastThreadNumber;
-
-    public bool isTyping = false;
-    private bool isAddWord = true;
-    private bool isWaitRuby = false;
+    [Header("System Instances")]
+    [SerializeField] private GameMode gameMode;
+    [SerializeField] private FadeManager fadeManager;
+    [SerializeField] private FadeTitleController fadeTitle;
+    [SerializeField] private RichTagDiscriminator richTagDiscriminator;
 
     public AudioSource audioSourceBGM;
     public AudioSource audioSourceSE;
 
-    [SerializeField] private Animator waitAnim;
-    [SerializeField] private GameObject waitObj;
-    [SerializeField] private CanvasGroup canvasGroup;
+    // “à•”ó‘ÔEƒf[ƒ^
+    private TextAsset csvFile;
+    private List<string[]> csvData = new List<string[]>();
+    private Dictionary<int, int> jumpTable = new Dictionary<int, int>();
+    private Animator waitAnim;
 
-    private bool isHidingRequested = false;
-
-    private bool isSkipRequested = false;
-
-
+    private float orizinFontSize = 30; // Œ³ƒR[ƒh‚Ì•Ï”–¼‚ğˆÛ
+    private static float currentFontSize = -1;
     private static bool hasExcuted_BGM = false;
 
-    [SerializeField] private AudioClip clickScenarioSE;
-    [SerializeField] private string CSVDataName;
-
-    [Header("–{•Ò‚ği‚ß‚é‚½‚ß‚ÌƒL[")]
-    [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>();
-
-    [Header("ƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾")]
-    [SerializeField] GameMode gameMode;
-    [SerializeField] FadeManager fadeManager;
-    
-    [SerializeField] private FadeTitleController fadeTitle;
-    [SerializeField] private RichTagDiscriminator richTagDiscriminator;
-
+    public int rowNumber;
+    public int messageIndex;
+    private string threadNumber;
+    private string lastThreadNumber;
+    private string lastMessageText;
     private int currentVisibleCharacters;
-    private Dictionary<int, int> jumpTable = new Dictionary<int, int>();
 
-    //MainScenario
+    public bool isTyping = false;
+    private bool isAddWord = true;
+    private bool isWaitRuby = false;
+    private bool isCharacterSprite = false;
+    private bool isHidingRequested = false;
+    private bool isSkipRequested = false;
+
+    // CSV‚Ì—ñ”Ô†‚ğ’è”‰»i‰½”Ô–Ú‚Ìƒf[ƒ^‚©•ª‚©‚è‚â‚·‚­‚·‚é‚½‚ßj
+    private const int COL_THREAD = 0;
+    private const int COL_NAME = 1;
+    private const int COL_TEXT = 2;
+    private const int COL_CHARA = 3;
+    private const int COL_BG = 4;
+    private const int COL_SE = 5;
+    private const int COL_BGM = 6;
+    private const int COL_PARAM = 7;
+
+    #endregion
+
+
+    #region Unity•W€ƒƒ\ƒbƒh (Start / Update)
+
     void Start()
     {
-        //‚»‚ê‚¼‚ê‚Ì•K—v‚ÈComponent‚ğæ“¾
         messageText = GetComponent<TMP_Text>();
         waitAnim = waitObj.GetComponent<Animator>();
 
-        //ƒf[ƒ^‚ğƒ[ƒh‚·‚é
+        // ƒf[ƒ^‚ğƒ[ƒh‚·‚é
         rowNumber = PublicStaticStatus.RowToSave;
         Debug.Log(rowNumber);
 
-        csvFile = Resources.Load(CSVDataName) as TextAsset;        // Resources‚É‚ ‚éCSVƒtƒ@ƒCƒ‹‚ğŠi”[
-        StringReader reader = new StringReader(csvFile.text);         // TextAsset‚ğStringReader‚É•ÏŠ·
+        csvFile = Resources.Load(CSVDataName) as TextAsset;
+        StringReader reader = new StringReader(csvFile.text);
 
         while (reader.Peek() != -1)
         {
-            string line = reader.ReadLine(); // 1s‚¸‚Â“Ç‚İ‚Ş
-            csvData.Add(line.Split(',')); // csvDataƒŠƒXƒg‚É’Ç‰Á‚·‚é
+            string line = reader.ReadLine();
+            csvData.Add(line.Split(','));
         }
 
-        threadNumber = csvData[rowNumber][0];
+        threadNumber = csvData[rowNumber][COL_THREAD];
         lastThreadNumber = threadNumber;
 
         if (currentFontSize != -1)
@@ -102,21 +103,14 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             messageText.fontSize = currentFontSize;
         }
 
-
-        //backgroudImage = GetComponent<Image>();
-
-        //StartCoroutine(DisplayChar(csvData[rowNumber][2]));@//•¶Í©‘Ì‚ÌƒfƒoƒbƒN‚ªI‚í‚é‚Ü‚ÅƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚¨‚«‚Ü‚·
         AnyDisplay_Start();
     }
-
-
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            //Debug.Log($"\ncurrentRowNumber:{PublicStaticStatus.RowToSave}\nCGsCount:{DisplayCGsCalculater.CalculateCGsToDisplay(PublicStaticStatus.RowToSave)}");
-            //canvasGroup.DOFade(1f, 2.0f);
+            // ƒfƒoƒbƒO—piŒ³ƒR[ƒh‚Ì‚Ü‚ÜƒRƒƒ“ƒgƒAƒEƒg‚ğˆÛj
         }
 
         foreach (var key in targetKeys)
@@ -124,24 +118,27 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             if (Input.GetKeyDown(key) && !PublicStaticStatus.IsEnter)
             {
                 SimpleAudioManager_SE.instance.PlaySE(clickScenarioSE);
+
                 if (isTyping)
                 {
                     SkipTypewriter();
                 }
-                else if(gameMode.modeRead)
+                else if (gameMode.modeRead)
                 {
                     waitObj.SetActive(false);
                     waitAnim.SetBool("isWaitAnim", false);
                     rowNumber++;
-
                     AnyDisplay();
                 }
-                // -----------------------
                 break;
             }
         }
-
     }
+
+    #endregion
+
+
+    #region ƒVƒiƒŠƒIisƒƒCƒ“ƒƒWƒbƒN
 
     // ƒXƒLƒbƒv—pƒƒ\ƒbƒh
     public void SkipTypewriter()
@@ -149,13 +146,55 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         isSkipRequested = true;
     }
 
-    public void AnyDisplay()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
+    // ’Êí‚Ìs‘—‚è‚Ìˆ—
+    public void AnyDisplay()
     {
         isTyping = true;
+        string[] currentRow = csvData[rowNumber];
+        threadNumber = currentRow[COL_THREAD];
 
-        threadNumber = csvData[rowNumber][0];
+        UpdateThreadInfo();
+        UpdateNameDisplay(currentRow);
 
-        //V‚µ‚¢ƒXƒŒƒbƒh‚È‚çƒeƒLƒXƒgXV//ƒZ[ƒu
+        StartTypewriter(currentRow[COL_TEXT]);
+
+        if (!string.IsNullOrEmpty(currentRow[COL_CHARA])) DisplayCharacter(rowNumber);
+        if (!string.IsNullOrEmpty(currentRow[COL_BG])) DisplayBackgroud(rowNumber);
+        if (!string.IsNullOrEmpty(currentRow[COL_SE])) PlaySEFromCSV(currentRow[COL_SE]);
+
+        ProcessBGMCommand(currentRow);
+    }
+
+    // ƒ[ƒh’¼ŒãEŠJn‚Ìˆ—i‚³‚©‚Ì‚Ú‚Á‚Äó‘Ô‚ğ•œŒ³‚·‚éj
+    public void AnyDisplay_Start()
+    {
+        isTyping = true;
+        currentVisibleCharacters = 0;
+        messageText.maxVisibleCharacters = currentVisibleCharacters;
+
+        string[] currentRow = csvData[rowNumber];
+        threadNumber = currentRow[COL_THREAD];
+
+        UpdateThreadInfo();
+        GenerateBacklog();
+
+        RestoreNameDisplay();
+        RestoreCharacterDisplay();
+        RestoreBackgroundDisplay();
+        RestoreSE();
+        RestoreBGM();
+
+        if (currentRow[COL_TEXT] == "") return;
+        StartTypewriter(currentRow[COL_TEXT]);
+    }
+
+    #endregion
+
+
+    #region •\¦Eó‘ÔXV‚Ì×•ª‰»ƒƒ\ƒbƒh
+
+    private void UpdateThreadInfo()
+    {
         if (threadNumber != lastThreadNumber)
         {
             messageText.text = "";
@@ -164,74 +203,198 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             messageText.maxVisibleCharacters = 0;
             currentVisibleCharacters = 0;
 
-            //ƒZ[ƒu‚·‚é
             PublicStaticStatus.RowToSave = rowNumber;
         }
         else
         {
             messageText.maxVisibleCharacters = currentVisibleCharacters;
         }
+    }
 
-        //–¼‘O
-        if (csvData[rowNumber][1] != null && (csvData[rowNumber][1] != csvData[rowNumber - 1][1] || csvData[rowNumber][0] != csvData[rowNumber - 1][0]))
+    private void UpdateNameDisplay(string[] currentRow)
+    {
+        // 1‚Â‘O‚Ìs‚©‚ç–¼‘O‚âƒXƒŒƒbƒh‚ª•Ï‚í‚Á‚½ê‡‚Ì‚İXV
+        if (currentRow[COL_NAME] != null &&
+           (rowNumber == 0 || currentRow[COL_NAME] != csvData[rowNumber - 1][COL_NAME] || currentRow[COL_THREAD] != csvData[rowNumber - 1][COL_THREAD]))
         {
-            nameText.text += csvData[rowNumber][1] + "\n";
+            nameText.text += currentRow[COL_NAME] + "\n";
         }
 
-        if (csvData[rowNumber][1] == "•é˜Z")
+        if (currentRow[COL_NAME] == "•é˜Z") DisplayMode();
+        else HideMode();
+    }
+
+    private void GenerateBacklog()
+    {
+        for (int i = 50; i > 0; i--)
         {
-            DisplayMode();
+            int currentIndex = rowNumber - i;
+
+            // ”ÍˆÍŠOA‚Ü‚½‚Í‰‰oƒRƒ}ƒ“ƒh(OP, ED, WAIT‚È‚Ç)‚È‚çƒoƒbƒNƒƒO‚É“ü‚ê‚È‚¢
+            if (currentIndex < 0 || IsSystemCommand(csvData[currentIndex][COL_TEXT]))
+            {
+                continue;
+            }
+
+            backLogText.text += richTagDiscriminator.ReplaceRuby(csvData[currentIndex][COL_TEXT]);
+            backLogText.text += "\n";
+        }
+    }
+
+    // ‘O‰ñ‚Ì‚²‘Š’k‰ÓŠFƒoƒbƒNƒƒO‚âƒeƒLƒXƒg•\¦‚©‚çœŠO‚·‚×‚«ƒRƒ}ƒ“ƒh‚ğ”»’è
+    private bool IsSystemCommand(string text)
+    {
+        return text == "OP" || text == "ED" || text == "WAIT" || text == "FADEOUT" ||
+               text == "FADEIN" || text == "DISPLAYTITLE" || text == "SMALL" ||
+               text == "NORMAL" || text == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö" || text == "";
+    }
+
+    #endregion
+
+
+    #region •œŒ³ˆ— (‚³‚©‚Ì‚Ú‚èæ“¾)
+
+    private void RestoreNameDisplay()
+    {
+        if (!string.IsNullOrEmpty(csvData[rowNumber][COL_NAME]) && nameText.text != nameText.text + "\n")
+        {
+            nameText.text = csvData[rowNumber][COL_NAME] + "\n";
         }
         else
         {
-            HideMode();
+            for (int i = rowNumber; i > 0; i--)
+            {
+                if (!string.IsNullOrEmpty(csvData[i][COL_NAME]))
+                {
+                    nameText.text = csvData[i][COL_NAME];
+                    break;
+                }
+            }
         }
+    }
 
-        StartTypewriter(csvData[rowNumber][2]);
-
-        //—§‚¿ŠG
-        if (csvData[rowNumber][3].Length != 0)
+    private void RestoreCharacterDisplay()
+    {
+        if (!string.IsNullOrEmpty(csvData[rowNumber][COL_CHARA]))
         {
             DisplayCharacter(rowNumber);
         }
+        else
+        {
+            for (int i = rowNumber; i > 0; i--)
+            {
+                if (!string.IsNullOrEmpty(csvData[i][COL_CHARA]))
+                {
+                    DisplayCharacter(i);
+                    break;
+                }
+            }
+        }
+    }
 
-        //”wŒi
-        if (csvData[rowNumber][4].Length != 0)
+    private void RestoreBackgroundDisplay()
+    {
+        Debug.Log("RestoreBackgroundDisplayŠÖ”“à‚É“ü‚è‚Ü‚µ‚½");
+        if (!string.IsNullOrEmpty(csvData[rowNumber][COL_BG]))
         {
             DisplayBackgroud(rowNumber);
         }
-
-        //SE
-        if (csvData[rowNumber][5].Length != 0)
+        else
         {
-            AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
-            PlaySE(clipSE);
+            for (int i = rowNumber; i > 0; i--)
+            {
+                if (!string.IsNullOrEmpty(csvData[i][COL_BG]))
+                {
+                    Debug.Log("’iŠK1");
+                    DisplayBackgroud(i);
+
+                    break;
+                }
+            }
         }
+    }
 
-        //BGM
-
-        if (csvData[rowNumber][6] == "stop")
+    private void RestoreSE()
+    {
+        // ¦Œ³‚ÌƒR[ƒh‚É‚ ‚Á‚½urowNumber‚ğg‚¢‘±‚¯‚Äƒ‹[ƒv‚ª–³ŒÀ‚ÉÄ¶‚³‚ê‚éƒoƒOv‚ğC³‚µA
+        // ‰ß‹‚ÌÅV‚ÌSE‚ğ1‰ñ‚¾‚¯æ“¾‚·‚é‚æ‚¤‚É’¼‚µ‚Ä‚¢‚Ü‚·B
+        for (int i = rowNumber; i > 0; i--)
         {
-            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
+            if (!string.IsNullOrEmpty(csvData[i][COL_SE]))
+            {
+                PlaySEFromCSV(csvData[i][COL_SE]);
+                break;
+            }
+        }
+    }
+
+    private void RestoreBGM()
+    {
+        for (int i = rowNumber; i > 0; i--)
+        {
+            // Trim() ‚ğg‚Á‚ÄA‘OŒã‚Ì—]Œv‚È‹ó”’‚â‰üs‚ğæ‚èœ‚­i’´d—vIj
+            string bgmCommand = csvData[i][COL_BGM].Trim();
+
+            if (!string.IsNullOrEmpty(bgmCommand))
+            {
+                // š csvData[rowNumber] ‚Å‚Í‚È‚­A‘k‚Á‚Ä‚¢‚éÅ’†‚Ì bgmCommand (‚Â‚Ü‚è csvData[i]) ‚ğ”»’è‚·‚é
+                if (bgmCommand == "stop")
+                {
+                    Debug.Log("StopComand‚ªÀs‚³‚ê‚Ü‚µ‚½I");
+                    StopBGM();
+                    break;
+                }
+                else if (bgmCommand == "VOLUME")
+                {
+                    Debug.Log("VOLUMEComand‚ªÀs‚³‚ê‚Ü‚µ‚½I");
+
+                    // š ‚±‚±‚à rowNumber ‚Å‚Í‚È‚­A‰ß‹‚Ìs i ‚Ìƒf[ƒ^‚ğ“n‚·
+                    string[] currentRow = csvData[i];
+                    ProcessBGMCommand(currentRow);
+
+                    // ¦‹È–¼‚ğŒ©‚Â‚¯‚é‚Ü‚Å‚³‚ç‚É‰ß‹‚É‘k‚é•K—v‚ª‚ ‚é‚½‚ßA‚±‚±‚Å‚Í break ‚µ‚È‚¢
+                }
+                else
+                {
+                    // ‚±‚±‚É‚Í‹È–¼i"BattleTheme"‚È‚Çj‚ª“ü‚Á‚Ä‚­‚é‘z’è
+                    Debug.Log($"EXCECUTEComand {bgmCommand} ‚ªÀs‚³‚ê‚Ü‚µ‚½I");
+                    AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + bgmCommand);
+                    PlayBGM(clipBGM);
+                    break; // ‹È‚ğÄ¶‚µ‚½‚ç‘k‚é‚Ì‚ğ‚â‚ß‚é
+                }
+            }
+        }
+    }
+
+    #endregion
+
+
+    #region ‰¹ºƒƒWƒbƒN (Audio)
+
+    private void ProcessBGMCommand(string[] currentRow)
+    {
+        string bgmCommand = currentRow[COL_BGM];
+
+        if (bgmCommand == "stop")
+        {
+            Debug.LogWarning($"Value: '{bgmCommand}', Length: {bgmCommand.Length}");
             StopBGM();
         }
-        else if (csvData[rowNumber][6] == "VOLUME")
+        else if (bgmCommand == "VOLUME")
         {
-            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
+            Debug.LogWarning($"Value: '{bgmCommand}', Length: {bgmCommand.Length}");
             Debug.LogWarning("HelloWorld");
-            float volumeConst = float.Parse(csvData[rowNumber][7]);
+            float volumeConst = float.Parse(currentRow[COL_PARAM]);
             SimpleAudioManager_BGM.instance.ChangeVolumeConst(volumeConst);
         }
-        else if (csvData[rowNumber][6] == "FADEOUT")
+        else if (bgmCommand == "FADEOUT")
         {
-            Debug.LogWarning($"Value: '{csvData[rowNumber][6]}', Length: {csvData[rowNumber][6].Length}");
+            Debug.LogWarning($"Value: '{bgmCommand}', Length: {bgmCommand.Length}");
             StartCoroutine(SimpleAudioManager_BGM.instance.FadeOutCoroutine());
         }
-        else if (csvData[rowNumber][6].Length != 0)
+        else if (!string.IsNullOrEmpty(bgmCommand))
         {
-
-
-            string bgmName = csvData[rowNumber][6].Trim(); // ‹ó”’œ‹
+            string bgmName = bgmCommand.Trim();
             AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + bgmName);
 
             if (clipBGM == null)
@@ -243,16 +406,38 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 Debug.Log($"y¬Œ÷z{bgmName} ‚ğ“Ç‚İ‚İ‚Ü‚µ‚½BÄ¶‚µ‚Ü‚·B");
                 PlayBGM(clipBGM);
             }
-
         }
         else
         {
             Debug.Log("¨ ‚Ç‚±‚É‚à“ü‚è‚Ü‚¹‚ñ‚Å‚µ‚½i•¶š”‚ª0‚Å‚·j");
         }
-
     }
 
+    private void PlaySEFromCSV(string seName)
+    {
+        AudioClip clipSE = Resources.Load<AudioClip>("SE/" + seName);
+        PlaySE(clipSE);
+    }
 
+    public void PlaySE(AudioClip SE)
+    {
+        SimpleAudioManager_SE.instance.PlaySE(SE);
+    }
+
+    public void PlayBGM(AudioClip BGM, bool loop = true)
+    {
+        SimpleAudioManager_BGM.instance.PlayBGM(BGM);
+    }
+
+    public void StopBGM()
+    {
+        SimpleAudioManager_BGM.instance.StopBGM();
+    }
+
+    #endregion
+
+
+    #region ƒeƒLƒXƒgE‰‰oƒRƒ}ƒ“ƒhƒƒWƒbƒN
 
     private void StartTypewriter(string message)
     {
@@ -261,23 +446,8 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         {
             Debug.Log($"Key: {pair.Key}, Value: {pair.Value}");
         }
+
         messageText.SetTextAndExpandRuby(messageText.text + message, fixedLineHeight: true, autoMarginTop: false);
-
-        //BackLog‚Ì“K‰
-
-
-        /*if (message == "ED")
-        {
-            StartCoroutine(EndRoutine(rowNumber));
-        }
-        else if (message == "ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö")
-        {
-            StartCoroutine(BackTitleRoutine());
-        }
-        else
-        {
-            StartCoroutine(DisplayChar());
-        }*/
 
         switch (message)
         {
@@ -286,7 +456,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 break;
 
             case "WAIT":
-                float waitTime = float.Parse(csvData[rowNumber][7]);
+                float waitTime = float.Parse(csvData[rowNumber][COL_PARAM]);
                 StartCoroutine(WaitCoroutine(waitTime));
                 break;
 
@@ -315,6 +485,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 break;
 
             default:
+                // ƒRƒ}ƒ“ƒh‚Å‚È‚¢’Êí‚ÌƒeƒLƒXƒg‚Ìê‡‚Ì‚İƒoƒbƒNƒƒO‚Ö’Ç‰Á
                 backLogText.text += richTagDiscriminator.ReplaceRuby(message);
                 backLogText.text += "\n";
                 StartCoroutine(DisplayChar());
@@ -322,254 +493,20 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
     }
 
-    private IEnumerator FadeTitle() // void‚©‚ç•ÏX
-    {
-        
-        // CoroutineBranch‚ªI‚í‚é‚Ü‚Å‚±‚±‚Å‘Ò‹@‚·‚é
-        yield return StartCoroutine(fadeTitle.CoroutineBranch(csvData[rowNumber][7]));
-        rowNumber++;
-        AnyDisplay();
-    }
-
-    private IEnumerator WaitCoroutine(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-        rowNumber++;
-        AnyDisplay();
-    }
-
-    private IEnumerator EndRoutine(int rowNumber)
-    {
-        PublicStaticStatus.RowToSave = rowNumber + 1;
-        BiggestRowSaver.EnableIsCleared();
-
-        // 1. ƒtƒF[ƒhŠJn‚µAI‚í‚é‚Ü‚Å‘Ò‹@
-        // DOFade().WaitForCompletion() ‚ğ yield return ‚·‚é‚Ì‚ªƒ|ƒCƒ“ƒg
-        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
-
-        // 2. ƒtƒF[ƒh‚ªI‚í‚Á‚½‚çƒV[ƒ“‘JˆÚ
-        SceneManager.LoadScene("EDScene");
-    }
-
-    private IEnumerator BackTitleRoutine()
-    {
-        BiggestRowSaver.EnableIsCleared();
-        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
-        SceneManager.LoadScene("TitleScene");
-        yield break;
-    }
-
-    private IEnumerator FadeInRoutine()
-    {
-        if (csvData[rowNumber][7] == "START")
-        {
-            yield return StartCoroutine(fadeTitle.StartTitleFadeInCoroutine());
-        }
-        else
-        {
-            Debug.LogWarning("FadeOut");
-            canvasGroup.alpha = 1f;
-            Debug.LogWarning(csvData[rowNumber][7]);
-            float fadeIn = float.Parse(csvData[rowNumber][7]);
-            yield return canvasGroup.DOFade(fadeIn, 0.7f).WaitForCompletion(); 
-        }
-            
-        rowNumber++;
-
-        AnyDisplay();
-    }
-
-    private void FadeOut()
-    {
-        float FadeSpeed = 0.4f;
-
-        switch (csvData[rowNumber][7])
-        {
-            case "SLOW":
-                FadeSpeed = 0.7f;
-                break;
-            case "NORMAL":
-                FadeSpeed = 0.4f;
-                break;
-            case "FAST":
-                FadeSpeed = 0.1f;
-                break;
-
-        }
-
-        StartCoroutine(FadeOutRoutine(FadeSpeed));
-    }
-
-    private IEnumerator FadeOutRoutine(float speed)
-    {
-        Debug.LogWarning("FadeOut");
-        rowNumber++;
-        yield return canvasGroup.DOFade(1f, speed).WaitForCompletion();
-        AnyDisplay();
-    }
-
-    private void ChangeFontSize(float sizeConst)
-    {
-        messageText.fontSize = orizinFontSize * sizeConst;
-        currentFontSize = messageText.fontSize;
-        rowNumber++;
-        AnyDisplay();
-    }
-
-    public void AnyDisplay_Start()//V‚µ‚¢ƒXƒŒƒbƒh‚Ì‚Æ‚«‚ÆAƒXƒŒƒbƒh‚Ì‘±‚«‚ğ“Ç‚Ş‚Æ‚«‚Å•ª‚¯‚é
-    {
-        isTyping = true;
-
-        currentVisibleCharacters = 0;
-        messageText.maxVisibleCharacters = currentVisibleCharacters;
-
-        threadNumber = csvData[rowNumber][0];
-
-        //V‚µ‚¢ƒXƒŒƒbƒh‚È‚çƒeƒLƒXƒgXV//ƒZ[ƒu
-        if (threadNumber != lastThreadNumber)
-        {
-            messageText.text = "";
-            nameText.text = "";
-            lastThreadNumber = threadNumber;
-            //ƒZ[ƒu‚·‚é
-            PublicStaticStatus.RowToSave = rowNumber;
-        }
-
-        //BackLog‚É’¼‹ß50s‚ğ•\¦‚³‚¹‚é
-        for (int i = 50; i > 0; i--)
-        {
-            int currentIndex = rowNumber - i;
-
-            if (currentIndex < 0 || csvData[currentIndex][2] == "OP" || csvData[currentIndex][2] == "ED")
-            {
-                continue;
-            }
-
-            backLogText.text += richTagDiscriminator.ReplaceRuby(csvData[currentIndex][2]);
-            backLogText.text += "\n";
-        }
-
-
-
-        //–¼‘O
-        if (csvData[rowNumber][1] != null && nameText.text != nameText.text + "\n")
-        {
-            nameText.text = csvData[rowNumber][1] + "\n";
-        }
-        else
-        {
-            //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
-            for ( int i=rowNumber; i>0; i--)
-            {
-                if (csvData[i][1].Length != 0)
-                {
-                    nameText.text = csvData[i][1];
-                    break;
-                }
-            }
-        }
-
-        
-
-        //—§‚¿ŠG
-        if (csvData[rowNumber][3].Length != 0)
-        {
-            DisplayCharacter(rowNumber);
-        }
-        else
-        {
-            //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
-            for (int i = rowNumber; i > 0; i--)
-            {
-                if (csvData[i][3].Length != 0)
-                {
-                    DisplayCharacter(i);
-                    break;
-                }
-            }
-        }
-
-        //”wŒi
-        if (csvData[rowNumber][4].Length != 0)
-        {   
-            DisplayBackgroud(rowNumber);
-        }
-        else
-        {
-            ;
-            //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
-            for (int i = rowNumber; i > 0; i--)
-            {
-                if (csvData[i][4].Length != 0)
-                {  
-                    DisplayBackgroud(i);
-                    break;
-                }
-            }
-        }
-
-        //SE
-        for (int i = rowNumber; i > 0; i--)
-        {
-            if (csvData[rowNumber][5].Length != 0)
-            {
-                AudioClip clipSE = Resources.Load<AudioClip>("SE/" + csvData[rowNumber][5]);
-                PlaySE(clipSE);
-            }
-        }
-
-        //‚³‚©‚Ì‚Ú‚Á‚Äæ“¾
-        for (int i = rowNumber; i > 0; i--)
-        {
-
-            if (csvData[i][6].Length != 0)
-            {
-                if (csvData[rowNumber][6] == "stop")
-                {
-                    StopBGM();
-                }
-                else
-                {
-                    AudioClip clipBGM = Resources.Load<AudioClip>("BGM/" + csvData[i][6]);
-                    PlayBGM(clipBGM);
-                }
-                break;
-            }
-        }
-
-
-        if (csvData[rowNumber][2] == "") return;
-        StartTypewriter(csvData[rowNumber][2]);
-    }
-
     public IEnumerator DisplayChar()
     {
-        // ŠJn‚ÉƒŠƒZƒbƒg
         isTyping = true;
         isHidingRequested = false;
         isSkipRequested = false;
 
-        /*// 2. •\¦ˆ—
-        
-        char[] chars = message.ToCharArray();
-
-
-            isTyping = false;
-            gameObject.SetActive(false);
-            isHidingRequested = false;
-            yield break;
-        }
-
-        // •¶š‘—‚èI—¹
-        waitObj.SetActive(true);
-        waitAnim.SetBool("isWaitAnim", true);
-        isTyping = false;
-        isSkipRequested = false; // I—¹‚Éƒtƒ‰ƒO‚ğ–ß‚·
-        BiggestRowSaver.SaveIfBiggestRow();*/
-
         messageText.ForceMeshUpdate();
         int totalCharacters = messageText.textInfo.characterCount;
-        float orizinCharDelay = charDelay;
+        float orizinCharDelay = charDelay; // •Ï”–¼ˆÛ
+
+        if (csvData[rowNumber][COL_PARAM] == "SLOW")
+        {
+            charDelay *= 1.8f;
+        }
 
         for (int i = currentVisibleCharacters; i <= totalCharacters; i++)
         {
@@ -582,11 +519,6 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
                 i = totalCharacters;
             }
             messageText.maxVisibleCharacters = i;
-
-            if(csvData[rowNumber][7] == "SLOW")
-            {
-                charDelay *= 1.8f; 
-            }
 
             yield return new WaitForSeconds(charDelay);
         }
@@ -603,18 +535,12 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         BiggestRowSaver.SaveIfBiggestRow();
     }
 
-    public void RequestHide()
+    private void ChangeFontSize(float sizeConst)
     {
-        isHidingRequested = true;
-
-        // ‚à‚µƒ^ƒCƒvƒ‰ƒCƒ^[’†‚Å‚È‚¯‚ê‚ÎA‚·‚®‚É”ñ•\¦‚É‚·‚é
-        if (!isTyping)
-        {
-            Debug.Log("ImmediateHide");
-            isHidingRequested = false;
-            gameObject.SetActive(false);
-        }
-        // (ƒ^ƒCƒvƒ‰ƒCƒ^[’†‚Ìê‡‚ÍADisplayChar ‚ÌI—¹ˆ—‚É”C‚¹‚é)
+        messageText.fontSize = orizinFontSize * sizeConst;
+        currentFontSize = messageText.fontSize;
+        rowNumber++;
+        AnyDisplay();
     }
 
     public void WaitTmpRuby()
@@ -626,17 +552,16 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         }
         else
         {
-            TmpRuby(csvData[rowNumber][7]);
+            TmpRuby(csvData[rowNumber][COL_PARAM]);
         }
     }
-    //«‘
+
     public void TmpIcon()
     {
         isAddWord = false;
         messageText.text += "<sprite name=\"MagnifyingGlass_0\">";
     }
 
-    //‚é‚Ñ
     public void TmpRuby(string addRubyText)
     {
         isAddWord = false;
@@ -644,9 +569,25 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         isWaitRuby = !isWaitRuby;
     }
 
+    public void RequestHide()
+    {
+        isHidingRequested = true;
+        if (!isTyping)
+        {
+            Debug.Log("ImmediateHide");
+            isHidingRequested = false;
+            gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
+
+
+    #region ƒrƒWƒ…ƒAƒ‹ƒƒWƒbƒN (—§‚¿ŠGE”wŒiEƒJƒ‰[)
+
     public void DisplayCharacter(int myRowNumber)
     {
-        Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[myRowNumber][3]);
+        Sprite sprite = Resources.Load<Sprite>("Character/" + csvData[myRowNumber][COL_CHARA]);
 
         if (sprite != null)
         {
@@ -657,7 +598,7 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
             }
             characterImage.sprite = sprite;
         }
-        else if (csvData[myRowNumber][3] == "‚È‚µ")
+        else if (csvData[myRowNumber][COL_CHARA] == "‚È‚µ")
         {
             isCharacterSprite = false;
             characterSprite.SetActive(false);
@@ -666,52 +607,46 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
 
     private void HideMode()
     {
-        // 128 / 255f à 0.5f ‚Å‚·B
-        // ˆø”‚Í (r, g, b, a) ‚È‚Ì‚ÅAƒAƒ‹ƒtƒ@’li1.0fj‚à–¾¦‚·‚é‚ÆŠmÀ‚Å‚·B
         characterImage.color = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     }
 
     private void DisplayMode()
     {
-        // 255 / 255f = 1.0f ‚Å‚·B
         characterImage.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        // ‚à‚µ‚­‚ÍŠÈŒ‰‚É
-        // characterImage.color = Color.white;
     }
 
     public void DisplayBackgroud(int myRowNumber)
     {
-        
-        if (csvData[myRowNumber][4] == "ƒJƒbƒg")
+        if (csvData[myRowNumber][COL_BG] == "DIM")
         {
-            ChangeBlack();
+            DimBackground();
         }
         else
         {
-            if(IsBlack())
+            if (csvData[myRowNumber][COL_BG] == "RETURN" || IsBlack())
             {
                 ChangeWhite();
             }
-            Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[myRowNumber][4]);
+            Sprite sprite = Resources.Load<Sprite>("Background/" + csvData[myRowNumber][COL_BG]);
             if (sprite != null)
             {
                 backgroudImage.sprite = sprite;
             }
             else
             {
-                Debug.LogError("w’è‚µ‚½"+ csvData[myRowNumber][4] + "‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+                Debug.LogError("w’è‚µ‚½" + csvData[myRowNumber][COL_BG] + "‚ÌƒXƒvƒ‰ƒCƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
             }
         }
     }
 
-    private void ChangeBlack()
+    private void DimBackground()
     {
-        backgroudImage.color = Color.black;
+        backgroudImage.color = new Color(0.7f, 0.7f, 0.7f, 1.0f);
     }
 
     private void ChangeWhite()
     {
-        backgroudImage.color = Color.white;
+        backgroudImage.color = new Color(1f, 1f, 1f, 1.0f);
     }
 
     private bool IsBlack()
@@ -719,17 +654,82 @@ public class TextDisplayerRuby : MonoBehaviour// PublicStaticStatus‚ğXV‚·‚é‚±‚
         return backgroudImage.color == Color.black;
     }
 
-    public void PlaySE(AudioClip SE)
+    #endregion
+
+
+    #region ‰‰oƒRƒ‹[ƒ`ƒ“
+
+    private IEnumerator FadeTitle()
     {
-        SimpleAudioManager_SE.instance.PlaySE(SE);
+        yield return StartCoroutine(fadeTitle.CoroutineBranch(csvData[rowNumber][COL_PARAM]));
+        rowNumber++;
+        AnyDisplay();
     }
-    
-    public void PlayBGM(AudioClip BGM, bool loop = true)
+
+    private IEnumerator WaitCoroutine(float waitTime)
     {
-        SimpleAudioManager_BGM.instance.PlayBGM(BGM);
+        yield return new WaitForSeconds(waitTime);
+        rowNumber++;
+        AnyDisplay();
     }
-    public void StopBGM()
+
+    private IEnumerator EndRoutine(int rowNumber)
     {
-        SimpleAudioManager_BGM.instance.StopBGM();
+        PublicStaticStatus.RowToSave = rowNumber + 1;
+        BiggestRowSaver.EnableIsCleared();
+
+        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+
+        SceneManager.LoadScene("EDScene");
     }
+
+    private IEnumerator BackTitleRoutine()
+    {
+        BiggestRowSaver.EnableIsCleared();
+        yield return canvasGroup.DOFade(1f, 2.0f).WaitForCompletion();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    private IEnumerator FadeInRoutine()
+    {
+        if (csvData[rowNumber][COL_PARAM] == "START")
+        {
+            yield return StartCoroutine(fadeTitle.StartTitleFadeInCoroutine());
+        }
+        else
+        {
+            Debug.LogWarning("FadeOut");
+            canvasGroup.alpha = 1f;
+            Debug.LogWarning(csvData[rowNumber][COL_PARAM]);
+            float fadeIn = float.Parse(csvData[rowNumber][COL_PARAM]);
+            yield return canvasGroup.DOFade(fadeIn, 0.7f).WaitForCompletion();
+        }
+
+        rowNumber++;
+        AnyDisplay();
+    }
+
+    private void FadeOut()
+    {
+        float FadeSpeed = 0.4f;
+
+        switch (csvData[rowNumber][COL_PARAM])
+        {
+            case "SLOW": FadeSpeed = 0.7f; break;
+            case "NORMAL": FadeSpeed = 0.4f; break;
+            case "FAST": FadeSpeed = 0.1f; break;
+        }
+
+        StartCoroutine(FadeOutRoutine(FadeSpeed));
+    }
+
+    private IEnumerator FadeOutRoutine(float speed)
+    {
+        Debug.LogWarning("FadeOut");
+        rowNumber++;
+        yield return canvasGroup.DOFade(1f, speed).WaitForCompletion();
+        AnyDisplay();
+    }
+
+    #endregion
 }

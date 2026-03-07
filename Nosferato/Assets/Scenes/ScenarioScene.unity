@@ -4771,28 +4771,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9178df0d68ab5964abdbc96941ccc262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messageText: {fileID: 0}
   nameText: {fileID: 0}
   backLogText: {fileID: 0}
-  charDelay: 10
-  autoDelay: 2
   backgroudImage: {fileID: 0}
   characterImage: {fileID: 0}
   characterSprite: {fileID: 0}
-  messageIndex: 0
-  rowNumber: 0
-  isTyping: 0
-  audioSourceBGM: {fileID: 0}
-  audioSourceSE: {fileID: 0}
-  waitAnim: {fileID: 0}
   waitObj: {fileID: 0}
   canvasGroup: {fileID: 0}
-  clickScenarioSE: {fileID: 0}
+  charDelay: 10
+  autoDelay: 2
   CSVDataName: 
   targetKeys: 
+  clickScenarioSE: {fileID: 0}
   gameMode: {fileID: 0}
   fadeManager: {fileID: 0}
   fadeTitle: {fileID: 0}
   richTagDiscriminator: {fileID: 0}
+  audioSourceBGM: {fileID: 0}
+  audioSourceSE: {fileID: 0}
+  rowNumber: 0
+  messageIndex: 0
+  isTyping: 0
 --- !u!114 &747490807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6121,7 +6121,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -931.99, y: 84.995}
-  m_SizeDelta: {x: 932.0001, y: 169.99}
+  m_SizeDelta: {x: 990.1864, y: 169.99}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1008131629
 MonoBehaviour:
@@ -10144,8 +10144,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10156,7 +10156,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 25
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -10182,7 +10182,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -57.911987, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10222,28 +10222,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9178df0d68ab5964abdbc96941ccc262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messageText: {fileID: 0}
   nameText: {fileID: 1205677430}
   backLogText: {fileID: 311957138}
-  charDelay: 0.05
-  autoDelay: 1.5
   backgroudImage: {fileID: 968186590}
   characterImage: {fileID: 292385719}
   characterSprite: {fileID: 292385717}
-  messageIndex: 250
-  rowNumber: 0
-  isTyping: 0
-  audioSourceBGM: {fileID: 173648093}
-  audioSourceSE: {fileID: 1649158781}
-  waitAnim: {fileID: 0}
   waitObj: {fileID: 1211563370}
   canvasGroup: {fileID: 936562765}
-  clickScenarioSE: {fileID: 8300000, guid: b65310ab89603074aa222d362513e590, type: 3}
-  CSVDataName: MainScenario
+  charDelay: 0.05
+  autoDelay: 1.5
+  CSVDataName: "\u30CE\u30B9\u30C8\u30A5_\u30B7\u30CA\u30EA\u30AA - \u8FFD\u52A0\u30B7\u30CA\u30EA\u30AA\u7528\uFF1A
+    (1)"
   targetKeys: 20000000430100000d000000
+  clickScenarioSE: {fileID: 8300000, guid: b65310ab89603074aa222d362513e590, type: 3}
   gameMode: {fileID: 1892221644}
   fadeManager: {fileID: 0}
   fadeTitle: {fileID: 525866644}
   richTagDiscriminator: {fileID: 1435108110}
+  audioSourceBGM: {fileID: 173648093}
+  audioSourceSE: {fileID: 1649158781}
+  rowNumber: 0
+  messageIndex: 250
+  isTyping: 0
 --- !u!114 &1435108110
 MonoBehaviour:
   m_ObjectHideFlags: 0
