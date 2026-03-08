@@ -123,7 +123,7 @@ public class SaveButton : MonoBehaviour, IPointerEnterHandler//参考TextDisplayer
         //日付テキスト
         dateText.text = savedDate;
         //テキスト
-        scenarioText.text = csvData[myRowNumber][2];
+        scenarioText.text = csvData[myRowNumber][2].Substring(0, Mathf.Min(67, csvData[myRowNumber][2].Length));
         //名前
         if (csvData[myRowNumber][1] != null && nameText.text != nameText.text + "\n")
         {
