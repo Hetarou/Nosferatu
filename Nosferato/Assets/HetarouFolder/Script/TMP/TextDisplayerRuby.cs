@@ -175,9 +175,12 @@ public class TextDisplayerRuby : MonoBehaviour
         string[] currentRow = csvData[rowNumber];
         threadNumber = currentRow[COL_THREAD];
 
+        bool isSmall = false;
         if (csvData[rowNumber - 1][COL_TEXT] == "SMALL")
         {
+            rowNumber--;
             ChangeFontSize(0.8f);
+            isSmall = true;
         }
 
         UpdateThreadInfo();
@@ -189,7 +192,7 @@ public class TextDisplayerRuby : MonoBehaviour
         RestoreSE();
         RestoreBGM();
 
-        if (currentRow[COL_TEXT] == "") return;
+        if (currentRow[COL_TEXT] == "" || isSmall) return;
         StartTypewriter(currentRow[COL_TEXT]);
     }
 
