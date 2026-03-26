@@ -6618,7 +6618,6 @@ RectTransform:
   - {fileID: 292385718}
   - {fileID: 2010032106}
   - {fileID: 684099133}
-  - {fileID: 1211563371}
   - {fileID: 1011474992}
   - {fileID: 936562761}
   - {fileID: 139803610}
@@ -8252,11 +8251,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1035773332}
+  m_Father: {fileID: 2010032106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 499.19995, y: -498.4}
+  m_AnchoredPosition: {x: 499.46997, y: -130.39996}
   m_SizeDelta: {x: 73, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211563373
@@ -10277,7 +10276,7 @@ MonoBehaviour:
   characterSprite: {fileID: 292385717}
   waitObj: {fileID: 1211563370}
   canvasGroup: {fileID: 936562765}
-  charDelay: 0.05
+  charDelay: 0
   autoDelay: 1.5
   CSVDataName: MainScenario
   targetKeys: 20000000430100000d000000
@@ -14241,6 +14240,7 @@ RectTransform:
   - {fileID: 587840746}
   - {fileID: 1636170425}
   - {fileID: 1155302882}
+  - {fileID: 1211563371}
   m_Father: {fileID: 1035773332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

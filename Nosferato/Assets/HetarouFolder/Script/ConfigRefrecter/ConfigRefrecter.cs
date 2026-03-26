@@ -81,6 +81,8 @@ public class ConfigRefrecter : MonoBehaviour
                 textDisplayerRuby.charDelay = 0.004f;
                 break;
         }
+        Debug.Log(textDisplayerRuby.charDelay);
+        Debug.Log(PublicStaticStatus.ReadingSpeed);
     }
     /*
     private void SetScreenMode()

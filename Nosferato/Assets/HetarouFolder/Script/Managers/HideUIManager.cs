@@ -32,18 +32,18 @@ public class HideUIManager : MonoBehaviour
         messageWindowGroup.alpha = 1.0f;
         messageWindowGroup.blocksRaycasts = true;
 
-        Debug.Log("”­‰Î");
+        Debug.Log("”ñ”­‰Î");
     }
 
     private void OnHideUI()
     {
         gameMode.ModeManager("HideUI");
 
-        menuGroup.alpha = 1.0f;
+        menuGroup.alpha = 0f;
         menuGroup.blocksRaycasts = false;
-        messageWindowGroup.alpha = 1.0f;
+        messageWindowGroup.alpha = 0f;
         messageWindowGroup.blocksRaycasts =false;
 
-        Debug.Log("”ñ”­‰Î");
+        Debug.Log("”­‰Î");
     }
 }

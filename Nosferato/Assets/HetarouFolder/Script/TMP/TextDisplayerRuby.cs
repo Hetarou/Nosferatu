@@ -23,7 +23,7 @@ public class TextDisplayerRuby : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
 
     [Header("Settings")]
-    public float charDelay = 0.05f;          // 文字送りの速さ
+    public float charDelay;          // 文字送りの速さ
     public float autoDelay = 2f;
     [SerializeField] private string CSVDataName;
     [SerializeField] private List<KeyCode> targetKeys = new List<KeyCode>(); // 本編を進めるためのキー
@@ -524,6 +524,8 @@ public class TextDisplayerRuby : MonoBehaviour
         messageText.ForceMeshUpdate();
         int totalCharacters = messageText.textInfo.characterCount;
         float orizinCharDelay = charDelay; // 変数名維持
+
+        Debug.Log(charDelay);
 
         if (csvData[rowNumber][COL_PARAM] == "SLOW")
         {
