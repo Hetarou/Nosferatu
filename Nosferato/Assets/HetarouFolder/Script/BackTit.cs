@@ -29,11 +29,11 @@ public class BackTitleDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int i;
-        if (Input.GetMouseButtonDown(1))
+        //int i;
+        /*if (Input.GetMouseButtonDown(1))
         {
             BackTitle();
-        }
+        }*/
     }
 
     public void BackTitle()
@@ -48,10 +48,12 @@ public class BackTitleDirector : MonoBehaviour
     public void InitializeMenu()
     {
         canvasGroup.alpha = 0.0f;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void ActivateMenu()
     {
         canvasGroup.alpha = 1.0f;
+        canvasGroup.blocksRaycasts = true;
     }
 }

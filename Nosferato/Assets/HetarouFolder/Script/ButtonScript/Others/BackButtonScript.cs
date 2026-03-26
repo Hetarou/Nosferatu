@@ -12,6 +12,6 @@ public class BackButtonScript : ButtonScript
     {
         PublicStaticStatus.IsEnter = false;
         exacutedObject.SetActive(false);
-        gameMode.ModeManager(gameMode.lastModeName);
+        gameMode.ModeManager(gameMode.LastModeName);
     }
 }

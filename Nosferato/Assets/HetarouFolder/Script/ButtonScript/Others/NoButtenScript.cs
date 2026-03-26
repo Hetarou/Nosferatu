@@ -30,6 +30,6 @@ public class NoButtonScript : ButtonScript
             objList[i].SetActive(true);
         }
         BackTitleDirector.Instance.ActivateMenu();
-        gameMode.ModeManager(gameMode.lastModeName);
+        gameMode.ModeManager(gameMode.LastModeName);
     }
 }

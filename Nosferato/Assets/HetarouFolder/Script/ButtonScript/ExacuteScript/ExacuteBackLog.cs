@@ -5,6 +5,8 @@ public class ExacuteBackLog : ButtonScript
 {
     [SerializeField] private GameObject backLog;
     [SerializeField] private GameMode GameMode;
+
+    private bool isBackLog;
     void Start()
     {
 
@@ -13,7 +15,13 @@ public class ExacuteBackLog : ButtonScript
 
     void Update()
     {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
 
+        if (scroll != 0)
+        {
+            if(!GameMode.CanBackLog) return;
+            ExecuteCustomLogic();
+        }
     }
 
     public override void ExecuteCustomLogic()

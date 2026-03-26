@@ -123,7 +123,7 @@ public class TextDisplayerRuby : MonoBehaviour
                 {
                     SkipTypewriter();
                 }
-                else if (gameMode.modeRead)
+                else if (gameMode.CanRead)
                 {
                     waitObj.SetActive(false);
                     waitAnim.SetBool("isWaitAnim", false);
@@ -725,6 +725,7 @@ public class TextDisplayerRuby : MonoBehaviour
             Debug.LogWarning(csvData[rowNumber][COL_PARAM]);
             float fadeIn = float.Parse(csvData[rowNumber][COL_PARAM]);
             yield return canvasGroup.DOFade(fadeIn, 0.7f).WaitForCompletion();
+            canvasGroup.blocksRaycasts = false;
         }
 
         rowNumber++;
@@ -749,6 +750,7 @@ public class TextDisplayerRuby : MonoBehaviour
     {
         Debug.LogWarning("FadeOut");
         rowNumber++;
+        canvasGroup.blocksRaycasts = true;
         yield return canvasGroup.DOFade(1f, speed).WaitForCompletion();
         AnyDisplay();
     }

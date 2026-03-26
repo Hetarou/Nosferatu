@@ -73,7 +73,7 @@ public class ExacuteAuto : ButtonScript
     {
         isAuto = !isAuto;
 
-        if(GameMode.modeAuto)
+        if(GameMode.CanAuto)
         {
             GameMode.ModeManager("Auto");
             if (isAuto)
@@ -114,7 +114,7 @@ public class ExacuteAuto : ButtonScript
                 yield return new WaitForSeconds(displayer.autoDelay);
             }
 
-            yield return new WaitUntil(() => GameMode.modeAuto);
+            yield return new WaitUntil(() => GameMode.CanAuto);
 
             // Ž©“®‚ÅŽŸ‚ð•\Ž¦
             displayer.rowNumber++;

@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class GameMode : MonoBehaviour
 {
-    public bool modeRead { get; private set; }
-    public bool modeSkip     { get; private set; }
-    public bool modeAuto     { get; private set; }
-    public bool modeBackLog  { get; private set; }
+    public bool CanRead { get; private set; }
+    public bool CanSkip     { get; private set; }
+    public bool CanAuto     { get; private set; }
+    public bool CanBackLog { get; private set; }
+    public bool CanHideUI { get; private set; }
 
-    public string modeName { get; private set; }
-    public string lastModeName { get; private set; }
+    public string ModeName { get; private set; }
+    public string LastModeName { get; private set; }
     // Update is called once per frame
     void Start()
     {
@@ -19,48 +20,60 @@ public class GameMode : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log(modeName);
+            Debug.Log(ModeName);
         }
 
     }
 
     public void ModeManager(string gameMode)
     {
-        if (modeName != null)
+        if (ModeName != null)
         {
-            lastModeName = modeName;
+            LastModeName = ModeName;
         }
             
-        modeName = gameMode;
+        ModeName = gameMode;
 
-        switch (modeName)
+        switch (ModeName)
         {
             case "Reading":
-                modeRead = true;
-                modeSkip = true;
-                modeAuto = true;
-                modeBackLog = true;
+                CanRead = true;
+                CanSkip = true;
+                CanAuto = true;
+                CanBackLog = true;
+                CanHideUI = true;
                 break;
 
             case "Skip":
-                modeRead = true;
-                modeSkip = true;
-                modeAuto = false;
-                modeBackLog = true;
+                CanRead = true;
+                CanSkip = true;
+                CanAuto = false;
+                CanBackLog = true;
+                CanHideUI = true;
                 break;
 
             case "Auto":
-                modeRead = false;
-                modeSkip = false;
-                modeAuto = true;
-                modeBackLog = true;
+                CanRead = false;
+                CanSkip = false;
+                CanAuto = true;
+                CanBackLog = true;
+                CanHideUI = true;
                 break;
 
             case "BackLog":
-                modeRead = false;
-                modeSkip = false;
-                modeAuto = false;
-                modeBackLog = true;
+                CanRead = false;
+                CanSkip = false;
+                CanAuto = false;
+                CanBackLog = false;
+                CanHideUI = false;
+                break;
+
+            case "HideUI":
+                CanRead = false;
+                CanSkip = false;
+                CanAuto = false;
+                CanBackLog = false;
+                CanHideUI = false;
                 break;
         }
     }
